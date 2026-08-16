@@ -1,8 +1,7 @@
 #sidestore dependencies
-[submodule "Dependencies/AltSign"]
-    path = Dependencies/AltSign
-    url = https://github.com/SideStore/AltSign
-    branch = master
 [submodule "Dependencies/minimuxer"]
 	path = Dependencies/minimuxer
 	url = git@github.com:XTS2005/minimuxer
+[submodule "Dependencies/AltSign"]
+	path = Dependencies/AltSign
+	url = git@github.com:XTS2005/AltSign
