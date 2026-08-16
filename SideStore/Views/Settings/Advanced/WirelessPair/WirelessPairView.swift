@@ -95,7 +95,7 @@ struct WirelessPairView: View {
                         Image(systemName: "wifi")
                             .font(.subheadline)
                             .foregroundColor(.accentColor)
-                        Text("Ensure both devices are on the same Wi-Fi network.")
+                        Text("请确保两台设备处于同一 Wi-Fi 网络。")
                             .font(.footnote)
                             .foregroundColor(.secondary)
                     }
@@ -106,7 +106,7 @@ struct WirelessPairView: View {
             // PIN Display
             if let pin = manager.pinCode {
                 VStack(spacing: 12) {
-                    Text("PAIRING CODE")
+                    Text("配对码")
                         .font(.caption2)
                         .fontWeight(.bold)
                         .foregroundColor(.secondary)
@@ -143,10 +143,10 @@ struct WirelessPairView: View {
             SwiftUI.Button(action: togglePairing) {
                 HStack {
                     if manager.isAdvertising {
-                        Text("Stop Advertising")
+                        Text("停止广播")
                             .transition(.scale.combined(with: .opacity))
                     } else {
-                        Text("Start Pairing")
+                        Text("开始配对")
                             .transition(.scale.combined(with: .opacity))
                     }
                 }
@@ -162,7 +162,7 @@ struct WirelessPairView: View {
             .padding(.horizontal, 32)
             .padding(.bottom, 32)
         }
-        .navigationTitle("Wireless Pairing")
+        .navigationTitle("无线配对")
         .navigationBarTitleDisplayMode(.inline)
     }
     
@@ -184,8 +184,8 @@ struct ConnectionDetailsCard: View {
     let port: Int
     
     var rows: [(label: String, value: String)] {[
-        ("Device ID", serviceID),
-        ("Port", String(port))
+        ("设备 ID", serviceID),
+        ("端口", String(port))
     ]}
     
     var body: some View {
@@ -193,7 +193,7 @@ struct ConnectionDetailsCard: View {
             HStack{
                 Image(systemName: "network")
                     .foregroundColor(.accentColor)
-                Text("Connection Details")
+                Text("连接详情")
                     .font(.headline)
             }
             .padding(.horizontal, 16)
@@ -240,7 +240,7 @@ struct ConnectionDetailsCard: View {
                         SwiftUI.Button {
                             UIPasteboard.general.string = value
                         } label: {
-                            Label("Copy \(label)", systemImage: "doc.on.doc")
+                            Label("复制 \(label)", systemImage: "doc.on.doc")
                         }
                     }
                 }

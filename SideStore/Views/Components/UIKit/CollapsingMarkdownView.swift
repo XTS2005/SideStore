@@ -134,7 +134,7 @@ final class CollapsingMarkdownView: UIView {
         // Disable animations for this update
         UIView.performWithoutAnimation {
             // Update the button title
-            let title = isCollapsed ? NSLocalizedString("More", comment: "") : NSLocalizedString("Less", comment: "")
+            let title = isCollapsed ? NSLocalizedString("更多", comment: "") : NSLocalizedString("更少", comment: "")
             toggleButton.setTitle(title, for: .normal)
             
             // Set max lines based on collapsed state

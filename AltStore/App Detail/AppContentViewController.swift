@@ -64,12 +64,12 @@ final class AppContentViewController: UITableViewController
         self.descriptionTextView.text = desc
         
         if let version = self.app.latestAvailableVersion {
-            self.versionDescriptionTextView.text = version.localizedDescription ?? "nil"
-            self.versionLabel.text = String(format: NSLocalizedString("Version %@", comment: ""), version.localizedVersion)
+            self.versionDescriptionTextView.text = version.localizedDescription ?? "无"
+            self.versionLabel.text = String(format: NSLocalizedString("版本 %@", comment: ""), version.localizedVersion)
             self.versionDateLabel.text = Date().relativeDateString(since: version.date)
             self.sizeLabel.text = ByteCountFormatter.string(fromByteCount: version.size, countStyle: .file)
         } else {
-            self.versionDescriptionTextView.text = "nil"
+            self.versionDescriptionTextView.text = "无"
             self.versionLabel.text = nil
             self.versionDateLabel.text = nil
             self.sizeLabel.text = ByteCountFormatter.string(fromByteCount: 0, countStyle: .file)

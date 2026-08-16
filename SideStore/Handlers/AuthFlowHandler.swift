@@ -97,7 +97,7 @@ class AuthFlowHandler: AnyObject, AuthenticationHandler, AnisetteServerHandler {
     @MainActor
     func verificationCode() async throws -> String? {
         return try await withCheckedThrowingContinuation { continuation in
-            let alertController = UIAlertController(title: NSLocalizedString("Please enter the 6-digit verification code that was sent to your Apple devices.", comment: ""), message: nil, preferredStyle: .alert)
+            let alertController = UIAlertController(title: NSLocalizedString("请输入发送到你的 Apple 设备的 6 位验证码。", comment: ""), message: nil, preferredStyle: .alert)
             var observer: NSObjectProtocol?
             alertController.addTextField { (textField) in
                 textField.autocorrectionType = .no
@@ -110,7 +110,7 @@ class AuthFlowHandler: AnyObject, AuthenticationHandler, AnisetteServerHandler {
                 }
             }
             
-            let submitAction = UIAlertAction(title: NSLocalizedString("Continue", comment: ""), style: .default) { (action) in
+            let submitAction = UIAlertAction(title: NSLocalizedString("继续", comment: ""), style: .default) { (action) in
                 if let observer = observer {
                     NotificationCenter.default.removeObserver(observer)
                 }
@@ -136,22 +136,22 @@ class AuthFlowHandler: AnyObject, AuthenticationHandler, AnisetteServerHandler {
     func resolveRevocation(certificates: [ALTX509Certificate], teamType: ALTTeamType) async throws -> RevokeDecision {
         return try await withCheckedThrowingContinuation { continuation in
             let alertController = UIAlertController(
-                title: NSLocalizedString("Revoke Certificates", comment: ""),
-                message: NSLocalizedString("Select iOS Development certificate(s) to revoke:", comment: ""),
+                title: NSLocalizedString("撤销证书", comment: ""),
+                message: NSLocalizedString("选择要撤销的 iOS Development 证书：", comment: ""),
                 preferredStyle: .alert
             )
             
             let revokeVC = RevokeCertificatesAlertViewController(certificates: certificates, teamType: teamType)
             alertController.setValue(revokeVC, forKey: "contentViewController")
             
-            let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel) { _ in
+            let cancelAction = UIAlertAction(title: NSLocalizedString("取消", comment: ""), style: .cancel) { _ in
                 if teamType == .free {
                     let warningAlert = UIAlertController(
-                        title: NSLocalizedString("Warning", comment: ""),
-                        message: NSLocalizedString("SideStore cannot manage the existing certificate without owning its private key. The apps signed with the existing certificate will expire soon unless they are resigned and renewed explicitly by SideStore.", comment: ""),
+                        title: NSLocalizedString("警告", comment: ""),
+                        message: NSLocalizedString("SideStore 无法管理现有证书，因为不拥有其私钥。除非由 SideStore 明确重新签名和续期，否则使用现有证书签名的应用很快就会过期。", comment: ""),
                         preferredStyle: .alert
                     )
-                    warningAlert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: ""), style: .default) { _ in
+                    warningAlert.addAction(UIAlertAction(title: NSLocalizedString("确定", comment: ""), style: .default) { _ in
                         warningAlert.dismiss(animated: true) {
                             continuation.resume(returning: .keepExisting)
                         }
@@ -164,7 +164,7 @@ class AuthFlowHandler: AnyObject, AuthenticationHandler, AnisetteServerHandler {
             
             let isPaid = (teamType != .free)
             let initialCount = revokeVC.getSelectedCertificates().count
-            let initialTitle = isPaid ? "Revoke Selected (\(initialCount))" : NSLocalizedString("Revoke", comment: "")
+            let initialTitle = isPaid ? "撤销所选 (\(initialCount))" : NSLocalizedString("撤销", comment: "")
             let revokeAction = UIAlertAction(title: initialTitle, style: .destructive) { _ in
                 alertController.dismiss(animated: true) {
                     let selected = revokeVC.getSelectedCertificates()
@@ -177,7 +177,7 @@ class AuthFlowHandler: AnyObject, AuthenticationHandler, AnisetteServerHandler {
                 revokeVC.onSelectionChanged = { selected in
                     revokeAction.isEnabled = !selected.isEmpty
                     let countText = selected.isEmpty ? "" : " (\(selected.count))"
-                    revokeAction.setValue("Revoke Selected\(countText)", forKey: "title")
+                    revokeAction.setValue("撤销所选\(countText)", forKey: "title")
                 }
             }
             
@@ -224,18 +224,18 @@ class AuthFlowHandler: AnyObject, AuthenticationHandler, AnisetteServerHandler {
     func resolveProvisioningError(_ error: Error) async -> ProvisioningErrorDecision {
         return await withCheckedContinuation { continuation in
             let alertController = UIAlertController(
-                title: NSLocalizedString("Developer Portal Error", comment: ""),
+                title: NSLocalizedString("Developer Portal 错误", comment: ""),
                 message: error.localizedDescription,
                 preferredStyle: .alert
             )
             
-            let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel) { _ in
+            let cancelAction = UIAlertAction(title: NSLocalizedString("取消", comment: ""), style: .cancel) { _ in
                 alertController.dismiss(animated: true) {
                     continuation.resume(returning: .cancel)
                 }
             }
             
-            let retryAction = UIAlertAction(title: NSLocalizedString("Retry", comment: ""), style: .default) { _ in
+            let retryAction = UIAlertAction(title: NSLocalizedString("重试", comment: ""), style: .default) { _ in
                 alertController.dismiss(animated: true) {
                     continuation.resume(returning: .retry)
                 }
@@ -311,11 +311,11 @@ class AuthFlowHandler: AnyObject, AuthenticationHandler, AnisetteServerHandler {
         }
         
         return await withCheckedContinuation { continuation in
-            let alert = UIAlertController(title: "WARNING: Outdated anisette server", message: "We've detected you are using an older anisette server. Using this server has a higher likelihood of locking your account and causing other issues. Are you sure you want to continue?", preferredStyle: UIAlertController.Style.alert)
-            alert.addAction(UIAlertAction(title: "Continue", style: UIAlertAction.Style.destructive, handler: { action in
+            let alert = UIAlertController(title: "警告：anisette 服务器已过时", message: "我们检测到你正在使用较旧的 anisette 服务器。使用此服务器更有可能导致你的账户被锁定并引发其它问题。你确定要继续吗？", preferredStyle: UIAlertController.Style.alert)
+            alert.addAction(UIAlertAction(title: "继续", style: UIAlertAction.Style.destructive, handler: { action in
                 continuation.resume(returning: true)
             }))
-            alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: { action in
+            alert.addAction(UIAlertAction(title: "取消", style: UIAlertAction.Style.cancel, handler: { action in
                 continuation.resume(returning: false)
             }))
             

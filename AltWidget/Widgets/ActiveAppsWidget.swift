@@ -52,8 +52,8 @@ struct ActiveAppsWidget: Widget
                 ActiveAppsWidgetView(entry: entry, widgetKind: widgetKind)
             }
             .supportedFamilies([.systemMedium])
-            .configurationDisplayName("Active Apps")
-            .description("View remaining days until your active apps expire. Tap the countdown timers to refresh them in the background.")
+            .configurationDisplayName("活跃应用")
+            .description("查看你的活跃应用过期前的剩余天数。轻点倒计时即可在后台刷新它们。")
             
             return widgetConfig
         }
@@ -63,8 +63,8 @@ struct ActiveAppsWidget: Widget
                 UnsupportedWidgetView(requiredVersion: "iOS 17")
             }
             .supportedFamilies([.systemMedium])
-            .configurationDisplayName("Active Apps")
-            .description("Requires iOS 17 or later.")
+            .configurationDisplayName("活跃应用")
+            .description("需要 iOS 17 或更高版本。")
         }
     }
 }
@@ -157,11 +157,11 @@ private struct ActiveAppsWidgetView: View
                                 
                                 let text = if entry.date > app.expirationDate
                                 {
-                                    Text("Expired")
+                                    Text("已过期")
                                 }
                                 else
                                 {
-                                    Text("Expires in \(daysRemaining) ") + (daysRemaining == 1 ? Text("day") : Text("days"))
+                                    Text("\(daysRemaining) 天后过期 ") + (daysRemaining == 1 ? Text("天") : Text("天"))
                                 }
                                 
                                 text
@@ -227,11 +227,11 @@ private struct ActiveAppsWidgetView: View
     
     private var placeholder: some View {
         VStack(spacing: 4) {
-            Text("Open SideStore")
+            Text("打开 SideStore")
                 .font(.system(.body, design: .rounded))
                 .fontWeight(.semibold)
                 .foregroundColor(Color.white.opacity(0.8))
-            Text("Launch app to update widget")
+            Text("启动应用以更新小组件")
                 .font(.system(.caption, design: .rounded))
                 .foregroundColor(Color.white.opacity(0.5))
                 .multilineTextAlignment(.center)

@@ -36,45 +36,45 @@ final class SetCertificateAlertViewController: UIViewController {
             currentCertObj = viewModel.getLocalX509Certificate(serialNumber: serial)
         }
         
-        let currentName = currentCertObj?.name ?? "N/A"
-        let currentMachine = currentCertObj?.machineName ?? "N/A"
-        let currentSerial = currentCertObj?.serialNumber ?? appCertSerial ?? "None"
-        let currentEmail = currentCertObj?.requesterEmail ?? "N/A"
+        let currentName = currentCertObj?.name ?? "不适用"
+        let currentMachine = currentCertObj?.machineName ?? "不适用"
+        let currentSerial = currentCertObj?.serialNumber ?? appCertSerial ?? "无"
+        let currentEmail = currentCertObj?.requesterEmail ?? "不适用"
         let currentBrief = getBriefInfo(for: currentCertObj?.data)
-        let currentType = currentBrief?.type ?? "N/A"
-        let currentValidity = currentBrief != nil ? "\(currentBrief!.validFrom) - \(currentBrief!.validUntil)" : "N/A"
+        let currentType = currentBrief?.type ?? "不适用"
+        let currentValidity = currentBrief != nil ? "\(currentBrief!.validFrom) - \(currentBrief!.validUntil)" : "不适用"
         
         let targetName = targetCertificate.name
-        let targetMachine = targetCertificate.machineName ?? "N/A"
+        let targetMachine = targetCertificate.machineName ?? "不适用"
         let targetSerial = targetCertificate.serialNumber
-        let targetEmail = targetCertificate.requesterEmail ?? "N/A"
+        let targetEmail = targetCertificate.requesterEmail ?? "不适用"
         let targetBrief = getBriefInfo(for: targetCertificate.data)
-        let targetType = targetBrief?.type ?? "N/A"
-        let targetValidity = targetBrief != nil ? "\(targetBrief!.validFrom) - \(targetBrief!.validUntil)" : "N/A"
+        let targetType = targetBrief?.type ?? "不适用"
+        let targetValidity = targetBrief != nil ? "\(targetBrief!.validFrom) - \(targetBrief!.validUntil)" : "不适用"
         
         debugLog("[SetCertAlert] appName: '\(installedApp.name)', appCertSerial: '\(appCertSerial ?? "nil")'")
         debugLog("[SetCertAlert] currentCertObj found: \(currentCertObj != nil), serial: '\(currentSerial)', name: '\(currentName)', machine: '\(currentMachine)', email: '\(currentEmail)'")
         debugLog("[SetCertAlert] targetCert serial: '\(targetSerial)', name: '\(targetName)', machine: '\(targetMachine)', email: '\(targetEmail)'")
         
         let details = """
-          • App: \(installedApp.name)
-          • Bundle ID: \(installedApp.resignedBundleIdentifier)
+          • 应用：\(installedApp.name)
+          • 包名 ID：\(installedApp.resignedBundleIdentifier)
 
-        [CURRENT APP CERTIFICATE]
-          • Name: \(currentName)
-          • Machine: \(currentMachine)
-          • Serial: \(currentSerial)
-          • Type: \(currentType)
-          • Validity: \(currentValidity)
-          • Email: \(currentEmail)
+        [当前应用证书]
+          • 名称：\(currentName)
+          • 机器：\(currentMachine)
+          • 序列号：\(currentSerial)
+          • 类型：\(currentType)
+          • 有效期：\(currentValidity)
+          • 电子邮件：\(currentEmail)
 
-        [TARGET CERTIFICATE]
-          • Name: \(targetName)
-          • Machine: \(targetMachine)
-          • Serial: \(targetSerial)
-          • Type: \(targetType)
-          • Validity: \(targetValidity)
-          • Email: \(targetEmail)
+        [目标证书]
+          • 名称：\(targetName)
+          • 机器：\(targetMachine)
+          • 序列号：\(targetSerial)
+          • 类型：\(targetType)
+          • 有效期：\(targetValidity)
+          • 电子邮件：\(targetEmail)
         """
         
         let detailsLabel = UILabel()

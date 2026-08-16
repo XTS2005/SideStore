@@ -127,27 +127,27 @@ extension OperationError
     }
 
     static func certificateRevoked(appName: String) -> OperationError {
-        OperationError(code: .provisioningError, failureReason: String(format: NSLocalizedString("The signing certificate used to install “%@” was revoked on the Apple Developer portal. Please re-sign or reinstall the app.", comment: ""), appName))
+        OperationError(code: .provisioningError, failureReason: String(format: NSLocalizedString("用于安装“%@”的签名证书已在 Apple Developer 门户上被撤销。请重新签名或重新安装该应用。", comment: ""), appName))
     }
 
     static func customCertificateRevoked(appName: String, activeTeam: String) -> OperationError {
-        var o = OperationError(code: .provisioningError, failureReason: String(format: NSLocalizedString("Your active custom/third-party signing certificate (Team: %@) was revoked on the Developer Portal.\n\nIf you did not intend to use a custom certificate, please reset it in Settings -> Advanced -> Certificates.", comment: ""), activeTeam))
-        o.errorTitle = NSLocalizedString("Custom Certificate Revoked", comment: "")
+        var o = OperationError(code: .provisioningError, failureReason: String(format: NSLocalizedString("你当前使用的自定义/第三方签名证书（团队：%@）已在 Developer Portal 上被撤销。\n\n如果你并非有意使用自定义证书，请在“设置 -> 高级 -> 证书”中重置。", comment: ""), activeTeam))
+        o.errorTitle = NSLocalizedString("自定义证书已被撤销", comment: "")
         return o
     }
 
     static func customCertificateExpired(appName: String, activeTeam: String) -> OperationError {
-        var o = OperationError(code: .provisioningError, failureReason: String(format: NSLocalizedString("Your active custom/third-party signing certificate (Team: %@) has expired.\n\nIf you did not intend to use a custom certificate, please reset it in Settings -> Advanced -> Certificates.", comment: ""), activeTeam))
-        o.errorTitle = NSLocalizedString("Custom Certificate Expired", comment: "")
+        var o = OperationError(code: .provisioningError, failureReason: String(format: NSLocalizedString("你当前使用的自定义/第三方签名证书（团队：%@）已过期。\n\n如果你并非有意使用自定义证书，请在“设置 -> 高级 -> 证书”中重置。", comment: ""), activeTeam))
+        o.errorTitle = NSLocalizedString("自定义证书已过期", comment: "")
         return o
     }
 
     static func certificateExpired(appName: String) -> OperationError {
-        OperationError(code: .provisioningError, failureReason: String(format: NSLocalizedString("The signing certificate used to install “%@” has expired. Please re-sign or reinstall the app.", comment: ""), appName))
+        OperationError(code: .provisioningError, failureReason: String(format: NSLocalizedString("用于安装“%@”的签名证书已过期。请重新签名或重新安装该应用。", comment: ""), appName))
     }
 
     static func certificateChanged(appName: String) -> OperationError {
-        OperationError(code: .provisioningError, failureReason: String(format: NSLocalizedString("The signing certificate used to install “%@” differs from your active signing certificate. Please re-sign or reinstall the app.", comment: ""), appName))
+        OperationError(code: .provisioningError, failureReason: String(format: NSLocalizedString("用于安装“%@”的签名证书与你当前使用的签名证书不同。请重新签名或重新安装该应用。", comment: ""), appName))
     }
 
     static func cacheClearError(errors: [String]) -> OperationError {
@@ -171,7 +171,7 @@ extension OperationError
     }
     
     static func sideStoreBundleIDMismatch(targetBundleID: String, activeBundleID: String) -> OperationError {
-        OperationError(code: .sideStoreBundleIDMismatch, failureReason: String(format: NSLocalizedString("Target bundle ID '%@' does not match active SideStore instance '%@'.\n\nThis operation is not allowed because SideStore cannot manage database containers other than its own.", comment: ""), targetBundleID, activeBundleID))
+        OperationError(code: .sideStoreBundleIDMismatch, failureReason: String(format: NSLocalizedString("目标 bundle ID“%@”与当前 SideStore 实例“%@”不匹配。\n\n此操作不允许执行，因为 SideStore 无法管理除自身以外的数据库容器。", comment: ""), targetBundleID, activeBundleID))
     }
     
     static func invalidOperationContext(_ message: String? = nil) -> OperationError {
@@ -236,99 +236,99 @@ struct OperationError: ALTLocalizedError {
     var errorFailureReason: String {
         switch self.code {
         case .unknown:
-            var failureReason = self._failureReason ?? NSLocalizedString("An unknown error occurred.", comment: "")
+            var failureReason = self._failureReason ?? NSLocalizedString("发生未知错误。", comment: "")
             guard let sourceFile, let sourceLine else { return failureReason }
             failureReason += " (\(sourceFile) line \(sourceLine)"
             return failureReason
-        case .unknownResult: return NSLocalizedString("The operation returned an unknown result.", comment: "")
-        case .timedOut: return NSLocalizedString("The operation timed out.", comment: "")
-        case .notAuthenticated: return NSLocalizedString("You are not signed in.", comment: "")
-        case .unknownUDID: return NSLocalizedString("SideStore could not determine this device's UDID. Please replace your pairing using iloader.", comment: "")
-        case .invalidApp: return NSLocalizedString("The app is in an invalid format.", comment: "")
-        case .maximumAppIDLimitReached: return NSLocalizedString("Cannot register more than 10 App IDs within a 7 day period.", comment: "")
-        case .noSources: return NSLocalizedString("There are no SideStore sources.", comment: "")
-        case .missingAppGroup: return NSLocalizedString("SideStore's shared app group could not be accessed.", comment: "")
+        case .unknownResult: return NSLocalizedString("操作返回了未知结果。", comment: "")
+        case .timedOut: return NSLocalizedString("操作超时。", comment: "")
+        case .notAuthenticated: return NSLocalizedString("你尚未登录。", comment: "")
+        case .unknownUDID: return NSLocalizedString("SideStore 无法确定此设备的 UDID。请使用 iloader 重新配对。", comment: "")
+        case .invalidApp: return NSLocalizedString("应用格式无效。", comment: "")
+        case .maximumAppIDLimitReached: return NSLocalizedString("7 天内最多只能注册 10 个应用 ID。", comment: "")
+        case .noSources: return NSLocalizedString("没有可用的 SideStore 源。", comment: "")
+        case .missingAppGroup: return NSLocalizedString("无法访问 SideStore 的共享应用组。", comment: "")
         case .forbidden:
-            guard let failureReason = self._failureReason else { return NSLocalizedString("The operation is forbidden.", comment: "") }
+            guard let failureReason = self._failureReason else { return NSLocalizedString("此操作被禁止。", comment: "") }
             return failureReason
             
         case .sourceNotAdded:
-            let sourceName = self.sourceName.map { String(format: NSLocalizedString("The source “%@”", comment: ""), $0) } ?? NSLocalizedString("The source", comment: "")
-            return String(format: NSLocalizedString("%@ is not added to SideStore.", comment: ""), sourceName)
+            let sourceName = self.sourceName.map { String(format: NSLocalizedString("源“%@”", comment: ""), $0) } ?? NSLocalizedString("该源", comment: "")
+            return String(format: NSLocalizedString("%@尚未添加到 SideStore。", comment: ""), sourceName)
 
         case .appNotFound:
-            let appName = self.appName ?? NSLocalizedString("The app", comment: "")
-            return String(format: NSLocalizedString("%@ could not be found.", comment: ""), appName)
+            let appName = self.appName ?? NSLocalizedString("该应用", comment: "")
+            return String(format: NSLocalizedString("找不到%@。", comment: ""), appName)
         case .openAppFailed:
-            let appName = self.appName ?? NSLocalizedString("The app", comment: "")
-            return String(format: NSLocalizedString("SideStore was denied permission to launch %@.", comment: ""), appName)
+            let appName = self.appName ?? NSLocalizedString("该应用", comment: "")
+            return String(format: NSLocalizedString("SideStore 被拒绝授予启动 %@ 的权限。", comment: ""), appName)
         case .noConnection:
             if let reason = self._failureReason, !reason.isEmpty {
-                return String(format: NSLocalizedString("Network Connection Error:\n%@\n\nPlease connect to Wi-Fi before attempting further operations.", comment: ""), reason)
+                return String(format: NSLocalizedString("网络连接错误：\n%@\n\n请先连接到 Wi-Fi，然后再尝试后续操作。", comment: ""), reason)
             }
-            return NSLocalizedString("You do not appear to be connected to Wi-Fi!\n\nPlease connect to a Wi-Fi before attempting futher operations", comment: "")
+            return NSLocalizedString("你似乎没有连接到 Wi-Fi！\n\n请先连接到 Wi-Fi，然后再尝试后续操作", comment: "")
         case .noVPN:
             if let reason = self._failureReason, !reason.isEmpty {
-                return String(format: NSLocalizedString("VPN Connection Error:\n%@\n\nPlease make sure LocalDevVPN is connected and running properly.", comment: ""), reason)
+                return String(format: NSLocalizedString("VPN 连接错误：\n%@\n\n请确保 LocalDevVPN 已连接并正常运行。", comment: ""), reason)
             }
-            return NSLocalizedString("You do not appear to be connected to VPN.\n\nPlease make sure LocalDevVPN is connected and running! If the issue persists, replace your pairing with iloader or try restarting the device.", comment: "")
+            return NSLocalizedString("你似乎没有连接到 VPN。\n\n请确保 LocalDevVPN 已连接并正在运行！如果问题仍然存在，请使用 iloader 重新配对，或尝试重启设备。", comment: "")
         case .noDevice:
             if let reason = self._failureReason, !reason.isEmpty {
-                return String(format: NSLocalizedString("SideStore is unable to reach the device endpoint:\n%@\n\nPlease check your Connection Configuration in Settings.", comment: ""), reason)
+                return String(format: NSLocalizedString("SideStore 无法访问设备端点：\n%@\n\n请检查“设置”中的连接配置。", comment: ""), reason)
             }
-            return NSLocalizedString("SideStore is unable to reach the device endpoint.\n\nPlease check your Connection Configuration in Settings to ensure the IP and endpoint are correct.", comment: "")
-        case .notReachable: return self._failureReason ?? NSLocalizedString("Device is not locatable at the specified IP/Endpoint.", comment: "")
-        case .invalidPairingFile: return NSLocalizedString("The current pairing file is invalid or missing.\n\nPlease make sure to input a valid pairing file! If the issue persists, replace your pairing with iloader.", comment: "")
-        case .minimuxerNotStarted: return NSLocalizedString("Minimuxer has not been started yet.\n\nPlease complete pairing or start minimuxer before performing operations.", comment: "")
-        case .pairingNotComplete: return NSLocalizedString("Pairing Required:\nWithout a valid pairing file, SideStore operations cannot connect to your device. Please pair your device or import a valid pairing file.", comment: "")
-        case .tooNewError: return NSLocalizedString("iOS 17.0-17.3.1 changed how JIT is enabled so SideStore cannot enable JIT without SideJITServer on these versions, sorry for any inconvenience.", comment: "")
-        case .unableToConnectSideJIT: return NSLocalizedString("Unable to connect to SideJITServer. Please check that you are on the same Wi-Fi of and your Firewall has been set correctly on your server.", comment: "")
-        case .unableToRespondSideJITDevice: return NSLocalizedString("SideJITServer is unable to connect to your iDevice. Please make sure you have paired your iDevice by running 'SideJITServer -y', or try refreshing SideJITServer from Settings.", comment: "")
-        case .wrongSideJITIP: return NSLocalizedString("Incorrect SideJITServer IP. Please make sure that you are on the same Wi-Fi as SideJITServer", comment: "")
-        case .refreshsidejit: return NSLocalizedString("Unable to find app; Please try refreshing SideJITServer from Settings.", comment: "")
+            return NSLocalizedString("SideStore 无法访问设备端点。\n\n请检查“设置”中的连接配置，确保 IP 和端点正确。", comment: "")
+        case .notReachable: return self._failureReason ?? NSLocalizedString("无法在指定的 IP/端点找到设备。", comment: "")
+        case .invalidPairingFile: return NSLocalizedString("当前的配对文件无效或缺失。\n\n请确保输入了有效的配对文件！如果问题仍然存在，请使用 iloader 重新配对。", comment: "")
+        case .minimuxerNotStarted: return NSLocalizedString("Minimuxer 尚未启动。\n\n请先完成配对或启动 minimuxer，然后再执行操作。", comment: "")
+        case .pairingNotComplete: return NSLocalizedString("需要配对：\n如果没有有效的配对文件，SideStore 操作将无法连接到你的设备。请配对设备或导入有效的配对文件。", comment: "")
+        case .tooNewError: return NSLocalizedString("iOS 17.0-17.3.1 改变了启用 JIT 的方式，因此在这些版本上 SideStore 无法在没有 SideJITServer 的情况下启用 JIT，给你带来不便，敬请谅解。", comment: "")
+        case .unableToConnectSideJIT: return NSLocalizedString("无法连接到 SideJITServer。请检查你是否与服务器处于同一 Wi-Fi，以及服务器上的防火墙是否已正确配置。", comment: "")
+        case .unableToRespondSideJITDevice: return NSLocalizedString("SideJITServer 无法连接到你的 iDevice。请确保你已通过运行“SideJITServer -y”配对 iDevice，或尝试在“设置”中刷新 SideJITServer。", comment: "")
+        case .wrongSideJITIP: return NSLocalizedString("SideJITServer 的 IP 不正确。请确保你与 SideJITServer 处于同一 Wi-Fi", comment: "")
+        case .refreshsidejit: return NSLocalizedString("找不到应用；请尝试在“设置”中刷新 SideJITServer。", comment: "")
         case .anisetteV1Error:
             let message = self._failureReason ?? ""
-            return String(format: NSLocalizedString("An error occurred while getting anisette data from a V1 server: %@. Try using another anisette server.", comment: ""), message)
+            return String(format: NSLocalizedString("从 V1 服务器获取 anisette 数据时出错：%@。请尝试使用其它 anisette 服务器。", comment: ""), message)
         case .provisioningError:
             let result = self._failureReason ?? ""
             let message = self.errorTitle ?? ""
             let combined = message.isEmpty ? result : "\(result) \(message)"
             let trimmed = combined.trimmingCharacters(in: CharacterSet(charactersIn: " ."))
-            return String(format: NSLocalizedString("An error occurred while provisioning: %@. Please try again. If the issue persists, report it on GitHub Issues!", comment: ""), trimmed)
+            return String(format: NSLocalizedString("配置描述文件时出错：%@。请重试。如果问题仍然存在，请在 GitHub Issues 上报告！", comment: ""), trimmed)
         case .anisetteV3Error:
             let message = self._failureReason ?? ""
-            return String(format: NSLocalizedString("An error occurred while getting anisette data from a V3 server: %@. Please try again. If the issue persists, report it on GitHub Issues!", comment: ""), message)
+            return String(format: NSLocalizedString("从 V3 服务器获取 anisette 数据时出错：%@。请重试。如果问题仍然存在，请在 GitHub Issues 上报告！", comment: ""), message)
         case .cacheClearError:
             let message = self._failureReason ?? ""
-            return String(format: NSLocalizedString("An error occurred while clearing the cache: %@", comment: ""), message)
+            return String(format: NSLocalizedString("清除缓存时出错：%@", comment: ""), message)
         case .SideJITIssue:
             let message = self.errorFailure ?? ""
-            return String(format: NSLocalizedString("An error occurred while using SideJIT: %@", comment: ""), message)
+            return String(format: NSLocalizedString("使用 SideJIT 时出错：%@", comment: ""), message)
             
         case .refreshAppFailed:
             let message = self._failureReason ?? ""
-            return String(format: NSLocalizedString("Unable to refresh App\n%@", comment: ""), message)
+            return String(format: NSLocalizedString("无法刷新应用\n%@", comment: ""), message)
 
         case .invalidParameters:
             let message = self._failureReason.map { ": \n\($0)" } ?? "."
-            return String(format: NSLocalizedString("Invalid parameters%@", comment: ""), message)
+            return String(format: NSLocalizedString("无效的参数%@", comment: ""), message)
         case .invalidOperationContext:
             let message = self._failureReason.map { ": \n\($0)" } ?? "."
-            return String(format: NSLocalizedString("Invalid Operation Context%@", comment: ""), message)
+            return String(format: NSLocalizedString("无效的操作上下文%@", comment: ""), message)
         case .sideStoreBundleIDMismatch:
             let message = self._failureReason ?? ""
-            return String(format: NSLocalizedString("Bundle ID Mismatch: %@", comment: ""), message)
-        case .serverNotFound: return NSLocalizedString("AltServer could not be found.", comment: "")
-        case .connectionFailed: return NSLocalizedString("A connection to AltServer could not be established.", comment: "")
-        case .connectionDropped: return NSLocalizedString("The connection to AltServer was dropped.", comment: "")
+            return String(format: NSLocalizedString("包名 ID 不匹配：%@", comment: ""), message)
+        case .serverNotFound: return NSLocalizedString("找不到 AltServer。", comment: "")
+        case .connectionFailed: return NSLocalizedString("无法与 AltServer 建立连接。", comment: "")
+        case .connectionDropped: return NSLocalizedString("与 AltServer 的连接已断开。", comment: "")
             
         case .pledgeRequired:
-            let appName = self.appName ?? NSLocalizedString("This app", comment: "")
-            return String(format: NSLocalizedString("%@ requires an active pledge in order to be installed.", comment: ""), appName)
+            let appName = self.appName ?? NSLocalizedString("此应用", comment: "")
+            return String(format: NSLocalizedString("%@需要有效的赞助（pledge）才能安装。", comment: ""), appName)
             
         case .pledgeInactive:
-            let appName = self.appName ?? NSLocalizedString("this app", comment: "")
-            return String(format: NSLocalizedString("Your pledge is no longer active. Please renew it to continue using %@ normally.", comment: ""), appName)
+            let appName = self.appName ?? NSLocalizedString("此应用", comment: "")
+            return String(format: NSLocalizedString("你的赞助（pledge）已不再有效。请续费，以便继续正常使用 %@。", comment: ""), appName)
         }
         
     }
@@ -336,12 +336,12 @@ struct OperationError: ALTLocalizedError {
     var recoverySuggestion: String? {
         switch self.code
         {
-        case .noConnection: return NSLocalizedString("Connect to a Wi-Fi network, Bridge or a Wired network connection!", comment: "")
-        case .noVPN: return NSLocalizedString("Make sure LocalDevVPN is connected and running!", comment: "")
-        case .invalidPairingFile: return NSLocalizedString("Import a valid mobiledevicepairing file.", comment: "")
-        case .serverNotFound: return NSLocalizedString("Make sure you're on the same Wi-Fi network as a computer running AltServer, or try connecting this device to your computer via USB.", comment: "")
+        case .noConnection: return NSLocalizedString("请连接到 Wi-Fi 网络、Bridge 或有线网络连接！", comment: "")
+        case .noVPN: return NSLocalizedString("请确保 LocalDevVPN 已连接并正在运行！", comment: "")
+        case .invalidPairingFile: return NSLocalizedString("请导入有效的 mobiledevicepairing 文件。", comment: "")
+        case .serverNotFound: return NSLocalizedString("请确保你与运行 AltServer 的电脑处于同一 Wi-Fi 网络，或尝试通过 USB 将此设备连接到电脑。", comment: "")
         case .maximumAppIDLimitReached:
-            let baseMessage = NSLocalizedString("Delete sideloaded apps to free up App ID slots.", comment: "")
+            let baseMessage = NSLocalizedString("删除侧载的应用以释放应用 ID 名额。", comment: "")
             guard let appName, let requiredAppIDs, let availableAppIDs, let expirationDate else { return baseMessage }
             var message: String
 
@@ -351,12 +351,12 @@ struct OperationError: ALTLocalizedError {
                 
                 switch availableAppIDs
                 {
-                case 0: availableText = NSLocalizedString("none are available", comment: "")
-                case 1: availableText = NSLocalizedString("only 1 is available", comment: "")
-                default: availableText = String(format: NSLocalizedString("only %@ are available", comment: ""), NSNumber(value: availableAppIDs))
+                case 0: availableText = NSLocalizedString("一个都不剩", comment: "")
+                case 1: availableText = NSLocalizedString("只剩 1 个", comment: "")
+                default: availableText = String(format: NSLocalizedString("只剩 %@ 个", comment: ""), NSNumber(value: availableAppIDs))
                 }
                 
-                let prefixMessage = String(format: NSLocalizedString("%@ requires %@ App IDs, but %@.", comment: ""), appName, NSNumber(value: requiredAppIDs), availableText)
+                let prefixMessage = String(format: NSLocalizedString("%@需要 %@ 个应用 ID，但%@。", comment: ""), appName, NSNumber(value: requiredAppIDs), availableText)
                 message = prefixMessage + " " + baseMessage + "\n\n"
             }
             else
@@ -371,7 +371,7 @@ struct OperationError: ALTLocalizedError {
 
             let remainingTime = dateFormatter.string(from: dateComponents)!
 
-            message += String(format: NSLocalizedString("You can register another App ID in %@.", comment: ""), remainingTime)
+            message += String(format: NSLocalizedString("你可以在 %@ 后注册另一个应用 ID。", comment: ""), remainingTime)
 
             return message
             

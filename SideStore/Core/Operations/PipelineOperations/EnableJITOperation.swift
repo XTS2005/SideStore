@@ -100,7 +100,7 @@ final class EnableJITOperation: BasePipelineOperation<InstallAppOperationContext
 @available(iOS 17, *)
 func enableJITSideJITServer(serverURL: URL, installedApp: InstalledApp) async throws {
     guard let udid = try await fetchUDID() else {
-        throw SideJITServerErrorType.other("Unable to get UDID")
+        throw SideJITServerErrorType.other("无法获取 UDID")
     }
     
     let serverURLWithUDID = serverURL.appendingPathComponent(udid)
@@ -109,13 +109,13 @@ func enableJITSideJITServer(serverURL: URL, installedApp: InstalledApp) async th
     let (data, _) = try await URLSession.shared.data(from: fullURL)
     
     guard let dataString = String(data: data, encoding: .utf8) else {
-        throw SideJITServerErrorType.other("Invalid response data")
+        throw SideJITServerErrorType.other("无效的响应数据")
     }
     
     if dataString == "Enabled JIT for '\(installedApp.name)'!" {
         let content = UNMutableNotificationContent()
-        content.title = "JIT Successfully Enabled"
-        content.subtitle = "JIT Enabled For \(installedApp.name)"
+        content.title = "JIT 已成功启用"
+        content.subtitle = "已为 \(installedApp.name) 启用 JIT"
         content.sound = .default
         
         let request = UNNotificationRequest(identifier: "EnabledJIT", content: content, trigger: nil)

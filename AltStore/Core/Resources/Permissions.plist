@@ -7,9 +7,9 @@
 		<key>com.apple.developer.authentication-services.autofill-credential-provider</key>
 		<dict>
 			<key>name</key>
-			<string>AutoFill Credential Provider</string>
+			<string>自动填充凭证提供者</string>
 			<key>description</key>
-			<string>Allows app to provide user names and passwords for AutoFill.</string>
+			<string>允许 App 为自动填充提供用户名和密码。</string>
 			<key>key</key>
 			<string>com.apple.developer.authentication-services.autofill-credential-provider</string>
 			<key>symbol</key>
@@ -18,9 +18,9 @@
 		<key>com.apple.developer.applesignin</key>
 		<dict>
 			<key>name</key>
-			<string>Sign in with Apple</string>
+			<string>通过 Apple 登录</string>
 			<key>description</key>
-			<string>Allows sign in with Apple.</string>
+			<string>允许通过 Apple 登录。</string>
 			<key>key</key>
 			<string>com.apple.developer.applesignin</string>
 			<key>symbol</key>
@@ -29,9 +29,9 @@
 		<key>com.apple.developer.parent-application-identifiers</key>
 		<dict>
 			<key>name</key>
-			<string>App Clips - Parent Identifiers</string>
+			<string>App Clips - 父标识符</string>
 			<key>description</key>
-			<string>Allows app to use App Clips.</string>
+			<string>允许 App 使用 App Clips。</string>
 			<key>key</key>
 			<string>com.apple.developer.parent-application-identifiers</string>
 			<key>symbol</key>
@@ -40,9 +40,9 @@
 		<key>com.apple.developer.associated-appclip-app-identifiers</key>
 		<dict>
 			<key>name</key>
-			<string>App Clips - Associated Identifiers</string>
+			<string>App Clips - 关联标识符</string>
 			<key>description</key>
-			<string>Allows app to use App Clips with other apps.</string>
+			<string>允许 App 与其它 App 一起使用 App Clips。</string>
 			<key>key</key>
 			<string>com.apple.developer.associated-appclip-app-identifiers</string>
 			<key>symbol</key>
@@ -51,9 +51,9 @@
 		<key>com.apple.developer.on-demand-install-capable</key>
 		<dict>
 			<key>name</key>
-			<string>App Clips - Install</string>
+			<string>App Clips - 安装</string>
 			<key>description</key>
-			<string>App can install App Clips.</string>
+			<string>App 可以安装 App Clips。</string>
 			<key>key</key>
 			<string>com.apple.developer.on-demand-install-capable</string>
 			<key>symbol</key>
@@ -62,9 +62,9 @@
 		<key>com.apple.developer.carplay-audio</key>
 		<dict>
 			<key>name</key>
-			<string>CarPlay Audio</string>
+			<string>CarPlay 音频</string>
 			<key>description</key>
-			<string>Allows the app to provide audio content for CarPlay.</string>
+			<string>允许 App 为 CarPlay 提供音频内容。</string>
 			<key>key</key>
 			<string>com.apple.developer.carplay-audio</string>
 			<key>symbol</key>
@@ -73,9 +73,9 @@
 		<key>com.apple.developer.carplay-charging</key>
 		<dict>
 			<key>name</key>
-			<string>CarPlay Charging</string>
+			<string>CarPlay 充电</string>
 			<key>description</key>
-			<string>Allows charging capabilities for CarPlay.</string>
+			<string>允许 CarPlay 的充电功能。</string>
 			<key>key</key>
 			<string>com.apple.developer.carplay-charging</string>
 			<key>symbol</key>
@@ -84,9 +84,9 @@
 		<key>com.apple.developer.carplay-communication</key>
 		<dict>
 			<key>name</key>
-			<string>CarPlay Communication</string>
+			<string>CarPlay 通信</string>
 			<key>description</key>
-			<string>Allows the app to make and receive phone calls, messages, and other communications through CarPlay.</string>
+			<string>允许 App 通过 CarPlay 拨打和接听电话、发送和接收信息以及进行其它通信。</string>
 			<key>key</key>
 			<string>com.apple.developer.carplay-communication</string>
 			<key>symbol</key>
@@ -95,9 +95,9 @@
 		<key>com.apple.developer.carplay-maps</key>
 		<dict>
 			<key>name</key>
-			<string>CarPlay Maps</string>
+			<string>CarPlay 地图</string>
 			<key>description</key>
-			<string>Allows use of maps and navigation services for CarPlay.</string>
+			<string>允许为 CarPlay 使用地图和导航服务。</string>
 			<key>key</key>
 			<string>com.apple.developer.carplay-maps</string>
 			<key>symbol</key>
@@ -106,9 +106,9 @@
 		<key>com.apple.developer.carplay-parking</key>
 		<dict>
 			<key>name</key>
-			<string>CarPlay Parking</string>
+			<string>CarPlay 停车</string>
 			<key>description</key>
-			<string>Allows the app to provide parking-related services for CarPlay.</string>
+			<string>允许 App 为 CarPlay 提供停车相关服务。</string>
 			<key>key</key>
 			<string>com.apple.developer.carplay-parking</string>
 			<key>symbol</key>
@@ -117,9 +117,9 @@
 		<key>com.apple.developer.carplay-quick-ordering</key>
 		<dict>
 			<key>name</key>
-			<string>CarPlay Quick Ordering</string>
+			<string>CarPlay 快速点单</string>
 			<key>description</key>
-			<string>Allows quick ordering capabilities for CarPlay.</string>
+			<string>允许 CarPlay 的快速点单功能。</string>
 			<key>key</key>
 			<string>com.apple.developer.carplay-quick-ordering</string>
 			<key>symbol</key>
@@ -128,9 +128,9 @@
 		<key>com.apple.developer.carplay-messaging</key>
 		<dict>
 			<key>name</key>
-			<string>CarPlay Messaging</string>
+			<string>CarPlay 信息</string>
 			<key>description</key>
-			<string>Allows sending and receiving messages through CarPlay.</string>
+			<string>允许通过 CarPlay 发送和接收信息。</string>
 			<key>key</key>
 			<string>com.apple.developer.carplay-messaging</string>
 			<key>symbol</key>
@@ -139,9 +139,9 @@
 		<key>com.apple.developer.contact.notes</key>
 		<dict>
 			<key>name</key>
-			<string>Contact Notes</string>
+			<string>联系人备注</string>
 			<key>description</key>
-			<string>Grants access to the notes in contact entries.</string>
+			<string>允许访问联系人条目中的备注。</string>
 			<key>key</key>
 			<string>com.apple.developer.contact.notes</string>
 			<key>symbol</key>
@@ -150,9 +150,9 @@
 		<key>com.apple.developer.automated-device-enrollment.add-devices</key>
 		<dict>
 			<key>name</key>
-			<string>Automated Device Enrollment</string>
+			<string>自动设备注册</string>
 			<key>description</key>
-			<string>Grants access to add a device to Automated Device Enrollment.</string>
+			<string>允许将设备添加到自动设备注册。</string>
 			<key>key</key>
 			<string>com.apple.developer.automated-device-enrollment.add-devices</string>
 			<key>symbol</key>
@@ -163,7 +163,7 @@
 			<key>name</key>
 			<string>ClassKit</string>
 			<key>description</key>
-			<string>Grants access to the ClassKit development or production environment for an education app that works with the Schoolwork app.</string>
+			<string>允许教育 App 在 Schoolwork App 中使用 ClassKit 开发或生产环境。</string>
 			<key>key</key>
 			<string>com.apple.developer.ClassKit-environment</string>
 			<key>symbol</key>
@@ -172,9 +172,9 @@
 		<key>com.apple.developer.automatic-assessment-configuration</key>
 		<dict>
 			<key>name</key>
-			<string>Automatic Assessment Configuration</string>
+			<string>自动评估配置</string>
 			<key>description</key>
-			<string>Allows app to create an assessment session.</string>
+			<string>允许 App 创建评估会话。</string>
 			<key>key</key>
 			<string>com.apple.developer.automatic-assessment-configuration</string>
 			<key>symbol</key>
@@ -183,9 +183,9 @@
 		<key>com.apple.developer.mail-client</key>
 		<dict>
 			<key>name</key>
-			<string>Mail Client</string>
+			<string>邮件客户端</string>
 			<key>description</key>
-			<string>Allows app to act as a user&apos;s default email client.</string>
+			<string>允许 App 作为用户的默认邮件客户端。</string>
 			<key>key</key>
 			<string>com.apple.developer.mail-client</string>
 			<key>symbol</key>
@@ -194,9 +194,9 @@
 		<key>com.apple.developer.exposure-notification</key>
 		<dict>
 			<key>name</key>
-			<string>Exposure Notification</string>
+			<string>暴露通知</string>
 			<key>description</key>
-			<string>App may use exposure notification.</string>
+			<string>App 可以使用暴露通知功能。</string>
 			<key>key</key>
 			<string>com.apple.developer.exposure-notification</string>
 			<key>symbol</key>
@@ -205,9 +205,9 @@
 		<key>com.apple.developer.family-controls</key>
 		<dict>
 			<key>name</key>
-			<string>Family Controls</string>
+			<string>家人控制</string>
 			<key>description</key>
-			<string>App can request or revoke authorization to provide parental controls.</string>
+			<string>App 可以请求或撤销提供家长控制的授权。</string>
 			<key>key</key>
 			<string>com.apple.developer.family-controls</string>
 			<key>symbol</key>
@@ -216,9 +216,9 @@
 		<key>com.apple.developer.fileprovider.testing-mode</key>
 		<dict>
 			<key>name</key>
-			<string>Testing Mode</string>
+			<string>测试模式</string>
 			<key>description</key>
-			<string>App can enter testing mode.</string>
+			<string>App 可以进入测试模式。</string>
 			<key>key</key>
 			<string>com.apple.developer.fileprovider.testing-mode</string>
 			<key>symbol</key>
@@ -229,7 +229,7 @@
 			<key>name</key>
 			<string>Game Center</string>
 			<key>description</key>
-			<string>App may see and compare achievements on a leaderboard, invite friends, and start multiplayer games.</string>
+			<string>App 可以查看和比较排行榜上的成就、邀请朋友以及开始多人游戏。</string>
 			<key>key</key>
 			<string>com.apple.developer.game-center</string>
 			<key>symbol</key>
@@ -238,9 +238,9 @@
 		<key>com.apple.developer.group-session</key>
 		<dict>
 			<key>name</key>
-			<string>Group Activities</string>
+			<string>群组活动</string>
 			<key>description</key>
-			<string>Allows the app to schedule and participate in group activities.</string>
+			<string>允许 App 安排和参与群组活动。</string>
 			<key>key</key>
 			<string>com.apple.developer.group-session</string>
 			<key>symbol</key>
@@ -249,9 +249,9 @@
 		<key>com.apple.developer.healthkit</key>
 		<dict>
 			<key>name</key>
-			<string>Health</string>
+			<string>健康</string>
 			<key>description</key>
-			<string>Allows the app to access your Health data.</string>
+			<string>允许 App 访问你的健康数据。</string>
 			<key>key</key>
 			<string>com.apple.developer.healthkit</string>
 			<key>symbol</key>
@@ -260,9 +260,9 @@
 		<key>com.apple.developer.healthkit.access</key>
 		<dict>
 			<key>name</key>
-			<string>Sensitive Health Data</string>
+			<string>敏感健康数据</string>
 			<key>description</key>
-			<string>Allows the app to access your sensitive Health data.</string>
+			<string>允许 App 访问你的敏感健康数据。</string>
 			<key>key</key>
 			<string>com.apple.developer.healthkit.access</string>
 			<key>symbol</key>
@@ -271,9 +271,9 @@
 		<key>healthkit.background-delivery</key>
 		<dict>
 			<key>name</key>
-			<string>Health - Background Updates</string>
+			<string>健康 - 后台更新</string>
 			<key>description</key>
-			<string>App may receive health updates while running in the background.</string>
+			<string>App 在后台运行时可以接收健康更新。</string>
 			<key>key</key>
 			<string>com.apple.developer.healthkit.background-delivery</string>
 			<key>symbol</key>
@@ -282,9 +282,9 @@
 		<key>com.apple.developer.healthkit.recalibrate-estimates</key>
 		<dict>
 			<key>name</key>
-			<string>Health - Recalibrate</string>
+			<string>健康 - 重新校准</string>
 			<key>description</key>
-			<string>App may recalibrate Health data.</string>
+			<string>App 可以重新校准健康数据。</string>
 			<key>key</key>
 			<string>com.apple.developer.healthkit.recalibrate-estimates</string>
 			<key>symbol</key>
@@ -295,7 +295,7 @@
 			<key>name</key>
 			<string>HomeKit</string>
 			<key>description</key>
-			<string>App may perform setup and management tasks for HomeKit accessories.</string>
+			<string>App 可以执行 HomeKit 配件的设置和管理任务。</string>
 			<key>key</key>
 			<string>com.apple.developer.homekit</string>
 			<key>symbol</key>
@@ -306,7 +306,7 @@
 			<key>name</key>
 			<string>HomeKit - Matter</string>
 			<key>description</key>
-			<string>Allows app to provide the setup of a Matter device.</string>
+			<string>允许 App 提供 Matter 设备的设置。</string>
 			<key>key</key>
 			<string>com.apple.developer.homekit.matter.allow-setup-payload</string>
 			<key>symbol</key>
@@ -315,9 +315,9 @@
 		<key>com.apple.security.hypervisor</key>
 		<dict>
 			<key>name</key>
-			<string>Virtual Machine</string>
+			<string>虚拟机</string>
 			<key>description</key>
-			<string>Allows app to create and manage virtual machines.</string>
+			<string>允许 App 创建和管理虚拟机。</string>
 			<key>key</key>
 			<string>com.apple.security.hypervisor</string>
 			<key>symbol</key>
@@ -326,9 +326,9 @@
 		<key>com.apple.vm.device-access</key>
 		<dict>
 			<key>name</key>
-			<string>Device Access</string>
+			<string>设备访问</string>
 			<key>description</key>
-			<string>App can capture USB devices and uses them in the guest-operating system.</string>
+			<string>App 可以捕获 USB 设备并在客户操作系统中使用它们。</string>
 			<key>key</key>
 			<string>com.apple.vm.device-access</string>
 			<key>symbol</key>
@@ -337,9 +337,9 @@
 		<key>com.apple.vm.networking</key>
 		<dict>
 			<key>name</key>
-			<string>Virtual Networking</string>
+			<string>虚拟网络</string>
 			<key>description</key>
-			<string>App can manage virtual network interfaces without escalating privileges to the root user.</string>
+			<string>App 可以在无需提升至 root 用户权限的情况下管理虚拟网络接口。</string>
 			<key>key</key>
 			<string>com.apple.vm.networking</string>
 			<key>symbol</key>
@@ -348,9 +348,9 @@
 		<key>com.apple.security.virtualization</key>
 		<dict>
 			<key>name</key>
-			<string>Virtualization</string>
+			<string>虚拟化</string>
 			<key>description</key>
-			<string>App can use the Virtualization framework.</string>
+			<string>App 可以使用虚拟化框架。</string>
 			<key>key</key>
 			<string>com.apple.security.virtualization</string>
 			<key>symbol</key>
@@ -359,9 +359,9 @@
 		<key>com.apple.developer.icloud-container-development-container-identifiers</key>
 		<dict>
 			<key>name</key>
-			<string>iCloud Container Development Container Identifiers</string>
+			<string>iCloud 容器开发容器标识符</string>
 			<key>description</key>
-			<string>App can use iCloud containers for testing environments.</string>
+			<string>App 可以在测试环境中使用 iCloud 容器。</string>
 			<key>key</key>
 			<string>com.apple.developer.icloud-container-development-container-identifiers</string>
 			<key>symbol</key>
@@ -370,9 +370,9 @@
 		<key>com.apple.developer.icloud-container-environment</key>
 		<dict>
 			<key>name</key>
-			<string>iCloud Container Environment</string>
+			<string>iCloud 容器环境</string>
 			<key>description</key>
-			<string>App can set up iCloud testing environment.</string>
+			<string>App 可以设置 iCloud 测试环境。</string>
 			<key>key</key>
 			<string>com.apple.developer.icloud-container-environment</string>
 			<key>symbol</key>
@@ -381,9 +381,9 @@
 		<key>com.apple.developer.icloud-container-identifiers</key>
 		<dict>
 			<key>name</key>
-			<string>iCloud Container Identifiers</string>
+			<string>iCloud 容器标识符</string>
 			<key>description</key>
-			<string>App can set up iCloud identifiers used for testing environments.</string>
+			<string>App 可以设置用于测试环境的 iCloud 标识符。</string>
 			<key>key</key>
 			<string>com.apple.developer.icloud-container-identifiers</string>
 			<key>symbol</key>
@@ -392,9 +392,9 @@
 		<key>com.apple.developer.icloud-services</key>
 		<dict>
 			<key>name</key>
-			<string>iCloud Services</string>
+			<string>iCloud 服务</string>
 			<key>description</key>
-			<string>Grants access to iCloud services.</string>
+			<string>允许访问 iCloud 服务。</string>
 			<key>key</key>
 			<string>com.apple.developer.icloud-services</string>
 			<key>symbol</key>
@@ -403,9 +403,9 @@
 		<key>com.apple.developer.ubiquity-kvstore-identifier</key>
 		<dict>
 			<key>name</key>
-			<string>iCloud Key-Value Store</string>
+			<string>iCloud 键值存储</string>
 			<key>description</key>
-			<string>The container identifier to use for iCloud key-value storage.</string>
+			<string>用于 iCloud 键值存储的容器标识符。</string>
 			<key>key</key>
 			<string>com.apple.developer.ubiquity-kvstore-identifier</string>
 			<key>symbol</key>
@@ -414,9 +414,9 @@
 		<key>com.apple.developer.location.push</key>
 		<dict>
 			<key>name</key>
-			<string>Location Sharing Push Notifications</string>
+			<string>位置共享推送通知</string>
 			<key>description</key>
-			<string>Enables location-sharing app to query someone’s location in response to a push notification.</string>
+			<string>允许位置共享 App 在收到推送通知时查询某人的位置。</string>
 			<key>key</key>
 			<string>com.apple.developer.location.push</string>
 			<key>symbol</key>
@@ -425,9 +425,9 @@
 		<key>com.apple.developer.media-device-discovery-extension</key>
 		<dict>
 			<key>name</key>
-			<string>Media Device Discovery Extension</string>
+			<string>媒体设备发现扩展</string>
 			<key>description</key>
-			<string>App extension that adds a third-party media receiver to a system device-picker UI.</string>
+			<string>App 扩展，可将第三方媒体接收器添加到系统设备选择界面中。</string>
 			<key>key</key>
 			<string>com.apple.developer.media-device-discovery-extension</string>
 			<key>symbol</key>
@@ -436,9 +436,9 @@
 		<key>com.apple.developer.avfoundation.multitasking-camera-access</key>
 		<dict>
 			<key>name</key>
-			<string>Multitasking Camera Access</string>
+			<string>多任务相机访问</string>
 			<key>description</key>
-			<string>App may continue using the camera at the same time as another foreground app.</string>
+			<string>App 可以在另一个前台 App 运行的同时继续使用相机。</string>
 			<key>key</key>
 			<string>com.apple.developer.avfoundation.multitasking-camera-access</string>
 			<key>symbol</key>
@@ -447,9 +447,9 @@
 		<key>com.apple.developer.kernel.increased-memory-limit</key>
 		<dict>
 			<key>name</key>
-			<string>Increased Memory Limit</string>
+			<string>增加的内存限制</string>
 			<key>description</key>
-			<string>Allows app to perform better with a higher memory limit on supported devices.</string>
+			<string>允许 App 在支持的设备上以更高的内存限制获得更好性能。</string>
 			<key>key</key>
 			<string>com.apple.developer.kernel.increased-memory-limit</string>
 			<key>symbol</key>
@@ -458,9 +458,9 @@
 		<key>com.apple.developer.kernel.extended-virtual-addressing</key>
 		<dict>
 			<key>name</key>
-			<string>Extended Virtual Addressing</string>
+			<string>扩展虚拟寻址</string>
 			<key>description</key>
-			<string>App may access an extended address space.</string>
+			<string>App 可以访问扩展地址空间。</string>
 			<key>key</key>
 			<string>com.apple.developer.kernel.extended-virtual-addressing</string>
 			<key>symbol</key>
@@ -469,9 +469,9 @@
 		<key>com.apple.developer.networking.networkextension</key>
 		<dict>
 			<key>name</key>
-			<string>Network Extensions</string>
+			<string>网络扩展</string>
 			<key>description</key>
-			<string>App can customize networking features.</string>
+			<string>App 可以自定义网络功能。</string>
 			<key>key</key>
 			<string>com.apple.developer.networking.networkextension</string>
 			<key>symbol</key>
@@ -480,9 +480,9 @@
 		<key>com.apple.developer.networking.vpn.api</key>
 		<dict>
 			<key>name</key>
-			<string>Personal VPN</string>
+			<string>个人 VPN</string>
 			<key>description</key>
-			<string>App can create and control a custom system VPN configuration.</string>
+			<string>App 可以创建和控制自定义系统 VPN 配置。</string>
 			<key>key</key>
 			<string>com.apple.developer.networking.vpn.api</string>
 			<key>symbol</key>
@@ -491,9 +491,9 @@
 		<key>com.apple.developer.associated-domains</key>
 		<dict>
 			<key>name</key>
-			<string>Associated Domains</string>
+			<string>关联域</string>
 			<key>description</key>
-			<string>The associated domains for specific services, such as shared web credentials, universal links, and App Clips.</string>
+			<string>用于特定服务（如共享网页凭证、通用链接和 App Clips）的关联域。</string>
 			<key>key</key>
 			<string>com.apple.developer.associated-domains</string>
 			<key>symbol</key>
@@ -502,9 +502,9 @@
 		<key>com.apple.developer.networking.multicast</key>
 		<dict>
 			<key>name</key>
-			<string>Multicast</string>
+			<string>多播</string>
 			<key>description</key>
-			<string>App can send or receive IP multicast traffic.</string>
+			<string>App 可以发送或接收 IP 多播流量。</string>
 			<key>key</key>
 			<string>com.apple.developer.networking.multicast</string>
 			<key>symbol</key>
@@ -513,9 +513,9 @@
 		<key>com.apple.developer.associated-domains.applinks.read-write</key>
 		<dict>
 			<key>name</key>
-			<string>Applinks</string>
+			<string>App 链接</string>
 			<key>description</key>
-			<string>Grants app read/write access to Applinks.</string>
+			<string>允许 App 对 App 链接进行读写访问。</string>
 			<key>key</key>
 			<string>com.apple.developer.associated-domains.applinks.read-write</string>
 			<key>symbol</key>
@@ -524,9 +524,9 @@
 		<key>com.apple.developer.networking.manage-thread-network-credentials</key>
 		<dict>
 			<key>name</key>
-			<string>ThreadNetwork</string>
+			<string>Thread 网络</string>
 			<key>description</key>
-			<string>Grants access to the ThreadNetwork API.</string>
+			<string>允许访问 ThreadNetwork API。</string>
 			<key>key</key>
 			<string>com.apple.developer.networking.manage-thread-network-credentials</string>
 			<key>symbol</key>
@@ -535,9 +535,9 @@
 		<key>aps-environment</key>
 		<dict>
 			<key>name</key>
-			<string>Push Notifications</string>
+			<string>推送通知</string>
 			<key>description</key>
-			<string>App can send push notifications.</string>
+			<string>App 可以发送推送通知。</string>
 			<key>key</key>
 			<string>aps-environment</string>
 			<key>symbol</key>
@@ -546,9 +546,9 @@
 		<key>com.apple.developer.usernotifications.filtering</key>
 		<dict>
 			<key>name</key>
-			<string>Notification Filtering</string>
+			<string>通知过滤</string>
 			<key>description</key>
-			<string>App can receive notifications without displaying them to the user.</string>
+			<string>App 可以接收通知而不向用户显示。</string>
 			<key>key</key>
 			<string>com.apple.developer.usernotifications.filtering</string>
 			<key>symbol</key>
@@ -557,9 +557,9 @@
 		<key>com.apple.developer.device-information.user-assigned-device-name</key>
 		<dict>
 			<key>name</key>
-			<string>Device Name</string>
+			<string>设备名称</string>
 			<key>description</key>
-			<string>Grants access to the user-assigned device name instead of a generic device name.</string>
+			<string>允许访问用户分配的设备名称，而非通用设备名称。</string>
 			<key>key</key>
 			<string>com.apple.developer.device-information.user-assigned-device-name</string>
 			<key>symbol</key>
@@ -568,9 +568,9 @@
 		<key>com.apple.developer.severe-vehicular-crash-event</key>
 		<dict>
 			<key>name</key>
-			<string>Crash Detection</string>
+			<string>车祸检测</string>
 			<key>description</key>
-			<string>Grants access to Crash Detection events.</string>
+			<string>允许访问车祸检测事件。</string>
 			<key>key</key>
 			<string>com.apple.developer.severe-vehicular-crash-event</string>
 			<key>symbol</key>
@@ -579,9 +579,9 @@
 		<key>com.apple.security.application-groups</key>
 		<dict>
 			<key>name</key>
-			<string>App Groups</string>
+			<string>App 组</string>
 			<key>description</key>
-			<string>Allows app to share files with other apps and app extensions in same App Group.</string>
+			<string>允许 App 与同一 App 组中的其它 App 和 App 扩展共享文件。</string>
 			<key>key</key>
 			<string>com.apple.security.application-groups</string>
 			<key>symbol</key>
@@ -590,9 +590,9 @@
 		<key>keychain-access-groups</key>
 		<dict>
 			<key>name</key>
-			<string>Keychain</string>
+			<string>钥匙串</string>
 			<key>description</key>
-			<string>Allows app to read and write secure data to the system&apos;s keychain.</string>
+			<string>允许 App 在系统钥匙串中读取和写入安全数据。</string>
 			<key>key</key>
 			<string>keychain-access-groups</string>
 			<key>symbol</key>
@@ -601,9 +601,9 @@
 		<key>com.apple.developer.default-data-protection</key>
 		<dict>
 			<key>name</key>
-			<string>Data Protection</string>
+			<string>数据保护</string>
 			<key>description</key>
-			<string>App can set the level of data protection for sensitive user data when accessed on a device.</string>
+			<string>App 可以设置在设备上访问敏感用户数据时的数据保护级别。</string>
 			<key>key</key>
 			<string>com.apple.developer.default-data-protection</string>
 			<key>symbol</key>
@@ -612,9 +612,9 @@
 		<key>com.apple.developer.devicecheck.appattest-environment</key>
 		<dict>
 			<key>name</key>
-			<string>App Attest Environment</string>
+			<string>App Attest 环境</string>
 			<key>description</key>
-			<string>Allows app to use the App Attest service to validate itself.</string>
+			<string>允许 App 使用 App Attest 服务来验证自身。</string>
 			<key>key</key>
 			<string>com.apple.developer.devicecheck.appattest-environment</string>
 			<key>symbol</key>
@@ -623,9 +623,9 @@
 		<key>com.apple.security.smartcard</key>
 		<dict>
 			<key>name</key>
-			<string>Smart Card Access</string>
+			<string>智能卡访问</string>
 			<key>description</key>
-			<string>Grants access to smart card slots and smart cards.</string>
+			<string>允许访问智能卡插槽和智能卡。</string>
 			<key>key</key>
 			<string>com.apple.security.smartcard</string>
 			<key>symbol</key>
@@ -634,9 +634,9 @@
 		<key>com.apple.developer.sensorkit.reader.allow</key>
 		<dict>
 			<key>name</key>
-			<string>Sensor Data</string>
+			<string>传感器数据</string>
 			<key>description</key>
-			<string>Grants access to sensor data that&apos;s required by a preapproved research study.</string>
+			<string>允许访问经预先批准的研究项目所需的传感器数据。</string>
 			<key>key</key>
 			<string>com.apple.developer.sensorkit.reader.allow</string>
 			<key>symbol</key>
@@ -647,7 +647,7 @@
 			<key>name</key>
 			<string>Siri</string>
 			<key>description</key>
-			<string>Allows app to handle Siri requests.</string>
+			<string>允许 App 处理 Siri 请求。</string>
 			<key>key</key>
 			<string>com.apple.developer.siri</string>
 			<key>symbol</key>
@@ -656,9 +656,9 @@
 		<key>com.apple.developer.storekit.external-link.account</key>
 		<dict>
 			<key>name</key>
-			<string>External Website Account Linking</string>
+			<string>外部网站账户关联</string>
 			<key>description</key>
-			<string>App can link to an external website for account creation or management.</string>
+			<string>App 可以链接到外部网站进行账户创建或管理。</string>
 			<key>key</key>
 			<string>com.apple.developer.storekit.external-link.account</string>
 			<key>symbol</key>
@@ -667,9 +667,9 @@
 		<key>com.apple.developer.storekit.external-purchase</key>
 		<dict>
 			<key>name</key>
-			<string>External Purchases</string>
+			<string>外部购买</string>
 			<key>description</key>
-			<string>App can offer external purchases.</string>
+			<string>App 可以提供外部购买。</string>
 			<key>key</key>
 			<string>com.apple.developer.storekit.external-purchase</string>
 			<key>symbol</key>
@@ -678,9 +678,9 @@
 		<key>com.apple.developer.storekit.external-purchase-link</key>
 		<dict>
 			<key>name</key>
-			<string>External Purchase Website Link</string>
+			<string>外部购买网站链接</string>
 			<key>description</key>
-			<string>App can include a link that directs users to a website to make an external purchase.</string>
+			<string>App 可以包含链接，引导用户前往网站进行外部购买。</string>
 			<key>key</key>
 			<string>com.apple.developer.storekit.external-purchase-link</string>
 			<key>symbol</key>
@@ -689,9 +689,9 @@
 		<key>com.apple.developer.video-subscriber-single-sign-on</key>
 		<dict>
 			<key>name</key>
-			<string>Subscriber Single Sign-On</string>
+			<string>订阅者单点登录</string>
 			<key>description</key>
-			<string>Allows app to use single sign-on.</string>
+			<string>允许 App 使用单点登录。</string>
 			<key>key</key>
 			<string>com.apple.developer.video-subscriber-single-sign-on</string>
 			<key>symbol</key>
@@ -700,9 +700,9 @@
 		<key>com.apple.smoot.subscriptionservice</key>
 		<dict>
 			<key>name</key>
-			<string>Subscriptions Verification</string>
+			<string>订阅验证</string>
 			<key>description</key>
-			<string>Allows app to check for TV subscriptions.</string>
+			<string>允许 App 检查电视订阅。</string>
 			<key>key</key>
 			<string>com.apple.smoot.subscriptionservice</string>
 			<key>symbol</key>
@@ -711,9 +711,9 @@
 		<key>com.apple.developer.pass-type-identifiers</key>
 		<dict>
 			<key>name</key>
-			<string>Pass Type</string>
+			<string>通行证类型</string>
 			<key>description</key>
-			<string>Allows app to check for passes in Apple Wallet.</string>
+			<string>允许 App 检查 Apple Wallet 中的通行证。</string>
 			<key>key</key>
 			<string>com.apple.developer.pass-type-identifiers</string>
 			<key>symbol</key>
@@ -724,7 +724,7 @@
 			<key>name</key>
 			<string>Apple Pay</string>
 			<key>description</key>
-			<string>Allows app to use Apple Pay.</string>
+			<string>允许 App 使用 Apple Pay。</string>
 			<key>key</key>
 			<string>com.apple.developer.in-app-payments</string>
 			<key>symbol</key>
@@ -733,9 +733,9 @@
 		<key>com.apple.developer.in-app-identity-presentment</key>
 		<dict>
 			<key>name</key>
-			<string>Apple Pay - User Verification</string>
+			<string>Apple Pay - 用户验证</string>
 			<key>description</key>
-			<string>Allows app to verify user for Apple Pay.</string>
+			<string>允许 App 为 Apple Pay 验证用户。</string>
 			<key>key</key>
 			<string>com.apple.developer.in-app-identity-presentment</string>
 			<key>symbol</key>
@@ -744,9 +744,9 @@
 		<key>com.apple.developer.in-app-identity-presentment.merchant-identifiers</key>
 		<dict>
 			<key>name</key>
-			<string>Apple Pay - Merchant Verification</string>
+			<string>Apple Pay - 商户验证</string>
 			<key>description</key>
-			<string>Allows app to verify merchant for Apple Pay.</string>
+			<string>允许 App 为 Apple Pay 验证商户。</string>
 			<key>key</key>
 			<string>com.apple.developer.in-app-identity-presentment.merchant-identifiers</string>
 			<key>symbol</key>
@@ -755,9 +755,9 @@
 		<key>com.apple.developer.weatherkit</key>
 		<dict>
 			<key>name</key>
-			<string>Weather Data</string>
+			<string>天气数据</string>
 			<key>description</key>
-			<string>Allows app to use WeatherKit.</string>
+			<string>允许 App 使用 WeatherKit。</string>
 			<key>key</key>
 			<string>com.apple.developer.weatherkit</string>
 			<key>symbol</key>
@@ -766,9 +766,9 @@
 		<key>com.apple.developer.web-browser</key>
 		<dict>
 			<key>name</key>
-			<string>Default Web Browser</string>
+			<string>默认网页浏览器</string>
 			<key>description</key>
-			<string>Allows app to be set as the user&apos;s default web browser.</string>
+			<string>允许 App 被设置为用户的默认网页浏览器。</string>
 			<key>key</key>
 			<string>com.apple.developer.web-browser</string>
 			<key>symbol</key>
@@ -777,9 +777,9 @@
 		<key>com.apple.developer.web-browser.public-key-credential</key>
 		<dict>
 			<key>name</key>
-			<string>Passkeys</string>
+			<string>通行密钥</string>
 			<key>description</key>
-			<string>Allows app to access passkeys.</string>
+			<string>允许 App 访问通行密钥。</string>
 			<key>key</key>
 			<string>com.apple.developer.web-browser.public-key-credential</string>
 			<key>symbol</key>
@@ -788,9 +788,9 @@
 		<key>com.apple.developer.networking.wifi-info</key>
 		<dict>
 			<key>name</key>
-			<string>Wi-Fi Information Access</string>
+			<string>Wi-Fi 信息访问</string>
 			<key>description</key>
-			<string>Allows app to access information about the connected Wi-Fi network.</string>
+			<string>允许 App 访问已连接的 Wi-Fi 网络信息。</string>
 			<key>key</key>
 			<string>com.apple.developer.networking.wifi-info</string>
 			<key>symbol</key>
@@ -799,9 +799,9 @@
 		<key>com.apple.external-accessory.wireless-configuration</key>
 		<dict>
 			<key>name</key>
-			<string>Wireless Accessory Configuration</string>
+			<string>无线配件配置</string>
 			<key>description</key>
-			<string>App may configure MFi Wi-Fi accessories.</string>
+			<string>App 可以配置 MFi Wi-Fi 配件。</string>
 			<key>key</key>
 			<string>com.apple.external-accessory.wireless-configuration</string>
 			<key>symbol</key>
@@ -810,9 +810,9 @@
 		<key>com.apple.developer.networking.multipath</key>
 		<dict>
 			<key>name</key>
-			<string>Multipath Support</string>
+			<string>多路径支持</string>
 			<key>description</key>
-			<string>App may use Multipath protocols to seamlessly transition between Wi-Fi and cellular networks.</string>
+			<string>App 可以使用多路径协议在 Wi-Fi 和蜂窝网络之间无缝切换。</string>
 			<key>key</key>
 			<string>com.apple.developer.networking.multipath</string>
 			<key>symbol</key>
@@ -821,9 +821,9 @@
 		<key>com.apple.developer.networking.HotspotConfiguration</key>
 		<dict>
 			<key>name</key>
-			<string>Hotspots</string>
+			<string>热点</string>
 			<key>description</key>
-			<string>App can use the hotspot manager to configure Wi-Fi networks.</string>
+			<string>App 可以使用热点管理器配置 Wi-Fi 网络。</string>
 			<key>key</key>
 			<string>com.apple.developer.networking.HotspotConfiguration</string>
 			<key>symbol</key>
@@ -832,9 +832,9 @@
 		<key>com.apple.developer.nfc.readersession.formats</key>
 		<dict>
 			<key>name</key>
-			<string>NFC Tag Reader Session Formats</string>
+			<string>NFC 标签读取会话格式</string>
 			<key>description</key>
-			<string>The Near Field Communication data formats an app can read.</string>
+			<string>App 可以读取的近场通信数据格式。</string>
 			<key>key</key>
 			<string>com.apple.developer.nfc.readersession.formats</string>
 			<key>symbol</key>
@@ -843,9 +843,9 @@
 		<key>get-task-allow</key>
 		<dict>
 			<key>name</key>
-			<string>Debuggable</string>
+			<string>可调试</string>
 			<key>description</key>
-			<string>Allows developers to attach a debugger to this app. This permission is required for JIT to work.</string>
+			<string>允许开发者将调试器附加到此 App。此权限是 JIT 工作所必需的。</string>
 			<key>key</key>
 			<string>get-task-allow</string>
 			<key>symbol</key>
@@ -854,9 +854,9 @@
 		<key>inter-app-audio</key>
 		<dict>
 			<key>name</key>
-			<string>Inter-App Audio</string>
+			<string>App 间音频</string>
 			<key>description</key>
-			<string>Allows sharing real-time audio between apps.</string>
+			<string>允许在 App 之间共享实时音频。</string>
 			<key>key</key>
 			<string>inter-app-audio</string>
 			<key>symbol</key>
@@ -868,7 +868,7 @@
 		<key>NSBluetoothAlwaysUsageDescription</key>
 		<dict>
 			<key>name</key>
-			<string>Bluetooth</string>
+			<string>蓝牙</string>
 			<key>key</key>
 			<string>NSBluetoothAlwaysUsageDescription</string>
 			<key>symbol</key>
@@ -877,7 +877,7 @@
 		<key>NSBluetoothPeripheralUsageDescription</key>
 		<dict>
 			<key>name</key>
-			<string>Bluetooth (Peripherals)</string>
+			<string>蓝牙（外设）</string>
 			<key>key</key>
 			<string>NSBluetoothPeripheralUsageDescription</string>
 			<key>symbol</key>
@@ -886,7 +886,7 @@
 		<key>NSCalendarsUsageDescription</key>
 		<dict>
 			<key>name</key>
-			<string>Calendars</string>
+			<string>日历</string>
 			<key>key</key>
 			<string>NSCalendarsUsageDescription</string>
 			<key>symbol</key>
@@ -895,7 +895,7 @@
 		<key>NSRemindersUsageDescription</key>
 		<dict>
 			<key>name</key>
-			<string>Reminders</string>
+			<string>提醒事项</string>
 			<key>key</key>
 			<string>NSRemindersUsageDescription</string>
 			<key>symbol</key>
@@ -904,7 +904,7 @@
 		<key>NSCameraUsageDescription</key>
 		<dict>
 			<key>name</key>
-			<string>Camera</string>
+			<string>相机</string>
 			<key>key</key>
 			<string>NSCameraUsageDescription</string>
 			<key>symbol</key>
@@ -913,7 +913,7 @@
 		<key>NSMicrophoneUsageDescription</key>
 		<dict>
 			<key>name</key>
-			<string>Microphone</string>
+			<string>麦克风</string>
 			<key>key</key>
 			<string>NSMicrophoneUsageDescription</string>
 			<key>symbol</key>
@@ -922,7 +922,7 @@
 		<key>NSContactsUsageDescription</key>
 		<dict>
 			<key>name</key>
-			<string>Contacts</string>
+			<string>通讯录</string>
 			<key>key</key>
 			<string>NSContactsUsageDescription</string>
 			<key>symbol</key>
@@ -931,7 +931,7 @@
 		<key>NSFaceIDUsageDescription</key>
 		<dict>
 			<key>name</key>
-			<string>Face ID</string>
+			<string>面容 ID</string>
 			<key>key</key>
 			<string>NSFaceIDUsageDescription</string>
 			<key>symbol</key>
@@ -940,7 +940,7 @@
 		<key>NSGKFriendListUsageDescription</key>
 		<dict>
 			<key>name</key>
-			<string>Game Center Friends List</string>
+			<string>Game Center 好友列表</string>
 			<key>key</key>
 			<string>NSGKFriendListUsageDescription</string>
 			<key>symbol</key>
@@ -949,7 +949,7 @@
 		<key>NSHealthClinicalHealthRecordsShareUsageDescription</key>
 		<dict>
 			<key>name</key>
-			<string>Health (Clinical Records)</string>
+			<string>健康（临床记录）</string>
 			<key>key</key>
 			<string>NSHealthClinicalHealthRecordsShareUsageDescription</string>
 			<key>symbol</key>
@@ -958,7 +958,7 @@
 		<key>NSHealthShareUsageDescription</key>
 		<dict>
 			<key>name</key>
-			<string>Health</string>
+			<string>健康</string>
 			<key>key</key>
 			<string>NSHealthShareUsageDescription</string>
 			<key>symbol</key>
@@ -967,7 +967,7 @@
 		<key>NSHealthUpdateUsageDescription</key>
 		<dict>
 			<key>name</key>
-			<string>Health (Add)</string>
+			<string>健康（添加）</string>
 			<key>key</key>
 			<string>NSHealthUpdateUsageDescription</string>
 			<key>symbol</key>
@@ -985,7 +985,7 @@
 		<key>NSLocationAlwaysUsageDescription</key>
 		<dict>
 			<key>name</key>
-			<string>Location (Background)</string>
+			<string>位置（后台）</string>
 			<key>key</key>
 			<string>NSLocationAlwaysUsageDescription</string>
 			<key>symbol</key>
@@ -994,7 +994,7 @@
 		<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 		<dict>
 			<key>name</key>
-			<string>Location (Always)</string>
+			<string>位置（始终）</string>
 			<key>key</key>
 			<string>NSLocationAlwaysAndWhenInUseUsageDescription</string>
 			<key>symbol</key>
@@ -1003,7 +1003,7 @@
 		<key>NSLocationUsageDescription</key>
 		<dict>
 			<key>name</key>
-			<string>Location</string>
+			<string>位置</string>
 			<key>key</key>
 			<string>NSLocationUsageDescription</string>
 			<key>symbol</key>
@@ -1012,7 +1012,7 @@
 		<key>NSLocationWhenInUseUsageDescription</key>
 		<dict>
 			<key>name</key>
-			<string>Location (When Using)</string>
+			<string>位置（使用时）</string>
 			<key>key</key>
 			<string>NSLocationWhenInUseUsageDescription</string>
 			<key>symbol</key>
@@ -1021,7 +1021,7 @@
 		<key>NSLocationTemporaryUsageDescription</key>
 		<dict>
 			<key>name</key>
-			<string>Location (Temporary)</string>
+			<string>位置（临时）</string>
 			<key>key</key>
 			<string>NSLocationTemporaryUsageDescription</string>
 			<key>symbol</key>
@@ -1039,7 +1039,7 @@
 		<key>NSMotionUsageDescription</key>
 		<dict>
 			<key>name</key>
-			<string>Motion</string>
+			<string>运动</string>
 			<key>key</key>
 			<string>NSMotionUsageDescription</string>
 			<key>symbol</key>
@@ -1048,7 +1048,7 @@
 		<key>NSFallDetectionUsageDescription</key>
 		<dict>
 			<key>name</key>
-			<string>Fall Detection</string>
+			<string>摔倒检测</string>
 			<key>key</key>
 			<string>NSFallDetectionUsageDescription</string>
 			<key>symbol</key>
@@ -1057,7 +1057,7 @@
 		<key>NSLocalNetworkUsageDescription</key>
 		<dict>
 			<key>name</key>
-			<string>Local Network</string>
+			<string>本地网络</string>
 			<key>key</key>
 			<string>NSLocalNetworkUsageDescription</string>
 			<key>symbol</key>
@@ -1066,7 +1066,7 @@
 		<key>NSNearbyInteractionUsageDescription</key>
 		<dict>
 			<key>name</key>
-			<string>Nearby Interaction</string>
+			<string>附近交互</string>
 			<key>key</key>
 			<string>NSNearbyInteractionUsageDescription</string>
 			<key>symbol</key>
@@ -1075,7 +1075,7 @@
 		<key>NSNearbyInteractionAllowOnceUsageDescription</key>
 		<dict>
 			<key>name</key>
-			<string>Nearby Interaction (Once)</string>
+			<string>附近交互（一次）</string>
 			<key>key</key>
 			<string>NSNearbyInteractionAllowOnceUsageDescription</string>
 			<key>symbol</key>
@@ -1093,7 +1093,7 @@
 		<key>NSPhotoLibraryAddUsageDescription</key>
 		<dict>
 			<key>name</key>
-			<string>Photos (Add)</string>
+			<string>照片（添加）</string>
 			<key>key</key>
 			<string>NSPhotoLibraryAddUsageDescription</string>
 			<key>symbol</key>
@@ -1102,7 +1102,7 @@
 		<key>NSPhotoLibraryUsageDescription</key>
 		<dict>
 			<key>name</key>
-			<string>Photos</string>
+			<string>照片</string>
 			<key>key</key>
 			<string>NSPhotoLibraryUsageDescription</string>
 			<key>symbol</key>
@@ -1111,7 +1111,7 @@
 		<key>NSUserTrackingUsageDescription</key>
 		<dict>
 			<key>name</key>
-			<string>User Tracking</string>
+			<string>用户追踪</string>
 			<key>key</key>
 			<string>NSUserTrackingUsageDescription</string>
 			<key>symbol</key>
@@ -1138,7 +1138,7 @@
 		<key>NSSpeechRecognitionUsageDescription</key>
 		<dict>
 			<key>name</key>
-			<string>Speech Recognition</string>
+			<string>语音识别</string>
 			<key>key</key>
 			<string>NSSpeechRecognitionUsageDescription</string>
 			<key>symbol</key>
@@ -1147,7 +1147,7 @@
 		<key>NSIdentityUsageDescription</key>
 		<dict>
 			<key>name</key>
-			<string>ID Cards</string>
+			<string>身份证件</string>
 			<key>key</key>
 			<string>NSIdentityUsageDescription</string>
 			<key>symbol</key>

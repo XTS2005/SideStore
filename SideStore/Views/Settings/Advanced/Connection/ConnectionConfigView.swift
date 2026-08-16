@@ -12,8 +12,8 @@ import Combine
 private typealias SButton = SwiftUI.Button
 
 enum ActiveState: String {
-    case yes = "Yes"
-    case no = "No"
+    case yes = "是"
+    case no = "否"
 }
 
 struct AnimatedCheckmarkView: View {
@@ -69,20 +69,20 @@ struct ConnectionConfigView: View {
         ZStack {
             List {
                 Section {
-                    Toggle("Use Local VPN", isOn: $draftUseLocalVPN)
+                    Toggle("使用本地 VPN", isOn: $draftUseLocalVPN)
                 }
 
                 if draftUseLocalVPN {
-                    Section(header: Text("Auto Discovered from network")) {
+                    Section(header: Text("从网络自动发现")) {
                         Group {
-                            networkConfigRow(label: "Tunnel IP", text: $config.tunnelIfaceIp, editable: false)
-                            networkConfigRow(label: "Tunnel Mask", text: $config.tunnelIfaceSubnetMask, editable: false)
-                            networkConfigRow(label: "Device IP", text: $config.tunnelPeerIp, editable: false)
+                            networkConfigRow(label: "隧道 IP", text: $config.tunnelIfaceIp, editable: false)
+                            networkConfigRow(label: "隧道掩码", text: $config.tunnelIfaceSubnetMask, editable: false)
+                            networkConfigRow(label: "设备 IP", text: $config.tunnelPeerIp, editable: false)
                             if config.overrideTunnelPeerIp.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
                                 let hasDiscoveredPeer = config.tunnelPeerIp != nil && !config.tunnelPeerIp!.isEmpty
                                 networkConfigRow(
-                                    label: "Reachable",
-                                    text: Binding<String?>(get: { hasDiscoveredPeer ? config.tunnelPeerActive.rawValue : "N/A" }, set: { _ in }),
+                                    label: "可达",
+                                    text: Binding<String?>(get: { hasDiscoveredPeer ? config.tunnelPeerActive.rawValue : "不适用" }, set: { _ in }),
                                     editable: false,
                                     textColor: hasDiscoveredPeer ? (config.tunnelPeerActive == .yes ? .green : .red) : .gray
                                 )
@@ -92,45 +92,45 @@ struct ConnectionConfigView: View {
                     
                     Section {
                         networkConfigRow(
-                            label: "Device IP",
+                            label: "设备 IP",
                             text: Binding<String?>(get: { draftOverrideTunnelPeerIp }, set: { draftOverrideTunnelPeerIp = $0 ?? "" }),
                             editable: true
                         )
                         if !config.overrideTunnelPeerIp.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
                             networkConfigRow(
-                                label: "Active",
+                                label: "已启用",
                                 text: Binding<String?>(get: { config.overrideTunnelPeerActive.rawValue }, set: { _ in }),
                                 editable: false,
                                 textColor: config.overrideTunnelPeerActive == .yes ? .green : .red
                             )
                         }
                     } header: {
-                        Text("User Configuration")
+                        Text("用户配置")
                     } footer: {
                         HStack(alignment: .top, spacing: 0) {
-                            Text("Note: ")
+                            Text("注意：")
                             Text("'Device IP' is optional and if specified should match exactly as in the target VPN's config or Leave empty to prefer auto-discovery.")
                         }
                     }
                 } else {
                     Section {
                         networkConfigRow(
-                            label: "Device IP / Endpoint",
+                            label: "设备 IP / 端点",
                             text: Binding<String?>(get: { draftRemoteServerIp }, set: { draftRemoteServerIp = $0 ?? "" }),
                             editable: true
                         )
                         networkConfigRow(
-                            label: "Reachable",
+                            label: "可达",
                             text: Binding<String?>(get: { config.remoteActive.rawValue }, set: { _ in }),
                             editable: false,
                             textColor: config.remoteActive == .yes ? .green : .red
                         )
                     } header: {
-                        Text("Remote Endpoint")
+                        Text("远程端点")
                     } footer: {
                         HStack(alignment: .top, spacing: 0) {
-                            Text("Note: ")
-                            Text("'Device IP / Endpoint' is mandatory and should match the remote server's address")
+                            Text("注意：")
+                            Text("'设备 IP / 端点'为必填项，且应与远程服务器的地址匹配")
                         }
                     }
                 }
@@ -138,27 +138,27 @@ struct ConnectionConfigView: View {
                 if UserDefaults.standard.enableEMPforWireguard || UserDefaults.standard.alwaysShowWireGuardConfig {
                     Section {
                         networkConfigRow(
-                            label: "Bind Host / IP",
+                            label: "绑定主机 / IP",
                             text: Binding<String?>(get: { draftWireGuardServerHost }, set: { draftWireGuardServerHost = $0 ?? "" }),
                             editable: true
                         )
                         networkConfigRow(
-                            label: "Bind Port",
+                            label: "绑定端口",
                             text: Binding<String?>(get: { draftWireGuardServerPort }, set: { draftWireGuardServerPort = $0 ?? "" }),
                             editable: true,
                             isPort: true
                         )
                     } header: {
-                        Text("WireGuard Server Parameters")
+                        Text("WireGuard 服务器参数")
                     } footer: {
-                        Text("Configures the local UDP loopback host and port bound by EMProxy.")
+                        Text("配置 EMProxy 绑定的本地 UDP 回环主机和端口。")
                     }
                 }
             }
-            .navigationTitle("Connection Config")
+            .navigationTitle("连接配置")
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
-                    SButton("Confirm") {
+                    SButton("确认") {
                         Task { await commitChanges() }
                     }
                 }
@@ -172,10 +172,10 @@ struct ConnectionConfigView: View {
                 draftWireGuardServerPort = String(config.wireguardServerPort)
                 alwaysShowWireGuardConfig = UserDefaults.standard.alwaysShowWireGuardConfig
             }
-            .alert("Invalid Configuration", isPresented: $showValidationErrorAlert) {
-                SwiftUI.Button("OK", role: .cancel) {}
+            .alert("配置无效", isPresented: $showValidationErrorAlert) {
+                SwiftUI.Button("确定", role: .cancel) {}
             } message: {
-                Text(validationError ?? "Please check your configuration settings.")
+                Text(validationError ?? "请检查你的配置设置。")
             }
             
             if showConfirmDialog {
@@ -189,14 +189,14 @@ struct ConnectionConfigView: View {
                     AnimatedCheckmarkView()
                         .padding(.top, 10)
                     
-                    Text("Changes saved")
+                    Text("更改已保存")
                         .font(.system(size: 20, weight: .medium))
                         .foregroundColor(.white)
                     
                     SwiftUI.Button(action: {
                         showConfirmDialog = false
                     }) {
-                        Text("OK")
+                        Text("确定")
                             .font(.system(size: 17, weight: .semibold))
                             .foregroundColor(.white)
                             .frame(maxWidth: .infinity)
@@ -222,16 +222,16 @@ struct ConnectionConfigView: View {
         if !draftUseLocalVPN {
             let remoteIp = draftRemoteServerIp.trimmingCharacters(in: .whitespacesAndNewlines)
             guard !remoteIp.isEmpty else {
-                return "Device IP / Endpoint is mandatory for Remote Endpoint mode."
+                return "远程端点模式下必须填写设备 IP / 端点。"
             }
         }
         if UserDefaults.standard.enableEMPforWireguard || UserDefaults.standard.alwaysShowWireGuardConfig {
             let host = draftWireGuardServerHost.trimmingCharacters(in: .whitespaces)
             guard !host.isEmpty else {
-                return "Bind Host / IP cannot be empty."
+                return "绑定主机 / IP 不能为空。"
             }
             guard let port = UInt16(draftWireGuardServerPort), port > 0 else {
-                return "Bind Port must be a valid number between 1 and 65535."
+                return "绑定端口必须是 1 到 65535 之间的有效数字。"
             }
         }
         return nil
@@ -265,8 +265,8 @@ struct ConnectionConfigView: View {
     ) -> some View {
 
         let proxy = Binding<String>(
-            get: { text.wrappedValue ?? "N/A" },
-            set: { text.wrappedValue = $0.isEmpty || $0 == "N/A" ? nil : $0 }
+            get: { text.wrappedValue ?? "不适用" },
+            set: { text.wrappedValue = $0.isEmpty || $0 == "不适用" ? nil : $0 }
         )
 
         return HStack {

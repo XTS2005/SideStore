@@ -23,7 +23,7 @@ struct ContentView: View {
                         .font(.system(size: 44))
                         .foregroundColor(.orange)
                     
-                    Text(NSLocalizedString("SideBackup could not start", comment: ""))
+                    Text(NSLocalizedString("SideBackup 无法启动", comment: ""))
                         .font(.title2.bold())
                         .foregroundColor(Color("Text"))
                         .multilineTextAlignment(.center)
@@ -35,7 +35,7 @@ struct ContentView: View {
                         .padding(.horizontal, 8)
                     
                 } else if let operation = state.currentOperation {
-                    Text(operation == .backup ? "Backing up app data…" : "Restoring app data…")
+                    Text(operation == .backup ? "正在备份应用数据…" : "正在恢复应用数据…")
                         .font(.title2)
                         .foregroundColor(Color("Text"))
                         .multilineTextAlignment(.center)
@@ -55,14 +55,14 @@ struct ContentView: View {
                     }
                     .padding(.horizontal, 16)
                 } else {
-                    Text(String(format: NSLocalizedString("%@ is inactive.", comment: ""),
-                                Bundle.main.appName ?? NSLocalizedString("App", comment: "")))
+                    Text(String(format: NSLocalizedString("%@ 当前处于非活跃状态。", comment: ""),
+                                Bundle.main.appName ?? NSLocalizedString("应用", comment: "")))
                         .font(.title2)
                         .foregroundColor(Color("Text"))
                         .multilineTextAlignment(.center)
                     
-                    Text(String(format: NSLocalizedString("Refresh %@ in SideStore to continue using it.", comment: ""),
-                                Bundle.main.appName ?? NSLocalizedString("this app", comment: "")))
+                    Text(String(format: NSLocalizedString("在 SideStore 中刷新 %@ 以继续使用它。", comment: ""),
+                                Bundle.main.appName ?? NSLocalizedString("此应用", comment: "")))
                         .font(.body)
                         .foregroundColor(Color("Text"))
                         .multilineTextAlignment(.center)

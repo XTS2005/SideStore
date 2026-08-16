@@ -46,9 +46,9 @@ class ConsoleLogViewModel: ObservableObject {
     var activeHeaderTitle: String {
         switch activeSource {
         case .console:
-            return "Console Log"
+            return "控制台日志"
         case .widget:
-            return "Widget Log"
+            return "小组件日志"
         case .imported(let url):
             return url.lastPathComponent
         }
@@ -293,7 +293,7 @@ public struct ConsoleLogView: View {
                         viewModel.setSource(.console)
                     }) {
                         HStack {
-                            Text("Console Log")
+                            Text("控制台日志")
                             if viewModel.activeSource == .console {
                                 Image(systemName: "checkmark")
                             }
@@ -304,7 +304,7 @@ public struct ConsoleLogView: View {
                         viewModel.setSource(.widget)
                     }) {
                         HStack {
-                            Text("Widget Log")
+                            Text("小组件日志")
                             if viewModel.activeSource == .widget {
                                 Image(systemName: "checkmark")
                             }
@@ -316,7 +316,7 @@ public struct ConsoleLogView: View {
                             viewModel.setSource(.imported(url: importedURL))
                         }) {
                             HStack {
-                                Text("Imported Log\n(\(importedURL.lastPathComponent))")
+                                Text("导入的日志\n(\(importedURL.lastPathComponent))")
                                 if case .imported = viewModel.activeSource {
                                     Image(systemName: "checkmark")
                                 }
@@ -330,13 +330,13 @@ public struct ConsoleLogView: View {
                         SwiftUI.Button(action: {
                             showFileImporter = true
                         }) {
-                            Label("Import Log...", systemImage: "square.and.arrow.down")
+                            Label("导入日志…", systemImage: "square.and.arrow.down")
                         }
                     } else {
                         SwiftUI.Button(role: .destructive, action: {
                             viewModel.clearImportedLog()
                         }) {
-                            Label("Remove Imported", systemImage: "xmark.circle")
+                            Label("移除导入的日志", systemImage: "xmark.circle")
                         }
                     }
                 } label: {
@@ -364,7 +364,7 @@ public struct ConsoleLogView: View {
                       .foregroundColor(.gray)
                       .padding(.trailing, 4)
 
-                  TextField("Search", text: $searchText)
+                  TextField("搜索", text: $searchText)
                       .textFieldStyle(RoundedBorderTextFieldStyle())
                       .onChange(of: searchText) { newValue in
                           viewModel.searchTerm = newValue
@@ -472,7 +472,7 @@ public struct ConsoleLogView: View {
         .overlay(
             Group {
                 if showCopiedBanner {
-                    Text("Copied Visible Logs to Clipboard")
+                    Text("已将可见日志复制到剪贴板")
                         .font(.caption)
                         .padding(.horizontal, 16)
                         .padding(.vertical, 8)

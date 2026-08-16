@@ -19,14 +19,14 @@ struct BonjourDiscoveryViewV2: View {
                 .ignoresSafeArea()
             
             if manager.isSearching && manager.domains.isEmpty {
-                ProgressView("Searching for domains…")
+                ProgressView("正在搜索域…")
             } else if manager.domains.isEmpty {
                 emptyState
             } else {
                 domainsList
             }
         }
-        .navigationTitle("Discovery")
+        .navigationTitle("发现")
         .navigationBarTitleDisplayMode(.inline)
         .onAppear {
             manager.discoverDomains()
@@ -41,10 +41,10 @@ struct BonjourDiscoveryViewV2: View {
             Image(systemName: "network")
                 .font(.system(size: 48))
                 .foregroundColor(.secondary)
-            Text("No Domains Found")
+            Text("未找到域")
                 .font(.headline)
                 .foregroundColor(.secondary)
-            Text("Make sure you're connected to a local network.")
+            Text("请确保你已连接到本地网络。")
                 .font(.subheadline)
                 .foregroundColor(.secondary)
                 .multilineTextAlignment(.center)
@@ -53,18 +53,18 @@ struct BonjourDiscoveryViewV2: View {
             SwiftUI.Button {
                 manager.discoverDomains()
             } label: {
-                Label("Retry", systemImage: "arrow.clockwise")
+                Label("重试", systemImage: "arrow.clockwise")
                     .font(.subheadline.weight(.medium))
             }
             .padding(.top, 4)
             
             VStack(spacing: 8) {
-                Text("Ensure **Local Network Access** is provided otherwise this function may not work as intended since it is based on L N A...")
+                Text("请确保已授予**本地网络访问**权限，否则此功能可能无法按预期工作，因为它基于本地网络访问…")
                     .font(.caption)
                     .foregroundColor(.secondary)
                     .multilineTextAlignment(.center)
                 
-                Text("**Settings -> apps -> SideStore -> LocalNetworkAccess = toggle on**")
+                Text("**设置 -> 应用 -> SideStore -> 本地网络访问 = 开启**")
                     .font(.caption.bold())
                     .foregroundColor(.secondary)
                     .multilineTextAlignment(.center)
@@ -76,7 +76,7 @@ struct BonjourDiscoveryViewV2: View {
     
     private var domainsList: some View {
         List {
-            Section(header: Text("Browsable Domains")) {
+            Section(header: Text("可浏览的域")) {
                 ForEach(manager.domains, id: \.self) { domain in
                     NavigationLink(destination: ServiceTypesViewV2(domain: domain)) {
                         HStack {
@@ -107,7 +107,7 @@ struct ServiceTypesViewV2: View {
                 .ignoresSafeArea()
             
             if manager.isSearching && manager.serviceTypes.isEmpty {
-                ProgressView("Searching for service types…")
+                ProgressView("正在搜索服务类型…")
             } else if manager.serviceTypes.isEmpty {
                 emptyState
             } else {
@@ -129,10 +129,10 @@ struct ServiceTypesViewV2: View {
             Image(systemName: "magnifyingglass")
                 .font(.system(size: 48))
                 .foregroundColor(.secondary)
-            Text("No Services Found")
+            Text("未找到服务")
                 .font(.headline)
                 .foregroundColor(.secondary)
-            Text("No Bonjour services are currently advertised in this domain.")
+            Text("此域中当前没有公告任何 Bonjour 服务。")
                 .font(.subheadline)
                 .foregroundColor(.secondary)
                 .multilineTextAlignment(.center)
@@ -141,18 +141,18 @@ struct ServiceTypesViewV2: View {
             SwiftUI.Button {
                 manager.discoverServiceTypes(in: domain)
             } label: {
-                Label("Retry", systemImage: "arrow.clockwise")
+                Label("重试", systemImage: "arrow.clockwise")
                     .font(.subheadline.weight(.medium))
             }
             .padding(.top, 4)
             
             VStack(spacing: 8) {
-                Text("Ensure **Local Network Access** is provided otherwise this function may not work as intended since it is based on L N A...")
+                Text("请确保已授予**本地网络访问**权限，否则此功能可能无法按预期工作，因为它基于本地网络访问…")
                     .font(.caption)
                     .foregroundColor(.secondary)
                     .multilineTextAlignment(.center)
                 
-                Text("**Settings -> apps -> SideStore -> LocalNetworkAccess = toggle on**")
+                Text("**设置 -> 应用 -> SideStore -> 本地网络访问 = 开启**")
                     .font(.caption.bold())
                     .foregroundColor(.secondary)
                     .multilineTextAlignment(.center)
@@ -165,7 +165,7 @@ struct ServiceTypesViewV2: View {
     private var serviceTypesList: some View {
         List {
             Section(
-                header: Text("\(manager.serviceTypes.count) Service\(manager.serviceTypes.count == 1 ? "" : "s") Found"),
+                header: Text("找到 \(manager.serviceTypes.count) 项服务"),
                 footer: searchingFooter
             ) {
                 ForEach(manager.serviceTypes) { typeInfo in
@@ -209,7 +209,7 @@ struct ServiceTypesViewV2: View {
             HStack(spacing: 8) {
                 ProgressView()
                     .scaleEffect(0.8)
-                Text("Searching…")
+                Text("正在搜索…")
                     .font(.caption)
                     .foregroundColor(.secondary)
             }
@@ -233,7 +233,7 @@ struct ServiceInstancesViewV2: View {
                 .ignoresSafeArea()
             
             if manager.isSearching && manager.instances.isEmpty {
-                ProgressView("Searching for instances…")
+                ProgressView("正在搜索实例…")
             } else if manager.instances.isEmpty {
                 emptyState
             } else {
@@ -255,10 +255,10 @@ struct ServiceInstancesViewV2: View {
             Image(systemName: "antenna.radiowaves.left.and.right.slash")
                 .font(.system(size: 48))
                 .foregroundColor(.secondary)
-            Text("No Instances Found")
+            Text("未找到实例")
                 .font(.headline)
                 .foregroundColor(.secondary)
-            Text("No devices are currently advertising this service.")
+            Text("当前没有设备公告此服务。")
                 .font(.subheadline)
                 .foregroundColor(.secondary)
                 .multilineTextAlignment(.center)
@@ -267,18 +267,18 @@ struct ServiceInstancesViewV2: View {
             SwiftUI.Button {
                 manager.discoverInstances(ofType: serviceType, inDomain: domain)
             } label: {
-                Label("Retry", systemImage: "arrow.clockwise")
+                Label("重试", systemImage: "arrow.clockwise")
                     .font(.subheadline.weight(.medium))
             }
             .padding(.top, 4)
             
             VStack(spacing: 8) {
-                Text("Ensure **Local Network Access** is provided otherwise this function may not work as intended since it is based on L N A...")
+                Text("请确保已授予**本地网络访问**权限，否则此功能可能无法按预期工作，因为它基于本地网络访问…")
                     .font(.caption)
                     .foregroundColor(.secondary)
                     .multilineTextAlignment(.center)
                 
-                Text("**Settings -> apps -> SideStore -> LocalNetworkAccess = toggle on**")
+                Text("**设置 -> 应用 -> SideStore -> 本地网络访问 = 开启**")
                     .font(.caption.bold())
                     .foregroundColor(.secondary)
                     .multilineTextAlignment(.center)
@@ -295,7 +295,7 @@ struct ServiceInstancesViewV2: View {
                     Text(serviceType)
                         .font(.caption)
                         .foregroundColor(.secondary)
-                    Text("\(manager.instances.count) Instance\(manager.instances.count == 1 ? "" : "s")")
+                    Text("\(manager.instances.count) 个实例")
                 },
                 footer: searchingFooter
             ) {
@@ -324,7 +324,7 @@ struct ServiceInstancesViewV2: View {
             HStack(spacing: 8) {
                 ProgressView()
                     .scaleEffect(0.8)
-                Text("Searching…")
+                Text("正在搜索…")
                     .font(.caption)
                     .foregroundColor(.secondary)
             }
@@ -353,12 +353,12 @@ struct ServiceDetailViewV2: View {
                 loadingState
             }
         }
-        .navigationTitle("Service Details")
+        .navigationTitle("服务详情")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 if manager.resolvedService != nil {
-                    SwiftUI.Button("Copy") {
+                    SwiftUI.Button("复制") {
                         copyAllInfo()
                     }
                 }
@@ -376,7 +376,7 @@ struct ServiceDetailViewV2: View {
         VStack(spacing: 16) {
             ProgressView()
                 .scaleEffect(1.2)
-            Text("Resolving service…")
+            Text("正在解析服务…")
                 .font(.subheadline)
                 .foregroundColor(.secondary)
         }
@@ -387,7 +387,7 @@ struct ServiceDetailViewV2: View {
             Image(systemName: "exclamationmark.triangle")
                 .font(.system(size: 48))
                 .foregroundColor(.orange)
-            Text("Resolution Failed")
+            Text("解析失败")
                 .font(.headline)
                 .foregroundColor(.secondary)
             Text(message)
@@ -399,7 +399,7 @@ struct ServiceDetailViewV2: View {
             SwiftUI.Button {
                 manager.resolveService(service)
             } label: {
-                Label("Retry", systemImage: "arrow.clockwise")
+                Label("重试", systemImage: "arrow.clockwise")
                     .font(.subheadline.weight(.medium))
             }
             .padding(.top, 4)
@@ -421,7 +421,7 @@ struct ServiceDetailViewV2: View {
                 .padding(.vertical, 8)
             }
             
-            Section(header: Text("Connection")) {
+            Section(header: Text("连接")) {
                 DetailRowV2(label: "Hostname", value: resolved.hostname)
                 DetailRowV2(label: "Port", value: "\(resolved.port)")
                 DetailRowV2(label: "Type", value: resolved.type)
@@ -429,7 +429,7 @@ struct ServiceDetailViewV2: View {
             }
             
             if !resolved.addresses.isEmpty {
-                Section(header: Text("Addresses")) {
+                Section(header: Text("地址")) {
                     ForEach(resolved.addresses, id: \.self) { address in
                         HStack {
                             Image(systemName: address.contains(":") ? "6.circle" : "4.circle")
@@ -444,7 +444,7 @@ struct ServiceDetailViewV2: View {
                             SwiftUI.Button {
                                 UIPasteboard.general.string = address
                             } label: {
-                                Label("Copy Address", systemImage: "doc.on.doc")
+                                Label("复制地址", systemImage: "doc.on.doc")
                             }
                         }
                     }
@@ -452,7 +452,7 @@ struct ServiceDetailViewV2: View {
             }
             
             if !resolved.txtRecords.isEmpty {
-                Section(header: Text("TXT Record")) {
+                Section(header: Text("TXT 记录")) {
                     ForEach(resolved.txtRecords, id: \.key) { record in
                         VStack(alignment: .leading, spacing: 4) {
                             Text(record.key)
@@ -468,7 +468,7 @@ struct ServiceDetailViewV2: View {
                             SwiftUI.Button {
                                 UIPasteboard.general.string = "\(record.key) = \(record.value)"
                             } label: {
-                                Label("Copy", systemImage: "doc.on.doc")
+                                Label("复制", systemImage: "doc.on.doc")
                             }
                         }
                     }
@@ -485,7 +485,7 @@ struct ServiceDetailViewV2: View {
     }
     
     private var copiedBanner: some View {
-        Text("Copied to Clipboard")
+        Text("已复制到剪贴板")
             .font(.subheadline.weight(.medium))
             .foregroundColor(.white)
             .padding(.horizontal, 20)
@@ -501,15 +501,15 @@ struct ServiceDetailViewV2: View {
         guard let resolved = manager.resolvedService else { return }
         
         var lines: [String] = []
-        lines.append("Service: \(resolved.name)")
-        lines.append("Type: \(resolved.type)")
-        lines.append("Domain: \(resolved.domain)")
-        lines.append("Hostname: \(resolved.hostname)")
-        lines.append("Port: \(resolved.port)")
+        lines.append("服务：\(resolved.name)")
+        lines.append("类型：\(resolved.type)")
+        lines.append("域：\(resolved.domain)")
+        lines.append("主机名：\(resolved.hostname)")
+        lines.append("端口：\(resolved.port)")
         lines.append("")
         
         if !resolved.addresses.isEmpty {
-            lines.append("Addresses:")
+            lines.append("地址：")
             for addr in resolved.addresses {
                 lines.append("  \(addr)")
             }
@@ -517,7 +517,7 @@ struct ServiceDetailViewV2: View {
         }
         
         if !resolved.txtRecords.isEmpty {
-            lines.append("TXT Records:")
+            lines.append("TXT 记录：")
             for record in resolved.txtRecords {
                 lines.append("  \(record.key) = \(record.value)")
             }
@@ -557,7 +557,7 @@ private struct DetailRowV2: View {
             SwiftUI.Button {
                 UIPasteboard.general.string = value
             } label: {
-                Label("Copy \(label)", systemImage: "doc.on.doc")
+                Label("复制 \(label)", systemImage: "doc.on.doc")
             }
         }
     }

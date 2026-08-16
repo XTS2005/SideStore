@@ -36,15 +36,15 @@ class IntentError: NSError, CustomLocalizedStringResourceConvertible, @unchecked
 @available(iOS 17.0, *)
 struct InstallIPAIntent: AppIntent, ProgressReportingIntent
 {
-    static var title: LocalizedStringResource = "Install IPA"
-    static var description = IntentDescription("Installs an IPA file with SideStore.")
+    static var title: LocalizedStringResource = "安装 IPA"
+    static var description = IntentDescription("使用 SideStore 安装 IPA 文件。")
     static var openAppWhenRun = false
 
-    @Parameter(title: "IPA File")
+    @Parameter(title: "IPA 文件")
     var ipaFile: IntentFile
 
     static var parameterSummary: some ParameterSummary {
-        Summary("Install \(\.$ipaFile)")
+        Summary("安装 \(\.$ipaFile)")
     }
 
     init()
@@ -124,17 +124,17 @@ struct RefreshAllAppsIntent: AppIntent, CustomIntentMigratedAppIntent, Predictab
 {
     static let intentClassName = "RefreshAllIntent"
     
-    static var title: LocalizedStringResource = "Refresh All Apps"
-    static var description = IntentDescription("Refreshes your sideloaded apps to prevent them from expiring.")
+    static var title: LocalizedStringResource = "刷新所有应用"
+    static var description = IntentDescription("刷新你的侧载应用，防止它们过期。")
     
     static var parameterSummary: some ParameterSummary {
-        Summary("Refresh All Apps")
+        Summary("刷新所有应用")
     }
     
     static var predictionConfiguration: some IntentPredictionConfiguration {
         IntentPrediction {
             DisplayRepresentation(
-                title: "Refresh All Apps",
+                title: "刷新所有应用",
                 subtitle: ""
             )
         }
@@ -194,7 +194,7 @@ struct RefreshAllAppsIntent: AppIntent, CustomIntentMigratedAppIntent, Predictab
                 }
             }
             
-            return .result(dialog: "All apps have been refreshed.")
+            return .result(dialog: "所有应用都已刷新。")
         }
         catch
         {

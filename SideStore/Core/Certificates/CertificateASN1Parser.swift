@@ -30,17 +30,17 @@ public struct ValidityStats {
 }
 
 public struct ParsedCertificateDetails {
-    public var version: String = "N/A"
-    public var subject: String = "N/A"
-    public var issuer: String = "N/A"
-    public var serialHex: String = "N/A"
-    public var serialDec: String = "N/A"
+    public var version: String = "不适用"
+    public var subject: String = "不适用"
+    public var issuer: String = "不适用"
+    public var serialHex: String = "不适用"
+    public var serialDec: String = "不适用"
     public var validFrom: Date? = nil
     public var validUntil: Date? = nil
-    public var publicKeyType: String = "N/A"
-    public var signatureAlgorithm: String = "N/A"
-    public var fingerprintSHA1: String = "N/A"
-    public var fingerprintSHA256: String = "N/A"
+    public var publicKeyType: String = "不适用"
+    public var signatureAlgorithm: String = "不适用"
+    public var fingerprintSHA1: String = "不适用"
+    public var fingerprintSHA256: String = "不适用"
 }
 
 public func getDERData(from pemOrDer: Data) -> Data? {
@@ -118,11 +118,11 @@ public func getBriefInfo(for data: Data?) -> CertificateBriefInfo? {
     let formatter = DateFormatter()
     formatter.dateStyle = .short
     
-    let validFromStr = fromDate != nil ? formatter.string(from: fromDate!) : "N/A"
-    let validUntilStr = untilDate != nil ? formatter.string(from: untilDate!) : "N/A"
+    let validFromStr = fromDate != nil ? formatter.string(from: fromDate!) : "不适用"
+    let validUntilStr = untilDate != nil ? formatter.string(from: untilDate!) : "不适用"
     
     let issuerDN = parseDN(issuerItem.data)
-    var typeStr = "Developer Certificate"
+    var typeStr = "开发者证书"
     
     var subjectDN = ""
     if let subjectItem = parseASN1TLV(tbsSeq.data, offset: &innerOffset) {
@@ -130,9 +130,9 @@ public func getBriefInfo(for data: Data?) -> CertificateBriefInfo? {
     }
     
     if subjectDN.contains("Root") || issuerDN.contains("Root") {
-        typeStr = "Root CA"
+        typeStr = "根 CA"
     } else if subjectDN.contains("Authority") || subjectDN.contains("Relations") || issuerDN.contains("Authority") {
-        typeStr = "Intermediate CA"
+        typeStr = "中间 CA"
     }
     
     return CertificateBriefInfo(validFrom: validFromStr, validUntil: validUntilStr, type: typeStr)
@@ -197,13 +197,13 @@ public func parseDN(_ data: Data) -> String {
 
 public func friendlyOIDLabel(_ oid: String) -> String {
     switch oid {
-    case "85.4.3": return "Common Name"
-    case "85.4.6": return "Country"
-    case "85.4.7": return "Locality"
-    case "85.4.8": return "State"
-    case "85.4.10": return "Organization"
-    case "85.4.11": return "Organizational Unit"
-    case "42.134.72.134.247.13.1.9.1": return "Email"
+    case "85.4.3": return "通用名称"
+    case "85.4.6": return "国家/地区"
+    case "85.4.7": return "所在地"
+    case "85.4.8": return "省/州"
+    case "85.4.10": return "组织"
+    case "85.4.11": return "组织单位"
+    case "42.134.72.134.247.13.1.9.1": return "电子邮件"
     default: return oid
     }
 }

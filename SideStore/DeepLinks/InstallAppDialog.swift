@@ -26,16 +26,16 @@ public enum InstallAppDialog {
         let appName = ipaURL.deletingPathExtension().lastPathComponent
         
         let alert = UIAlertController(
-            title: NSLocalizedString("Install App", comment: ""),
-            message: String(format: NSLocalizedString("Would you like to install \"%@\"?", comment: ""), appName),
+            title: NSLocalizedString("安装应用", comment: ""),
+            message: String(format: NSLocalizedString("是否要安装“%@”？", comment: ""), appName),
             preferredStyle: .alert
         )
         
-        let installAction = UIAlertAction(title: NSLocalizedString("Install", comment: ""), style: .default) { _ in
+        let installAction = UIAlertAction(title: NSLocalizedString("安装", comment: ""), style: .default) { _ in
             onConfirm()
         }
         
-        let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel) { _ in
+        let cancelAction = UIAlertAction(title: NSLocalizedString("取消", comment: ""), style: .cancel) { _ in
             onCancel()
         }
         

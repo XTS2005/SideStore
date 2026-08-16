@@ -298,9 +298,9 @@ private extension SettingsViewController
     
     @objc private func copyVersionLabelTapped() {
         let text = self.versionLabel.text ?? ""
-        UIPasteboard.general.string = text.hasPrefix("Version ") ? String(text.dropFirst("Version ".count)) : text
+        UIPasteboard.general.string = text.hasPrefix("版本 ") ? String(text.dropFirst("版本 ".count)) : text
         let original = self.versionLabel.text
-        let attributed = NSMutableAttributedString(string: "Copied! ")
+        let attributed = NSMutableAttributedString(string: "已复制！ ")
         attributed.append(NSAttributedString(string: "✓", attributes: [.foregroundColor: UIColor.systemGreen]))
         self.versionLabel.attributedText = attributed
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) { [weak self] in
@@ -365,48 +365,48 @@ private extension SettingsViewController
         case .signIn:
             if isHeader
             {
-                settingsHeaderFooterView.primaryLabel.text = NSLocalizedString("ACCOUNT", comment: "")
+                settingsHeaderFooterView.primaryLabel.text = NSLocalizedString("账户", comment: "")
             }
             else
             {
-                settingsHeaderFooterView.secondaryLabel.text = NSLocalizedString("Sign in with your Apple ID to download apps from SideStore.", comment: "")
+                settingsHeaderFooterView.secondaryLabel.text = NSLocalizedString("使用你的 Apple ID 登录，即可从 SideStore 下载应用。", comment: "")
             }
             
         case .patreon:
             if isHeader
             {
-                settingsHeaderFooterView.primaryLabel.text = NSLocalizedString("SUPPORT US", comment: "")
+                settingsHeaderFooterView.primaryLabel.text = NSLocalizedString("支持我们", comment: "")
             }
             else
             {
-                settingsHeaderFooterView.secondaryLabel.text = NSLocalizedString("Support the SideStore Team by following our socials or becoming a patron!", comment: "")
+                settingsHeaderFooterView.secondaryLabel.text = NSLocalizedString("关注我们的社交媒体或成为赞助者，支持 SideStore 团队！", comment: "")
             }
 
         case .account:
-            settingsHeaderFooterView.primaryLabel.text = NSLocalizedString("ACCOUNT", comment: "")
+            settingsHeaderFooterView.primaryLabel.text = NSLocalizedString("账户", comment: "")
             
-            settingsHeaderFooterView.button.setTitle(NSLocalizedString("SIGN OUT", comment: ""), for: .normal)
+            settingsHeaderFooterView.button.setTitle(NSLocalizedString("退出登录", comment: ""), for: .normal)
             settingsHeaderFooterView.button.addTarget(self, action: #selector(SettingsViewController.signOut(_:)), for: .primaryActionTriggered)
             settingsHeaderFooterView.button.isHidden = false
             
         case .appRefresh:
             if isHeader
             {
-                settingsHeaderFooterView.primaryLabel.text = NSLocalizedString("REFRESHING APPS", comment: "")
+                settingsHeaderFooterView.primaryLabel.text = NSLocalizedString("刷新应用", comment: "")
             }
             else
             {
-                settingsHeaderFooterView.secondaryLabel.text = NSLocalizedString("Enable Background Refresh to automatically refresh apps in the background when connected to Wi-Fi. \n\nEnable Disable Idle Timeout to allow SideStore to keep your device awake during a refresh or install of any apps.", comment: "")
+                settingsHeaderFooterView.secondaryLabel.text = NSLocalizedString("启用“后台刷新”，可在连接到 Wi-Fi 时于后台自动刷新应用。\n\n启用“禁用空闲超时”，可让 SideStore 在刷新或安装任何应用期间保持设备唤醒。", comment: "")
             }
             
         case .display:
             if isHeader
             {
-                settingsHeaderFooterView.primaryLabel.text = NSLocalizedString("DISPLAY", comment: "")
+                settingsHeaderFooterView.primaryLabel.text = NSLocalizedString("显示", comment: "")
             }
             else
             {
-                settingsHeaderFooterView.secondaryLabel.text = NSLocalizedString("Personalize your SideStore experience by choosing an alternate app icon.", comment: "")
+                settingsHeaderFooterView.secondaryLabel.text = NSLocalizedString("选择备选应用图标，个性化你的 SideStore 体验。", comment: "")
             }
             
             
@@ -416,30 +416,30 @@ private extension SettingsViewController
         case .techyThings:
             if isHeader
             {
-                settingsHeaderFooterView.primaryLabel.text = NSLocalizedString("TECHY THINGS", comment: "")
+                settingsHeaderFooterView.primaryLabel.text = NSLocalizedString("技术相关", comment: "")
             }
             else
             {
-                settingsHeaderFooterView.secondaryLabel.text = NSLocalizedString("Free up disk space by removing non-essential data, such as temporary files and backups for uninstalled apps.", comment: "")
+                settingsHeaderFooterView.secondaryLabel.text = NSLocalizedString("通过移除非必要数据（如临时文件和已卸载应用的备份）来释放磁盘空间。", comment: "")
             }
             
         case .credits:
-            settingsHeaderFooterView.primaryLabel.text = NSLocalizedString("CREDITS", comment: "")
+            settingsHeaderFooterView.primaryLabel.text = NSLocalizedString("致谢", comment: "")
             
         case .advancedSettings:
-            settingsHeaderFooterView.primaryLabel.text = NSLocalizedString("ADVANCED SETTINGS", comment: "")
+            settingsHeaderFooterView.primaryLabel.text = NSLocalizedString("高级设置", comment: "")
 
         case .betaTesting:
             if isHeader
             {
-                settingsHeaderFooterView.primaryLabel.text = NSLocalizedString("BETA TESTING", comment: "")
+                settingsHeaderFooterView.primaryLabel.text = NSLocalizedString("测试版测试", comment: "")
             }
             else
             {
                 settingsHeaderFooterView.secondaryLabel.text = NSLocalizedString(
                     """
-                    Opt in for beta testing to receive regular updates and early previews of upcoming releases.\n
-                    Please note that these builds are experimental and may be unstable or break unexpectedly.
+                    选择加入测试版测试，即可定期收到更新并抢先预览即将发布的版本。\n
+                    请注意，这些构建版本属于实验性质，可能不稳定或意外崩溃。
                     """,
                     comment: ""
                 )
@@ -448,7 +448,7 @@ private extension SettingsViewController
 
             
         case .diagnostics:
-            settingsHeaderFooterView.primaryLabel.text = NSLocalizedString("DIAGNOSTICS", comment: "")
+            settingsHeaderFooterView.primaryLabel.text = NSLocalizedString("诊断", comment: "")
             
         // case .macDirtyCow:
         //     if isHeader
@@ -523,16 +523,16 @@ private extension SettingsViewController
         let contentVC = SignOutAlertViewController()
         
         let alertController = UIAlertController(
-            title: NSLocalizedString("Sign Out", comment: ""),
-            message: NSLocalizedString("Are you sure you want to sign out? You will no longer be able to install or refresh apps once you sign out.", comment: ""),
+            title: NSLocalizedString("退出登录", comment: ""),
+            message: NSLocalizedString("你确定要退出登录吗？退出后将无法再安装或刷新应用。", comment: ""),
             preferredStyle: .alert
         )
         
         alertController.setValue(contentVC, forKey: "contentViewController")
         
-        let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel, handler: nil)
+        let cancelAction = UIAlertAction(title: NSLocalizedString("取消", comment: ""), style: .cancel, handler: nil)
         
-        let signOutAction = UIAlertAction(title: NSLocalizedString("Sign Out", comment: ""), style: .destructive) { _ in
+        let signOutAction = UIAlertAction(title: NSLocalizedString("退出登录", comment: ""), style: .destructive) { _ in
             let keepCert = contentVC.isChecked
             let keepAnisette = contentVC.isKeepAnisetteChecked
             AuthManager.shared.signOut(keepCertificate: keepCert, keepAnisetteData: keepAnisette)
@@ -595,7 +595,7 @@ private extension SettingsViewController
                     guard UserDefaults.standard.recreateDatabaseOnNextStart else {
                         return
                     }
-                    let toast = ToastView(text: "Database Delete Scheduled on Next Launch", detailText: "App is closing in \(time) seconds...")
+                    let toast = ToastView(text: "已安排在下次启动时删除数据库", detailText: "应用将在 \(time) 秒后关闭…")
                     toast.tintColor = .altPrimary
                     toast.preferredDuration = 1
                     toast.show(in: self)
@@ -648,15 +648,15 @@ private extension SettingsViewController
     func clearCache()
     {
         let makeCacheTitle: (String) -> String = { sizeString in
-            String(format: NSLocalizedString("Are you sure you want to clear SideStore's cache?\n\nCache Size: %@", comment: ""), sizeString)
+            String(format: NSLocalizedString("你确定要清除 SideStore 的缓存吗？\n\n缓存大小：%@", comment: ""), sizeString)
         }
-        let alertController = UIAlertController(title: makeCacheTitle(NSLocalizedString("Calculating…", comment: "")),
-                                                message: NSLocalizedString("This will remove all temporary files as well as backups for uninstalled apps.", comment: ""),
+        let alertController = UIAlertController(title: makeCacheTitle(NSLocalizedString("正在计算…", comment: "")),
+                                                message: NSLocalizedString("这将删除所有临时文件以及已卸载应用的备份。", comment: ""),
                                                 preferredStyle: .actionSheet)
         alertController.addAction(UIAlertAction(title: UIAlertAction.cancel.title, style: UIAlertAction.cancel.style) { [weak self] _ in
             self?.tableView.indexPathForSelectedRow.map { self?.tableView.deselectRow(at: $0, animated: true) }
         })
-        alertController.addAction(UIAlertAction(title: NSLocalizedString("Clear Cache", comment: ""), style: .destructive) { [weak self] _ in
+        alertController.addAction(UIAlertAction(title: NSLocalizedString("清除缓存", comment: ""), style: .destructive) { [weak self] _ in
             AppManager.shared.clearAppCache { result in
                 DispatchQueue.main.async {
                     self?.tableView.indexPathForSelectedRow.map { self?.tableView.deselectRow(at: $0, animated: true) }
@@ -665,7 +665,7 @@ private extension SettingsViewController
                     {
                     case .success: break
                     case .failure(let error):
-                        let alertController = UIAlertController(title: NSLocalizedString("Unable to Clear Cache", comment: ""), message: error.localizedDescription, preferredStyle: .alert)
+                        let alertController = UIAlertController(title: NSLocalizedString("无法清除缓存", comment: ""), message: error.localizedDescription, preferredStyle: .alert)
                         alertController.addAction(.ok)
                         self?.present(alertController, animated: true)
                     }
@@ -1017,7 +1017,7 @@ extension SettingsViewController
             switch row
             {
             case .sendFeedback:
-                let alertController = UIAlertController(title: "Send Feedback", message: "Choose a method to send feedback:", preferredStyle: .actionSheet)
+                let alertController = UIAlertController(title: "发送反馈", message: "选择一种发送反馈的方式：", preferredStyle: .actionSheet)
                 
                 // Option 1: GitHub
                 alertController.addAction(UIAlertAction(title: "GitHub", style: .default) { _ in
@@ -1038,7 +1038,7 @@ extension SettingsViewController
                 })
                 
                 // Option 3: Mail
-                alertController.addAction(UIAlertAction(title: "Send Email", style: .default) { _ in
+                alertController.addAction(UIAlertAction(title: "发送电子邮件", style: .default) { _ in
                     if MFMailComposeViewController.canSendMail() {
                         let mailViewController = MFMailComposeViewController()
                         mailViewController.mailComposeDelegate = self
@@ -1046,20 +1046,20 @@ extension SettingsViewController
 
                         // TODO: MARKETING_VERSION is going to be set anyways so this needs to be fixed for beta
                         if let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String {
-                            mailViewController.setSubject("SideStore Beta \(version) Feedback")
+                            mailViewController.setSubject("SideStore 测试版 \(version) 反馈")
                         } else {
-                            mailViewController.setSubject("SideStore Beta Feedback")
+                            mailViewController.setSubject("SideStore 测试版反馈")
                         }
 
                        self.present(mailViewController, animated: true, completion: nil)
                     } else {
-                      let toastView = ToastView(text: NSLocalizedString("Cannot Send Mail", comment: ""), detailText: nil)
+                      let toastView = ToastView(text: NSLocalizedString("无法发送邮件", comment: ""), detailText: nil)
                       toastView.show(in: self)
                     }
                 })
                 
                 // Cancel action
-                alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+                alertController.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
                 
                 // For iPad: Set the source view if presenting on iPad to avoid crashes
                 if let popoverController = alertController.popoverPresentationController {
@@ -1075,34 +1075,34 @@ extension SettingsViewController
                 
                    let alertController = UIAlertController(
                       title: NSLocalizedString("SideJITServer", comment: ""),
-                      message: NSLocalizedString("Settings for SideJITServer", comment: ""),
+                      message: NSLocalizedString("SideJITServer 设置", comment: ""),
                       preferredStyle: UIAlertController.Style.actionSheet)
                     
                     
                     if UserDefaults.standard.sidejitenable {
-                        alertController.addAction(UIAlertAction(title: NSLocalizedString("Disable", comment: ""), style: .default){ _ in
+                        alertController.addAction(UIAlertAction(title: NSLocalizedString("停用", comment: ""), style: .default){ _ in
                             UserDefaults.standard.sidejitenable = false
                         })
                     } else {
-                        alertController.addAction(UIAlertAction(title: NSLocalizedString("Enable", comment: ""), style: .default){ _ in
+                        alertController.addAction(UIAlertAction(title: NSLocalizedString("启用", comment: ""), style: .default){ _ in
                             UserDefaults.standard.sidejitenable = true
                         })
                     }
                     
-                    alertController.addAction(UIAlertAction(title: NSLocalizedString("Server Address", comment: ""), style: .default){ _ in
-                        let alertController1 = UIAlertController(title: "SideJITServer Address", message: "Please Enter the SideJITServer Address Below. (this is not needed if SideJITServer has already been detected)", preferredStyle: .alert)
+                    alertController.addAction(UIAlertAction(title: NSLocalizedString("服务器地址", comment: ""), style: .default){ _ in
+                        let alertController1 = UIAlertController(title: "SideJITServer 地址", message: "请在下方输入 SideJITServer 地址。（如果 SideJITServer 已被自动检测到，则无需填写）", preferredStyle: .alert)
                         
 
                         alertController1.addTextField { textField in
-                            textField.placeholder = "SideJITServer Address"
+                            textField.placeholder = "SideJITServer 地址"
                         }
                         
                         
-                        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+                        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
                         alertController1.addAction(cancelAction)
                         
 
-                        let okAction = UIAlertAction(title: "OK", style: .default) { _ in
+                        let okAction = UIAlertAction(title: "确定", style: .default) { _ in
                             if let text = alertController1.textFields?.first?.text {
                                 UserDefaults.standard.textInputSideJITServerurl = text
                             }
@@ -1115,7 +1115,7 @@ extension SettingsViewController
                     })
                     
 
-                   alertController.addAction(UIAlertAction(title: NSLocalizedString("Refresh", comment: ""), style: .destructive){ _ in
+                   alertController.addAction(UIAlertAction(title: NSLocalizedString("刷新", comment: ""), style: .destructive){ _ in
                       if UserDefaults.standard.sidejitenable {
                          var SJSURL = ""
                           if (UserDefaults.standard.textInputSideJITServerurl ?? "").isEmpty {
@@ -1140,7 +1140,7 @@ extension SettingsViewController
                    })
                     
 
-                   let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+                   let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
                    alertController.addAction(cancelAction)
                    //Fix crash on iPad
                    alertController.popoverPresentationController?.sourceView = self.tableView
@@ -1149,8 +1149,8 @@ extension SettingsViewController
                    self.tableView.deselectRow(at: indexPath, animated: true)
                 } else {
                    let alertController = UIAlertController(
-                      title: NSLocalizedString("You are not on iOS 17+ This will not work", comment: ""),
-                      message: NSLocalizedString("This is meant for 'SideJITServer' and it only works on iOS 17+ ", comment: ""),
+                      title: NSLocalizedString("你不是 iOS 17+，此功能将无法使用", comment: ""),
+                      message: NSLocalizedString("此功能专为“SideJITServer”设计，仅适用于 iOS 17+", comment: ""),
                       preferredStyle: UIAlertController.Style.actionSheet)
 
                    alertController.addAction(.cancel)
@@ -1169,18 +1169,18 @@ extension SettingsViewController
                 
                 let documentsPath = fm.documentsDirectory.appendingPathComponent("/\(filename)")
                 let alertController = UIAlertController(
-                    title: NSLocalizedString("Are you sure to reset the pairing file?", comment: ""),
-                    message: NSLocalizedString("You can reset the pairing file when you cannot sideload apps or enable JIT. You need to restart SideStore.", comment: ""),
+                    title: NSLocalizedString("你确定要重置配对文件吗？", comment: ""),
+                    message: NSLocalizedString("当你无法侧载应用或启用 JIT 时，可以重置配对文件。重置后需要重启 SideStore。", comment: ""),
                     preferredStyle: UIAlertController.Style.actionSheet)
                 
-                alertController.addAction(UIAlertAction(title: NSLocalizedString("Delete and Reset", comment: ""), style: .destructive){ _ in
+                alertController.addAction(UIAlertAction(title: NSLocalizedString("删除并重置", comment: ""), style: .destructive){ _ in
                     if fm.fileExists(atPath: documentsPath.path), let contents = try? String(contentsOf: documentsPath), !contents.isEmpty {
                         UserDefaults.standard.isPairingReset = true
                         try? fm.removeItem(atPath: documentsPath.path)
                         NSLog("Pairing File Reseted")
                     }
                     self.tableView.deselectRow(at: indexPath, animated: true)
-                    let dialogMessage = UIAlertController(title: NSLocalizedString("Pairing File Reset", comment: ""), message: NSLocalizedString("Please restart SideStore", comment: ""), preferredStyle: .alert)
+                    let dialogMessage = UIAlertController(title: NSLocalizedString("配对文件已重置", comment: ""), message: NSLocalizedString("请重启 SideStore", comment: ""), preferredStyle: .alert)
                     self.present(dialogMessage, animated: true, completion: nil)
                 })
                 alertController.addAction(.cancel)
@@ -1195,7 +1195,7 @@ extension SettingsViewController
                     selected: UserDefaults.standard.menuAnisetteURL,
                     onResetAdiPb: { [weak self] in
                         guard let self = self else { return }
-                        ToastView(text: "Cleared adi.pb!", detailText: "You will need to log back into Apple ID in SideStore.")
+                        ToastView(text: "已清除 adi.pb！", detailText: "你需要重新登录 SideStore 中的 Apple ID。")
                             .show(in: self)
                     }
                 )
@@ -1223,14 +1223,14 @@ extension SettingsViewController
                 let backupView = BackupAndRestoreView()
                 let vc = UIHostingController(rootView: backupView)
                 vc.view.backgroundColor = .settingsBackground
-                vc.title = NSLocalizedString("Backup & Restore", comment: "")
+                vc.title = NSLocalizedString("备份与恢复", comment: "")
                 self.prepare(for: UIStoryboardSegue(identifier: "diagnostics", source: self, destination: vc), sender: nil)
                 
             case .userCustomizations:
                 let userCustomizationsView = UserCustomizationsView()
                 let vc = UIHostingController(rootView: userCustomizationsView)
                 vc.view.backgroundColor = .settingsBackground
-                vc.title = NSLocalizedString("User Customizations", comment: "")
+                vc.title = NSLocalizedString("用户自定义", comment: "")
                 self.prepare(for: UIStoryboardSegue(identifier: "diagnostics", source: self, destination: vc), sender: nil)
                 
             case .refreshAttempts: break
@@ -1243,13 +1243,13 @@ extension SettingsViewController
                 let developerOptionsView = DeveloperOptionsView()
                 let hostingController = UIHostingController(rootView: developerOptionsView)
                 hostingController.view.backgroundColor = .settingsBackground
-                hostingController.title = NSLocalizedString("Developer Options", comment: "")
+                hostingController.title = NSLocalizedString("开发者选项", comment: "")
                 self.prepare(for: UIStoryboardSegue(identifier: "diagnostics", source: self, destination: hostingController), sender: nil)
             case .experimentalFeatures:
                 let experimentalFeaturesView = ExperimentalFeaturesView()
                 let hostingController = UIHostingController(rootView: experimentalFeaturesView)
                 hostingController.view.backgroundColor = .settingsBackground
-                hostingController.title = NSLocalizedString("Experimental Features", comment: "")
+                hostingController.title = NSLocalizedString("实验性功能", comment: "")
                 self.prepare(for: UIStoryboardSegue(identifier: "diagnostics", source: self, destination: hostingController), sender: nil)
             }
             

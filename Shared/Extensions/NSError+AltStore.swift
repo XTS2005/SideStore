@@ -170,19 +170,19 @@ public extension NSError
             let keyName: String
             switch key
             {
-            case NSDebugDescriptionErrorKey: keyName = NSLocalizedString("Debug Description", comment: "")
-            case NSLocalizedDescriptionKey: keyName = NSLocalizedString("Error Description", comment: "")
-            case NSLocalizedFailureErrorKey: keyName = NSLocalizedString("Failure", comment: "")
-            case NSLocalizedFailureReasonErrorKey: keyName = NSLocalizedString("Failure Reason", comment: "")
-            case NSLocalizedRecoverySuggestionErrorKey: keyName = NSLocalizedString("Recovery Suggestion", comment: "")
-            case ALTLocalizedTitleErrorKey: keyName = NSLocalizedString("Title", comment: "")
-            case _ where key == ALTSourceFileErrorKey as String: keyName = NSLocalizedString("Source File", comment: "")
-            case _ where key == ALTSourceLineErrorKey as String: keyName = NSLocalizedString("Source Line", comment: "")
-            case NSUnderlyingErrorKey: keyName = NSLocalizedString("Underlying Error", comment: "")
+            case NSDebugDescriptionErrorKey: keyName = NSLocalizedString("调试描述", comment: "")
+            case NSLocalizedDescriptionKey: keyName = NSLocalizedString("错误描述", comment: "")
+            case NSLocalizedFailureErrorKey: keyName = NSLocalizedString("失败", comment: "")
+            case NSLocalizedFailureReasonErrorKey: keyName = NSLocalizedString("失败原因", comment: "")
+            case NSLocalizedRecoverySuggestionErrorKey: keyName = NSLocalizedString("恢复建议", comment: "")
+            case ALTLocalizedTitleErrorKey: keyName = NSLocalizedString("标题", comment: "")
+            case _ where key == ALTSourceFileErrorKey as String: keyName = NSLocalizedString("源文件", comment: "")
+            case _ where key == ALTSourceLineErrorKey as String: keyName = NSLocalizedString("源代码行", comment: "")
+            case NSUnderlyingErrorKey: keyName = NSLocalizedString("底层错误", comment: "")
             default:
                 if #available(iOS 14.5, macOS 11.3, *), key == NSMultipleUnderlyingErrorsKey
                 {
-                    keyName = NSLocalizedString("Underlying Errors", comment: "")
+                    keyName = NSLocalizedString("底层错误", comment: "")
                 }
                 else
                 {

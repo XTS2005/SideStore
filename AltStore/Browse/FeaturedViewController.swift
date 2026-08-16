@@ -66,7 +66,7 @@ class FeaturedViewController: UICollectionViewController
     {
         super.viewDidLoad()
         
-        self.title = NSLocalizedString("Browse", comment: "")
+        self.title = NSLocalizedString("浏览", comment: "")
         
         let layout = Self.makeLayout()
         self.collectionView.collectionViewLayout = layout
@@ -579,7 +579,7 @@ extension FeaturedViewController
             let storeApp = self.dataSource.item(at: indexPath)
             
             var content = UIListContentConfiguration.plainHeader()
-            content.text = storeApp.source?.name ?? NSLocalizedString("Unknown Source", comment: "")
+            content.text = storeApp.source?.name ?? NSLocalizedString("未知源", comment: "")
             content.textProperties.numberOfLines = 1
             
             content.directionalLayoutMargins.leading = 0
@@ -636,9 +636,9 @@ extension FeaturedViewController
             
             switch section
             {
-            case .recentlyUpdated: content.text = NSLocalizedString("New & Updated", comment: "")
-            case .categories: content.text = NSLocalizedString("Categories", comment: "")
-            case .featuredHeader: content.text = NSLocalizedString("Featured", comment: "")
+            case .recentlyUpdated: content.text = NSLocalizedString("新更新", comment: "")
+            case .categories: content.text = NSLocalizedString("分类", comment: "")
+            case .featuredHeader: content.text = NSLocalizedString("精选", comment: "")
             default: break
             }
             
@@ -656,7 +656,7 @@ extension FeaturedViewController
             
             buttonView.tintColor = storeApp.source?.effectiveTintColor?.adjustedForDisplay ?? .altPrimary
             
-            buttonView.button.setTitle(NSLocalizedString("See All", comment: ""), for: .normal)
+            buttonView.button.setTitle(NSLocalizedString("查看全部", comment: ""), for: .normal)
             let font = UIFont.preferredFont(forTextStyle: .body)
             var config = UIButton.Configuration.plain()
             config.cornerStyle = .fixed

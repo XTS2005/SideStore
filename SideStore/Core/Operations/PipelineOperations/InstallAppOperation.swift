@@ -380,8 +380,8 @@ final class InstallAppOperation: BasePipelineOperation<InstallAppOperationContex
                     self.verboseLog("[InstallAppOperation] Notifications are enabled")
 
                     let content = UNMutableNotificationContent()
-                    content.title = "Refreshing..."
-                    content.body = "SideStore will automatically move to the homescreen to finish refreshing!"
+                    content.title = "正在刷新…"
+                    content.body = "SideStore 将自动移至主屏幕以完成刷新！"
                     let notification = UNNotificationRequest(identifier: Bundle.Info.appbundleIdentifier + ".FinishRefreshNotification", content: content, trigger: UNTimeIntervalNotificationTrigger(timeInterval: 3, repeats: false))
                     try await UNUserNotificationCenter.current().add(notification)
                     

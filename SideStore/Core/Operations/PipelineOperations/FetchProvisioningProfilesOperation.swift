@@ -340,7 +340,7 @@ class FetchProvisioningProfilesInstallOperation: FetchProvisioningProfilesOperat
         for group in applicationGroups {
             if group.contains("$(APP_GROUP_IDENTIFIER)") {
                 self.debugLog("[FetchProvisioningProfiles] Error: Application group contains raw placeholder '$(APP_GROUP_IDENTIFIER)': \(group)")
-                throw OperationError.invalidParameters("Application group '\(group)' contains raw placeholder '$(APP_GROUP_IDENTIFIER)'.")
+                throw OperationError.invalidParameters("应用组“\(group)”包含原始占位符“$(APP_GROUP_IDENTIFIER)”。")
             }
         }
         

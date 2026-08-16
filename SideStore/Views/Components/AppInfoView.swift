@@ -51,7 +51,7 @@ struct AppInfoView: View {
                                 .foregroundColor(.secondary)
                             
                             if installedApp.resignedBundleIdentifier != installedApp.bundleIdentifier {
-                                Text("Resigned: \(installedApp.resignedBundleIdentifier)")
+                                Text("已重新签名：\(installedApp.resignedBundleIdentifier)")
                                     .font(.caption)
                                     .foregroundColor(.orange)
                             }
@@ -61,30 +61,30 @@ struct AppInfoView: View {
                 }
                 
                 // Metadata Section
-                Section(header: Text("General Metadata")) {
-                    InfoRow(label: "Status", value: installedApp.isActive ? "Active" : "Inactive", valueColor: installedApp.isActive ? .green : .red)
-                    InfoRow(label: "Version", value: installedApp.localizedVersion)
+                Section(header: Text("常规元数据")) {
+                    InfoRow(label: "状态", value: installedApp.isActive ? "活跃" : "非活跃", valueColor: installedApp.isActive ? .green : .red)
+                    InfoRow(label: "版本", value: installedApp.localizedVersion)
                     if let team = installedApp.team {
-                        InfoRow(label: "Team Name", value: team.name)
-                        InfoRow(label: "Team ID", value: team.identifier)
+                        InfoRow(label: "团队名称", value: team.name)
+                        InfoRow(label: "团队 ID", value: team.identifier)
                     }
-                    InfoRow(label: "Expiration Date", value: formatDate(provisioningProfile?.expirationDate ?? installedApp.expirationDate))
-                    InfoRow(label: "Refreshed Date", value: formatDate(provisioningProfile?.creationDate ?? installedApp.refreshedDate))
-                    InfoRow(label: "Installed Date", value: formatDate(installedApp.installedDate))
+                    InfoRow(label: "过期日期", value: formatDate(provisioningProfile?.expirationDate ?? installedApp.expirationDate))
+                    InfoRow(label: "刷新日期", value: formatDate(provisioningProfile?.creationDate ?? installedApp.refreshedDate))
+                    InfoRow(label: "安装日期", value: formatDate(installedApp.installedDate))
                     if let serialNumber = installedApp.certificateSerialNumber {
-                        InfoRow(label: "Certificate Serial", value: serialNumber)
+                        InfoRow(label: "证书序列号", value: serialNumber)
                     }
-                    InfoRow(label: "Uses Main Profile", value: installedApp.useMainProfile ? "Yes" : "No")
+                    InfoRow(label: "使用主描述文件", value: installedApp.useMainProfile ? "是" : "否")
                 }
                 
                 // Provisioning Profile Section
                 if let profile = provisioningProfile {
-                    Section(header: Text("Provisioning Profile")) {
+                    Section(header: Text("描述文件（Provisioning Profile）")) {
                         NavigationLink(destination: ProvisioningProfileDetailView(profile: profile)) {
                             VStack(alignment: .leading, spacing: 4) {
                                 Text(profile.name)
                                     .font(.subheadline)
-                                Text("UUID: \(profile.UUID.uuidString)")
+                                Text("UUID：\(profile.UUID.uuidString)")
                                     .font(.caption)
                                     .foregroundColor(.secondary)
                             }
@@ -96,14 +96,14 @@ struct AppInfoView: View {
                 if let plist = infoPlist {
                     Section(header: Text("Info.plist")) {
                         NavigationLink(destination: InfoPlistContainerView(plist: plist)) {
-                            Text("View Info.plist (\(plist.count) keys)")
+                            Text("查看 Info.plist（\(plist.count) 个键）")
                         }
                     }
                 }
                 
                 // App Extensions Section
                 if !installedApp.appExtensions.isEmpty {
-                    Section(header: Text("App Extensions")) {
+                    Section(header: Text("应用扩展")) {
                         ForEach(Array(installedApp.appExtensions), id: \.bundleIdentifier) { ext in
                             NavigationLink(destination: ExtensionInfoView(appExtension: ext, parentAppURL: appBundleURL)) {
                                 VStack(alignment: .leading, spacing: 4) {
@@ -119,16 +119,16 @@ struct AppInfoView: View {
                 }
 
                 // Resources Section
-                Section(header: Text("Resources")) {
-                    NavigationLink(destination: BundleResourceBrowserView(rootURL: appBundleURL, title: "Bundle Contents")) {
-                        Text("Browse Bundle Contents")
+                Section(header: Text("资源")) {
+                    NavigationLink(destination: BundleResourceBrowserView(rootURL: appBundleURL, title: "Bundle 内容")) {
+                        Text("浏览 Bundle 内容")
                             .font(.subheadline)
                     }
                 }
             }
             .listStyle(InsetGroupedListStyle())
-            .navigationTitle("App Details")
-            .navigationBarItems(trailing: SwiftUI.Button("Close") {
+            .navigationTitle("应用详情")
+            .navigationBarItems(trailing: SwiftUI.Button("关闭") {
                 presentationMode.wrappedValue.dismiss()
             })
             .overlay(
@@ -155,28 +155,28 @@ struct ProvisioningProfileDetailView: View {
     
     var body: some View {
         List {
-            Section(header: Text("Profile Metadata")) {
-                ProfileInfoRow(label: "Name", value: profile.name)
+            Section(header: Text("描述文件元数据")) {
+                ProfileInfoRow(label: "名称", value: profile.name)
                 ProfileInfoRow(label: "UUID", value: profile.UUID.uuidString)
                 if let identifier = profile.identifier {
-                    ProfileInfoRow(label: "Identifier", value: identifier)
+                    ProfileInfoRow(label: "标识符", value: identifier)
                 }
-                ProfileInfoRow(label: "Team Name", value: profile.teamName)
-                ProfileInfoRow(label: "Team Identifier", value: profile.teamIdentifier)
-                ProfileInfoRow(label: "App Bundle ID", value: profile.bundleIdentifier)
-                ProfileInfoRow(label: "Created", value: formatDate(profile.creationDate))
-                ProfileInfoRow(label: "Expires", value: formatDate(profile.expirationDate))
-                ProfileInfoRow(label: "Free Developer Profile", value: profile.isFreeProvisioningProfile ? "Yes" : "No")
+                ProfileInfoRow(label: "团队名称", value: profile.teamName)
+                ProfileInfoRow(label: "团队标识符", value: profile.teamIdentifier)
+                ProfileInfoRow(label: "应用包名 ID", value: profile.bundleIdentifier)
+                ProfileInfoRow(label: "创建时间", value: formatDate(profile.creationDate))
+                ProfileInfoRow(label: "过期时间", value: formatDate(profile.expirationDate))
+                ProfileInfoRow(label: "免费开发者描述文件", value: profile.isFreeProvisioningProfile ? "是" : "否")
             }
             
             if !profile.certificates.isEmpty {
-                Section(header: Text("Developer Certificates (\(profile.certificates.count))")) {
+                Section(header: Text("开发者证书（\(profile.certificates.count)）")) {
                     ForEach(profile.certificates, id: \.serialNumber) { cert in
                         NavigationLink(destination: CertificateDetailView(certificate: cert, viewModel: certificatesViewModel)) {
                             VStack(alignment: .leading, spacing: 4) {
                                 Text(cert.name)
                                     .font(.subheadline)
-                                Text("Serial: \(cert.serialNumber)")
+                                Text("序列号：\(cert.serialNumber)")
                                     .font(.caption)
                                     .foregroundColor(.secondary)
                             }
@@ -186,14 +186,14 @@ struct ProvisioningProfileDetailView: View {
             }
             
             if !profile.deviceIDs.isEmpty {
-                Section(header: Text("Provisioned Devices (\(profile.deviceIDs.count))")) {
+                Section(header: Text("已配置的设备（\(profile.deviceIDs.count)）")) {
                     NavigationLink(destination: DeviceIDsView(devices: profile.deviceIDs)) {
-                        Text("View Provisioned Devices")
+                        Text("查看已配置的设备")
                     }
                 }
             }
             
-            Section(header: Text("Entitlements (\(profile.entitlements.count))")) {
+            Section(header: Text("授权（\(profile.entitlements.count)）")) {
                 let sortedEntitlements = profile.entitlements.sorted { $0.key.rawValue < $1.key.rawValue }
                 ForEach(sortedEntitlements, id: \.key.rawValue) { entitlement, value in
                     EntitlementRow(key: entitlement.rawValue, value: value)
@@ -201,7 +201,7 @@ struct ProvisioningProfileDetailView: View {
             }
         }
         .listStyle(InsetGroupedListStyle())
-        .navigationTitle("Profile Details")
+        .navigationTitle("描述文件详情")
         .interactiveDismissDisabled(true)
     }
     
@@ -293,7 +293,7 @@ struct ProfileInfoRow: View {
             SwiftUI.Button {
                 UIPasteboard.general.string = value
             } label: {
-                Label("Copy", systemImage: "doc.on.doc")
+                Label("复制", systemImage: "doc.on.doc")
             }
         }
     }
@@ -318,12 +318,12 @@ struct EntitlementRow: View {
             SwiftUI.Button {
                 UIPasteboard.general.string = formatValue(value)
             } label: {
-                Label("Copy Value", systemImage: "doc.on.doc")
+                Label("复制值", systemImage: "doc.on.doc")
             }
             SwiftUI.Button {
                 UIPasteboard.general.string = key
             } label: {
-                Label("Copy Key", systemImage: "doc.on.doc")
+                Label("复制键", systemImage: "doc.on.doc")
             }
         }
     }
@@ -359,7 +359,7 @@ struct DeviceIDsView: View {
                 .buttonStyle(BorderlessButtonStyle())
             }
         }
-        .navigationTitle("Device IDs")
+        .navigationTitle("设备 ID")
         .interactiveDismissDisabled(true)
     }
 }
@@ -416,7 +416,7 @@ struct ExtensionInfoView: View {
     var body: some View {
         List {
             // General Metadata — sourced from the actual bundle, not CoreData
-            Section(header: Text("Extension Metadata")) {
+            Section(header: Text("扩展元数据")) {
                 let plist = infoPlist
                 let profile = provisioningProfile
 
@@ -428,38 +428,38 @@ struct ExtensionInfoView: View {
                 let buildVer = plist?["CFBundleVersion"] as? String
                 let versionStr: String = {
                     if let s = shortVer, let b = buildVer { return "\(s) (\(b))" }
-                    return shortVer ?? buildVer ?? "N/A"
+                    return shortVer ?? buildVer ?? "不适用"
                 }()
 
-                InfoRow(label: "Name", value: bundleName)
-                InfoRow(label: "Bundle Identifier", value: bundleID)
-                InfoRow(label: "Version", value: versionStr)
+                InfoRow(label: "名称", value: bundleName)
+                InfoRow(label: "包名 ID", value: bundleID)
+                InfoRow(label: "版本", value: versionStr)
 
                 if let minOS = plist?["MinimumOSVersion"] as? String {
-                    InfoRow(label: "Min iOS", value: minOS)
+                    InfoRow(label: "最低 iOS", value: minOS)
                 }
                 if let exec = plist?["CFBundleExecutable"] as? String {
-                    InfoRow(label: "Executable", value: exec)
+                    InfoRow(label: "可执行文件", value: exec)
                 }
 
                 // Dates from provisioning profile (ground truth)
                 if let profile = profile {
-                    InfoRow(label: "Profile Created", value: formatDate(profile.creationDate))
-                    InfoRow(label: "Profile Expires", value: formatDate(profile.expirationDate))
+                    InfoRow(label: "描述文件创建时间", value: formatDate(profile.creationDate))
+                    InfoRow(label: "描述文件过期时间", value: formatDate(profile.expirationDate))
                 }
             }
 
             // Provisioning Profile
             if let profile = provisioningProfile {
-                Section(header: Text("Provisioning Profile")) {
+                Section(header: Text("描述文件（Provisioning Profile）")) {
                     NavigationLink(destination: ProvisioningProfileDetailView(profile: profile)) {
                         VStack(alignment: .leading, spacing: 4) {
                             Text(profile.name)
                                 .font(.subheadline)
-                            Text("UUID: \(profile.UUID.uuidString)")
+                            Text("UUID：\(profile.UUID.uuidString)")
                                 .font(.caption)
                                 .foregroundColor(.secondary)
-                            Text("Expires: \(formatDate(profile.expirationDate))")
+                            Text("过期时间：\(formatDate(profile.expirationDate))")
                                 .font(.caption)
                                 .foregroundColor(.secondary)
                         }
@@ -471,7 +471,7 @@ struct ExtensionInfoView: View {
             if let plist = infoPlist {
                 Section(header: Text("Info.plist")) {
                     NavigationLink(destination: InfoPlistContainerView(plist: plist)) {
-                        Text("View Info.plist (\(plist.count) keys)")
+                        Text("查看 Info.plist（\(plist.count) 个键）")
                             .font(.subheadline)
                     }
                 }
@@ -479,13 +479,13 @@ struct ExtensionInfoView: View {
 
             // Nested Sub-Extensions (recursive)
             if !subExtensions.isEmpty {
-                Section(header: Text("Nested Extensions (\(subExtensions.count))")) {
+                Section(header: Text("嵌套扩展（\(subExtensions.count)）")) {
                     ForEach(subExtensions, id: \.path) { subURL in
                         let subPlist = NSDictionary(contentsOf: subURL.appendingPathComponent("Info.plist")) as? [String: Any]
                         let subName = subPlist?["CFBundleDisplayName"] as? String
                             ?? subPlist?["CFBundleName"] as? String
                             ?? subURL.deletingPathExtension().lastPathComponent
-                        let subBundleID = subPlist?["CFBundleIdentifier"] as? String ?? "Unknown"
+                        let subBundleID = subPlist?["CFBundleIdentifier"] as? String ?? "未知"
                         NavigationLink(destination: BundleInspectorView(bundleURL: subURL)) {
                             VStack(alignment: .leading, spacing: 4) {
                                 Text(subName)
@@ -541,40 +541,40 @@ struct BundleInspectorView: View {
     }
 
     private var bundleID: String {
-        infoPlist?["CFBundleIdentifier"] as? String ?? "Unknown"
+        infoPlist?["CFBundleIdentifier"] as? String ?? "未知"
     }
 
     private var version: String {
         let short = infoPlist?["CFBundleShortVersionString"] as? String
         let build = infoPlist?["CFBundleVersion"] as? String
         if let s = short, let b = build { return "\(s) (\(b))" }
-        return short ?? build ?? "N/A"
+        return short ?? build ?? "不适用"
     }
 
     var body: some View {
         List {
-            Section(header: Text("Bundle Metadata")) {
-                InfoRow(label: "Name", value: displayName)
-                InfoRow(label: "Bundle ID", value: bundleID)
-                InfoRow(label: "Version", value: version)
+            Section(header: Text("Bundle 元数据")) {
+                InfoRow(label: "名称", value: displayName)
+                InfoRow(label: "包名 ID", value: bundleID)
+                InfoRow(label: "版本", value: version)
                 if let execName = infoPlist?["CFBundleExecutable"] as? String {
-                    InfoRow(label: "Executable", value: execName)
+                    InfoRow(label: "可执行文件", value: execName)
                 }
                 if let minOS = infoPlist?["MinimumOSVersion"] as? String {
-                    InfoRow(label: "Min iOS", value: minOS)
+                    InfoRow(label: "最低 iOS", value: minOS)
                 }
             }
 
             if let profile = provisioningProfile {
-                Section(header: Text("Provisioning Profile")) {
+                Section(header: Text("描述文件（Provisioning Profile）")) {
                     NavigationLink(destination: ProvisioningProfileDetailView(profile: profile)) {
                         VStack(alignment: .leading, spacing: 4) {
                             Text(profile.name)
                                 .font(.subheadline)
-                            Text("UUID: \(profile.UUID.uuidString)")
+                            Text("UUID：\(profile.UUID.uuidString)")
                                 .font(.caption)
                                 .foregroundColor(.secondary)
-                            Text("Expires: \(formatDate(profile.expirationDate))")
+                            Text("过期时间：\(formatDate(profile.expirationDate))")
                                 .font(.caption)
                                 .foregroundColor(.secondary)
                         }
@@ -585,20 +585,20 @@ struct BundleInspectorView: View {
             if let plist = infoPlist {
                 Section(header: Text("Info.plist")) {
                     NavigationLink(destination: InfoPlistContainerView(plist: plist)) {
-                        Text("View Info.plist (\(plist.count) keys)")
+                        Text("查看 Info.plist（\(plist.count) 个键）")
                             .font(.subheadline)
                     }
                 }
             }
 
             if !subExtensions.isEmpty {
-                Section(header: Text("Nested Extensions (\(subExtensions.count))")) {
+                Section(header: Text("嵌套扩展（\(subExtensions.count)）")) {
                     ForEach(subExtensions, id: \.path) { subURL in
                         let subPlist = NSDictionary(contentsOf: subURL.appendingPathComponent("Info.plist")) as? [String: Any]
                         let subName = subPlist?["CFBundleDisplayName"] as? String
                             ?? subPlist?["CFBundleName"] as? String
                             ?? subURL.deletingPathExtension().lastPathComponent
-                        let subBundleID = subPlist?["CFBundleIdentifier"] as? String ?? "Unknown"
+                        let subBundleID = subPlist?["CFBundleIdentifier"] as? String ?? "未知"
                         NavigationLink(destination: BundleInspectorView(bundleURL: subURL)) {
                             VStack(alignment: .leading, spacing: 4) {
                                 Text(subName)
@@ -613,9 +613,9 @@ struct BundleInspectorView: View {
             }
 
             // Resources
-            Section(header: Text("Resources")) {
-                NavigationLink(destination: BundleResourceBrowserView(rootURL: bundleURL, title: "Bundle Contents")) {
-                    Text("Browse Bundle Contents")
+            Section(header: Text("资源")) {
+                NavigationLink(destination: BundleResourceBrowserView(rootURL: bundleURL, title: "Bundle 内容")) {
+                    Text("浏览 Bundle 内容")
                         .font(.subheadline)
                 }
             }

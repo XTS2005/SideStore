@@ -13,8 +13,8 @@ import SwiftUI
 final class WirelessPairManager: ObservableObject {
     static let shared = WirelessPairManager()
     
-    @Published var statusText = "Ready to pair"
-    @Published var subStatusText = "Tap Start to advertise this device on the local network."
+    @Published var statusText = "准备配对"
+    @Published var subStatusText = "轻点“开始”即可在本地网络上广播此设备。"
     @Published var pinCode: String? = nil
     @Published var isAdvertising = false
     @Published var pairedDevice: MinimuxerPairedDevice? = nil
@@ -32,8 +32,8 @@ final class WirelessPairManager: ObservableObject {
                 guard let self = self else { return }
                 self.serviceID = serviceID
                 self.port = port
-                self.statusText = "Advertising server..."
-                self.subStatusText = "Ensure both devices are on the same Wi-Fi."
+                self.statusText = "正在广播服务器…"
+                self.subStatusText = "请确保两台设备位于同一 Wi-Fi 网络。"
             }
         }
         
@@ -41,8 +41,8 @@ final class WirelessPairManager: ObservableObject {
             Task { @MainActor in
                 guard let self = self else { return }
                 self.pinCode = pin
-                self.statusText = "Device Connected"
-                self.subStatusText = "Enter the pairing code shown below on your other device settings screen."
+                self.statusText = "设备已连接"
+                self.subStatusText = "请在另一台设备的设置界面中输入下方显示的配对码。"
             }
         }
     }
@@ -69,8 +69,8 @@ final class WirelessPairManager: ObservableObject {
             try? await Task.sleep(nanoseconds: 200_000_000) // 200ms
             guard !Task.isCancelled else { return }
             guard isAdvertising && serviceID == nil else { return }
-            statusText = "Waiting for connection..."
-            subStatusText = "Open Remote Pairing on your Apple TV / Vision Pro / host device to discover this server."
+            statusText = "正在等待连接…"
+            subStatusText = "请在 Apple TV / Vision Pro / 主机设备上打开“远程配对”以发现此服务器。"
         }
         startTask = debounceTask
         
@@ -89,12 +89,12 @@ final class WirelessPairManager: ObservableObject {
                 switch result {
                 case .success(let device):
                     self.pairedDevice = device
-                    self.statusText = "Success!"
-                    self.subStatusText = "Successfully paired with \(device.name) (\(device.model))!\nPairing file saved to documents."
+                    self.statusText = "成功！"
+                    self.subStatusText = "已成功与 \(device.name)（\(device.model)）配对！\n配对文件已保存到文稿。"
                 case .failure(let error):
                     self.errorMessage = error.localizedDescription
-                    self.statusText = "Pairing Failed"
-                    self.subStatusText = "An error occurred during pairing."
+                    self.statusText = "配对失败"
+                    self.subStatusText = "配对过程中发生错误。"
                 }
             }
         }
@@ -106,8 +106,8 @@ final class WirelessPairManager: ObservableObject {
         startTask = nil
         
         isAdvertising = false
-        statusText = "Ready to pair"
-        subStatusText = "Tap Start to advertise this device on the local network."
+        statusText = "准备配对"
+        subStatusText = "轻点“开始”即可在本地网络上广播此设备。"
         pinCode = nil
         errorMessage = nil
         serviceID = nil

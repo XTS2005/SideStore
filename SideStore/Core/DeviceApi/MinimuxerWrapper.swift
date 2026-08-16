@@ -253,17 +253,17 @@ extension MinimuxerError {
     public var failureReason: String? {
         switch self {
         case .noDevice:
-            return NSLocalizedString("Cannot fetch the device from the muxer", comment: "")
+            return NSLocalizedString("无法从 muxer 获取设备", comment: "")
         case .noConnection:
-            return NSLocalizedString("You do not appear to be connected to Wi-Fi or a wired network connection! Please connect to a Wi-Fi or wired connection.", comment: "")
+            return NSLocalizedString("你似乎没有连接到 Wi-Fi 或有线网络！请连接到 Wi-Fi 或有线连接。", comment: "")
         case .notReachable(let reason):
             return NSLocalizedString(reason, comment: "")
         case .connectionModeNotConfigured(let reason):
             return NSLocalizedString(reason, comment: "")
         case .noVPN(let reason):
-            return String(format: NSLocalizedString("Unable to connect to the device via %@ VPN. Please make sure LocalDevVPN is enabled and running! Reason: %@", comment: ""), "LocalDev", reason)
+            return String(format: NSLocalizedString("无法通过 %@ VPN 连接到设备。请确保 LocalDevVPN 已启用并正在运行！原因：%@", comment: ""), "LocalDev", reason)
         case .invalidPairing(let proto, let reason):
-            return String(format: NSLocalizedString("Invalid pairing file (%@ protocol): %@. Please use iloader to replace it.", comment: ""), proto.description, reason)
+            return String(format: NSLocalizedString("配对文件无效（%@ 协议）：%@。请使用 iloader 替换它。", comment: ""), proto.description, reason)
         case .createDebug:
             return createService(name: "debug")
         case .lookupApps:
@@ -281,80 +281,80 @@ extension MinimuxerError {
         case .launchSuccess:
             return getFromDevice(name: "launch success")
         case .detach:
-            return NSLocalizedString("Unable to detach from the app's process", comment: "")
+            return NSLocalizedString("无法从应用的进程中分离", comment: "")
         case .attach:
-            return NSLocalizedString("Unable to attach to the app's process", comment: "")
+            return NSLocalizedString("无法附加到应用的进程", comment: "")
         case .createInstproxy:
             return createService(name: "instproxy")
         case .createAfc:
             return createService(name: "AFC")
         case .rwAfc:
-            return NSLocalizedString("AFC was unable to manage files on the device.", comment: "")
+            return NSLocalizedString("AFC 无法管理设备上的文件。", comment: "")
         case .installApp(let message):
-            return NSLocalizedString("Unable to install the app: \(message)", comment: "")
+            return NSLocalizedString("无法安装应用：\(message)", comment: "")
         case .uninstallApp:
-            return NSLocalizedString("Unable to uninstall the app", comment: "")
+            return NSLocalizedString("无法卸载应用", comment: "")
         case .createMisagent:
             return createService(name: "misagent")
         case .profileInstall:
-            return NSLocalizedString("Unable to manage profiles on the device", comment: "")
+            return NSLocalizedString("无法管理设备上的描述文件", comment: "")
         case .profileRemove:
-            return NSLocalizedString("Unable to manage profiles on the device", comment: "")
+            return NSLocalizedString("无法管理设备上的描述文件", comment: "")
         case .createLockdown:
-            return NSLocalizedString("Unable to connect to lockdown", comment: "")
+            return NSLocalizedString("无法连接到 lockdown", comment: "")
         case .createCoreDevice:
-            return NSLocalizedString("Unable to connect to core device proxy", comment: "")
+            return NSLocalizedString("无法连接到核心设备代理", comment: "")
         case .createSoftwareTunnel:
-            return NSLocalizedString("Unable to create software tunnel", comment: "")
+            return NSLocalizedString("无法创建软件隧道", comment: "")
         case .createRemoteServer:
-            return NSLocalizedString("Unable to connect to remote server", comment: "")
+            return NSLocalizedString("无法连接到远程服务器", comment: "")
         case .createProcessControl:
-            return NSLocalizedString("Unable to connect to process control", comment: "")
+            return NSLocalizedString("无法连接到进程控制", comment: "")
         case .getLockdownValue:
-            return NSLocalizedString("Unable to get value from lockdown", comment: "")
+            return NSLocalizedString("无法从 lockdown 获取值", comment: "")
         case .connect:
-            return NSLocalizedString("Unable to connect to TCP port", comment: "")
+            return NSLocalizedString("无法连接到 TCP 端口", comment: "")
         case .close:
-            return NSLocalizedString("Unable to close TCP port", comment: "")
+            return NSLocalizedString("无法关闭 TCP 端口", comment: "")
         case .xpcHandshake:
-            return NSLocalizedString("Unable to get services from XPC", comment: "")
+            return NSLocalizedString("无法从 XPC 获取服务", comment: "")
         case .noService:
-            return NSLocalizedString("Device did not contain service", comment: "")
+            return NSLocalizedString("设备中不包含该服务", comment: "")
         case .invalidProductVersion:
-            return NSLocalizedString("Service version was in an unexpected format", comment: "")
+            return NSLocalizedString("服务版本的格式不符合预期", comment: "")
         case .createFolder:
-            return NSLocalizedString("Unable to create DDI folder", comment: "")
+            return NSLocalizedString("无法创建 DDI 文件夹", comment: "")
         case .downloadImage:
-            return NSLocalizedString("Unable to download DDI", comment: "")
+            return NSLocalizedString("无法下载 DDI", comment: "")
         case .imageLookup:
-            return NSLocalizedString("Unable to lookup DDI images", comment: "")
+            return NSLocalizedString("无法查找 DDI 映像", comment: "")
         case .imageRead:
-            return NSLocalizedString("Unable to read images to memory", comment: "")
+            return NSLocalizedString("无法将映像读取到内存", comment: "")
         case .mount(let proto, let reason):
-            return String(format: NSLocalizedString("Mount failed (%@ protocol): %@", comment: ""), proto.description, reason)
+            return String(format: NSLocalizedString("挂载失败（%@ 协议）：%@", comment: ""), proto.description, reason)
         case .restartAlreadyInProgressError:
-            return NSLocalizedString("Restart already in progress", comment: "")
+            return NSLocalizedString("重启已在进行中", comment: "")
         case .invalidVPN:
-            return NSLocalizedString("Invalid VPN configuration", comment: "")
+            return NSLocalizedString("无效的 VPN 配置", comment: "")
         case .muxerNotListening:
-            return NSLocalizedString("Usbmuxd server is not listening on the device", comment: "")
+            return NSLocalizedString("Usbmuxd 服务器未在设备上监听", comment: "")
         case .notStarted(let reason):
-            return String(format: NSLocalizedString("Minimuxer has not been started: %@", comment: ""), reason)
+            return String(format: NSLocalizedString("Minimuxer 尚未启动：%@", comment: ""), reason)
         case .pairingNotLoaded(let reason):
-            return String(format: NSLocalizedString("No pairing file loaded: %@", comment: ""), reason)
+            return String(format: NSLocalizedString("未加载配对文件：%@", comment: ""), reason)
         }
     }
 
     fileprivate func createService(name: String) -> String {
-        String(format: NSLocalizedString("Cannot start a %@ server on the device.", comment: ""), name)
+        String(format: NSLocalizedString("无法在设备上启动 %@ 服务器。", comment: ""), name)
     }
 
     fileprivate func getFromDevice(name: String) -> String {
-        String(format: NSLocalizedString("Cannot fetch %@ from the device.", comment: ""), name)
+        String(format: NSLocalizedString("无法从设备获取 %@。", comment: ""), name)
     }
 
     fileprivate func setArgument(name: String) -> String {
-        String(format: NSLocalizedString("Cannot set %@ on the device.", comment: ""), name)
+        String(format: NSLocalizedString("无法在设备上设置 %@。", comment: ""), name)
     }
 }
 
@@ -366,11 +366,11 @@ public enum MinimuxerWrapperError: Error, LocalizedError {
     public var errorDescription: String? {
         switch self {
         case .profileInstall:
-            return NSLocalizedString("Unable to manage profiles on the device", comment: "")
+            return NSLocalizedString("无法管理设备上的描述文件", comment: "")
         case .restartAlreadyInProgress:
-            return NSLocalizedString("Restart already in progress", comment: "")
+            return NSLocalizedString("重启已在进行中", comment: "")
         case .pairingFile:
-            return NSLocalizedString("Invalid pairing file. Your pairing file either didn't have a UDID, or it wasn't a valid plist. Please use iloader to replace it.", comment: "")
+            return NSLocalizedString("配对文件无效。你的配对文件要么没有 UDID，要么不是有效的 plist。请使用 iloader 替换它。", comment: "")
         }
     }
 

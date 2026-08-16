@@ -29,11 +29,11 @@ struct SignableCertificateRowView: View {
     
     private var statusText: String? {
         if isAppCert && isActiveGlobal {
-            return "Current App & Active Global"
+            return "当前应用与全局活跃"
         } else if isAppCert {
-            return "Current App"
+            return "当前应用"
         } else if isActiveGlobal {
-            return "Active Global"
+            return "全局活跃"
         }
         return nil
     }
@@ -48,21 +48,21 @@ struct SignableCertificateRowView: View {
                 let certName = cert.name
                 if cert.machineName != nil {
                     (
-                        Text("Name: ").font(.system(size: 10))
+                        Text("名称：").font(.system(size: 10))
                         + Text(certName).font(.system(size: 10))
                     )
                     .foregroundColor(Color(uiColor: .lightGray))
                 }
                 
                 (
-                    Text("Serial: ").font(.system(size: 11))
+                    Text("序列号：").font(.system(size: 11))
                     + Text(cert.serialNumber).font(.system(size: 11, design: .monospaced))
                 )
                 .foregroundColor(Color(uiColor: .lightGray))
                 
                 if let ident = cert.identifier, !ident.isEmpty {
                     (
-                        Text("ID: ").font(.system(size: 10))
+                        Text("ID：").font(.system(size: 10))
                         + Text(ident).font(.system(size: 10, design: .monospaced))
                     )
                     .foregroundColor(Color(uiColor: .lightGray))
@@ -70,13 +70,13 @@ struct SignableCertificateRowView: View {
                 
                 if let brief = briefInfo {
                     (
-                        Text("Type: ").font(.system(size: 10))
+                        Text("类型：").font(.system(size: 10))
                         + Text(brief.type).font(.system(size: 10))
                     )
                     .foregroundColor(Color(uiColor: .lightGray))
                     
                     (
-                        Text("Validity: ").font(.system(size: 10))
+                        Text("有效期：").font(.system(size: 10))
                         + Text("\(brief.validFrom) - \(brief.validUntil)").font(.system(size: 10))
                     )
                     .foregroundColor(Color(uiColor: .lightGray))
@@ -84,21 +84,21 @@ struct SignableCertificateRowView: View {
                 
                 if let req = cert.requesterEmail, !req.isEmpty {
                     (
-                        Text("Requester: ").font(.system(size: 10))
+                        Text("请求者：").font(.system(size: 10))
                         + Text(req).font(.system(size: 10))
                     )
                     .foregroundColor(Color(uiColor: .lightGray))
                 }
                 
                 (
-                    Text("Keys: ").font(.system(size: 10))
-                    + Text("public + private").font(.system(size: 10))
+                    Text("密钥：").font(.system(size: 10))
+                    + Text("公钥 + 私钥").font(.system(size: 10))
                 )
                 .foregroundColor(Color(uiColor: .lightGray))
                 
                 if let status = statusText {
                     (
-                        Text("Status: ").font(.system(size: 10))
+                        Text("状态：").font(.system(size: 10))
                         + Text(status).font(.system(size: 10, weight: .bold))
                     )
                     .foregroundColor(isAppCert ? .green : .cyan)
@@ -137,7 +137,7 @@ final class SignableCertificatesListViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = NSLocalizedString("Set Certificate", comment: "")
+        self.title = NSLocalizedString("设置证书", comment: "")
         self.certificates = viewModel.loadAllSignableLocalCertificates()
         
         self.view.backgroundColor = .settingsBackground
@@ -165,11 +165,11 @@ final class SignableCertificatesListViewController: UITableViewController {
         
         guard !signableCerts.isEmpty else {
             let alert = UIAlertController(
-                title: NSLocalizedString("No Signing Certificates", comment: ""),
-                message: NSLocalizedString("No valid signing certificates with private keys were found locally. Please import or create a certificate in Settings -> Certificates first.", comment: ""),
+                title: NSLocalizedString("没有签名证书", comment: ""),
+                message: NSLocalizedString("本地未找到带有私钥的有效签名证书。请先在“设置 -> 证书”中导入或创建证书。", comment: ""),
                 preferredStyle: .alert
             )
-            alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: ""), style: .default))
+            alert.addAction(UIAlertAction(title: NSLocalizedString("确定", comment: ""), style: .default))
             presentingViewController.present(alert, animated: true)
             return
         }
@@ -202,20 +202,20 @@ final class SignableCertificatesListViewController: UITableViewController {
             .background(Color.white.opacity(0.15))
         } else {
             let certName = cert.name
-            let machineName = cert.machineName ?? "N/A"
+            let machineName = cert.machineName ?? "不适用"
             let brief = getBriefInfo(for: cert.data)
-            let typeStr = brief?.type ?? "N/A"
-            let validityStr = brief != nil ? "\(brief!.validFrom) - \(brief!.validUntil)" : "N/A"
+            let typeStr = brief?.type ?? "不适用"
+            let validityStr = brief != nil ? "\(brief!.validFrom) - \(brief!.validUntil)" : "不适用"
             
             cell.textLabel?.numberOfLines = 0
             cell.textLabel?.text = """
-            \(certName) [Machine: \(machineName)]\(isCurrent ? " (Current)" : "")
-            Serial: \(cert.serialNumber)
-            ID: \(cert.identifier ?? "N/A")
-            Type: \(typeStr)
-            Validity: \(validityStr)
-            Requester: \(cert.requesterEmail ?? "N/A")
-            Keys: public + private
+            \(certName) [机器：\(machineName)]\(isCurrent ? "（当前）" : "")
+            序列号：\(cert.serialNumber)
+            ID：\(cert.identifier ?? "不适用")
+            类型：\(typeStr)
+            有效期：\(validityStr)
+            请求者：\(cert.requesterEmail ?? "不适用")
+            密钥：公钥 + 私钥
             """
             cell.textLabel?.textColor = .white
             cell.textLabel?.font = .systemFont(ofSize: 12, weight: .regular)
@@ -233,18 +233,18 @@ final class SignableCertificatesListViewController: UITableViewController {
         
         let contentVC = SetCertificateAlertViewController(installedApp: self.installedApp, certificate: cert.x509)
         let confirmAlert = UIAlertController(
-            title: NSLocalizedString("Set Certificate Confirmation", comment: ""),
-            message: NSLocalizedString("Confirm applying this certificate:", comment: ""),
+            title: NSLocalizedString("设置证书确认", comment: ""),
+            message: NSLocalizedString("确认应用此证书：", comment: ""),
             preferredStyle: .alert
         )
         confirmAlert.setValue(contentVC, forKey: "contentViewController")
         
-        let setAction = UIAlertAction(title: NSLocalizedString("Set & Resign", comment: ""), style: .default) { [weak self] _ in
+        let setAction = UIAlertAction(title: NSLocalizedString("设置并重新签名", comment: ""), style: .default) { [weak self] _ in
             self?.dismiss(animated: true) {
                 self?.onSelectCertificate?(cert)
             }
         }
-        let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel)
+        let cancelAction = UIAlertAction(title: NSLocalizedString("取消", comment: ""), style: .cancel)
         
         confirmAlert.addAction(cancelAction)
         confirmAlert.addAction(setAction)

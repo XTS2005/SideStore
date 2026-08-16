@@ -318,7 +318,7 @@ public class StoreApp: BaseEntity, Decodable
             if let tintColorHex = try container.decodeIfPresent(String.self, forKey: .tintColor)
             {
                 guard let tintColor = UIColor(hexString: tintColorHex) else {
-                    throw DecodingError.dataCorruptedError(forKey: .tintColor, in: container, debugDescription: "Hex code is invalid.")
+                    throw DecodingError.dataCorruptedError(forKey: .tintColor, in: container, debugDescription: "十六进制颜色代码无效。")
                 }
                 
                 self.tintColor = tintColor
@@ -390,7 +390,7 @@ public class StoreApp: BaseEntity, Decodable
                 if let first = platformURLs.sorted().first {
                     self.downloadURL = first.downloadURL
                 } else {
-                    throw DecodingError.dataCorruptedError(forKey: .platformURLs, in: container, debugDescription: "platformURLs has no entries")
+                    throw DecodingError.dataCorruptedError(forKey: .platformURLs, in: container, debugDescription: "platformURLs 中没有条目")
 
                 }
             } else if let downloadURL = try container.decodeIfPresent(URL.self, forKey: .downloadURL) {
@@ -399,7 +399,7 @@ public class StoreApp: BaseEntity, Decodable
                 // capture it first coz field might still be faulted by coredata
                 guard let _ = self.downloadURL else
                 {
-                    let error = DecodingError.dataCorruptedError(forKey: .downloadURL, in: container, debugDescription: "E downloadURL:String or downloadURLs:[[Platform:URL]] key required.")
+                    let error = DecodingError.dataCorruptedError(forKey: .downloadURL, in: container, debugDescription: "需要 downloadURL:String 或 downloadURLs:[[Platform:URL]] 键。")
                     throw error
                 }
             }
@@ -487,7 +487,7 @@ public class StoreApp: BaseEntity, Decodable
                 // Marketplace apps must provide build version.
                 guard version.buildVersion != nil else {
                     let codingPath = container.codingPath + [CodingKeys.versions as CodingKey] + [IndexCodingKey(intValue: index) as CodingKey]
-                    let context = DecodingError.Context(codingPath: codingPath, debugDescription: "Notarized apps must provide a build version.")
+                    let context = DecodingError.Context(codingPath: codingPath, debugDescription: "经过公证的应用必须提供构建版本。")
                     throw DecodingError.keyNotFound(AppVersion.CodingKeys.buildVersion, context)
                 }
             }
@@ -696,7 +696,7 @@ public extension StoreApp
         app.name = "SideStore"
         app.bundleIdentifier = placeholderBundleId
         app.developerName = "Side Team"
-        app.localizedDescription = "SideStore is an alternative App Store."
+        app.localizedDescription = "SideStore 是一个替代 App Store。"
         app.iconURL = sideStoreAppIconURL        
         app.screenshotURLs = []
         app.sourceIdentifier = placeholderSourceID

@@ -48,7 +48,7 @@ class SignOutAlertViewController: UIViewController {
         certCheckboxButton.addTarget(self, action: #selector(toggleCertCheckbox), for: .touchUpInside)
         
         let certLabel = UILabel()
-        certLabel.text = NSLocalizedString("Keep signing certificate", comment: "")
+        certLabel.text = NSLocalizedString("保留签名证书", comment: "")
         certLabel.font = .systemFont(ofSize: 14)
         certLabel.isUserInteractionEnabled = true
         let certTap = UITapGestureRecognizer(target: self, action: #selector(toggleCertCheckbox))
@@ -70,7 +70,7 @@ class SignOutAlertViewController: UIViewController {
         anisetteCheckboxButton.addTarget(self, action: #selector(toggleAnisetteCheckbox), for: .touchUpInside)
         
         let anisetteLabel = UILabel()
-        anisetteLabel.text = NSLocalizedString("Keep Anisette data", comment: "")
+        anisetteLabel.text = NSLocalizedString("保留 Anisette 数据", comment: "")
         anisetteLabel.font = .systemFont(ofSize: 14)
         anisetteLabel.isUserInteractionEnabled = true
         let anisetteTap = UITapGestureRecognizer(target: self, action: #selector(toggleAnisetteCheckbox))

@@ -21,15 +21,15 @@ public enum OCSPValidationError: Error, LocalizedError {
     public var errorDescription: String? {
         switch self {
         case .expired:
-            return "The certificate has expired."
+            return "证书已过期。"
         case .revoked:
-            return "The certificate was revoked by Apple."
+            return "该证书已被 Apple 撤销。"
         case .invalidCertificate:
-            return "Failed to parse the certificate data."
+            return "无法解析证书数据。"
         case .missingIntermediateCertificate:
-            return "Failed to fetch Apple WWDR intermediate certificate."
+            return "无法获取 Apple WWDR 中间证书。"
         case .ocspServerError(let message):
-            return "OCSP server error: \(message)"
+            return "OCSP 服务器错误：\(message)"
         }
     }
 }
@@ -155,16 +155,16 @@ public struct OCSPValidator {
     public static func fetchDirectLiveOCSPStatus(cert: SecCertificate, issuerCert: SecCertificate) async -> OCSPLiveStatus {
         guard let certData = SecCertificateCopyData(cert) as Data?,
               let issuerCertData = SecCertificateCopyData(issuerCert) as Data? else {
-            return .error("Failed to copy cert data")
+            return .error("无法复制证书数据")
         }
         
         guard let serialData = SecCertificateCopySerialNumberData(cert, nil) as Data? else {
-            return .error("Failed to copy serial number")
+            return .error("无法复制序列号")
         }
         
         guard let issuerSubjectDER = extractSubjectNameDER(from: issuerCertData),
               let issuerPublicKeyDER = extractPublicKeyDER(from: issuerCertData) else {
-            return .error("Failed to extract Subject or Public Key DER")
+            return .error("无法提取主题或公钥 DER")
         }
         
         let issuerNameHash = sha1(issuerSubjectDER)
@@ -186,7 +186,7 @@ public struct OCSPValidator {
         
         let ocspURLString = extractOCSPURL(from: certData) ?? "http://ocsp.apple.com/ocsp03-wwdrg303"
         guard let ocspURL = URL(string: ocspURLString) else {
-            return .error("Invalid OCSP URL: \(ocspURLString)")
+            return .error("无效的 OCSP URL：\(ocspURLString)")
         }
         
         var httpRequest = URLRequest(url: ocspURL)
@@ -200,12 +200,12 @@ public struct OCSPValidator {
         do {
             let (data, response) = try await URLSession.shared.data(for: httpRequest)
             guard let httpResp = response as? HTTPURLResponse, httpResp.statusCode == 200 else {
-                return .error("HTTP Status \((response as? HTTPURLResponse)?.statusCode ?? -1)")
+                return .error("HTTP 状态 \((response as? HTTPURLResponse)?.statusCode ?? -1)")
             }
             
             return parseOCSPResponse(data)
         } catch {
-            return .error("Network error: \(error.localizedDescription)")
+            return .error("网络错误：\(error.localizedDescription)")
         }
     }
     
@@ -332,16 +332,16 @@ public struct OCSPValidator {
     private static func parseOCSPResponse(_ data: Data) -> OCSPLiveStatus {
         let bytes = Array(data)
         guard bytes.count > 5 && bytes[0] == 0x30 else {
-            return .error("Invalid OCSP response DER")
+            return .error("无效的 OCSP 响应 DER")
         }
         
         let offset = getDERHeaderLength(bytes, start: 0)
         guard bytes[offset] == 0x0A && bytes[offset+1] == 0x01 else {
-            return .error("Invalid OCSP responseStatus tag")
+            return .error("无效的 OCSP responseStatus 标记")
         }
         let responseStatus = bytes[offset+2]
         if responseStatus != 0 {
-            return .error("OCSP Response Status code: \(responseStatus)")
+            return .error("OCSP 响应状态码：\(responseStatus)")
         }
         
         for i in 0..<(bytes.count - 3) {

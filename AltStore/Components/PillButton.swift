@@ -279,14 +279,14 @@ extension PillButton {
             self.tintColor = .refreshRed
             self.borderColor = nil
             self.borderWidth = 0
-            self.setTitle(NSLocalizedString("REVOKED", comment: ""), for: .normal)
+            self.setTitle(NSLocalizedString("已撤销", comment: ""), for: .normal)
             
         case .expired:
             self.countdownDate = nil
             self.tintColor = .refreshRed
             self.borderColor = nil
             self.borderWidth = 0
-            self.setTitle(NSLocalizedString("EXPIRED", comment: ""), for: .normal)
+            self.setTitle(NSLocalizedString("已过期", comment: ""), for: .normal)
             
         case .active(let title, let daysRemaining):
             self.setTitle(title.uppercased(), for: .normal)
@@ -404,7 +404,7 @@ private extension PillButton
             self.dateComponentsFormatter.allowedUnits = [.day]
             
             let numberOfDays = endDate.numberOfCalendarDays(since: startDate)
-            text = String(format: NSLocalizedString("%@ DAYS", comment: ""), NSNumber(value: numberOfDays))
+            text = String(format: NSLocalizedString("%@ 天", comment: ""), NSNumber(value: numberOfDays))
         }
         
         if let text = text

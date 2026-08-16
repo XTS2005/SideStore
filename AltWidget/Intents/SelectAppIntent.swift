@@ -15,7 +15,7 @@ import WidgetKit
 struct InstalledAppEntity: AppEntity
 {
     // Disambiguates from the AppEntity name used in AppIntents framework.
-    static var typeDisplayRepresentation: TypeDisplayRepresentation = "Installed App"
+    static var typeDisplayRepresentation: TypeDisplayRepresentation = "已安装应用"
     static var defaultQuery = InstalledAppQuery()
 
     var id: String // bundle identifier
@@ -51,10 +51,10 @@ struct InstalledAppQuery: EntityQuery
 @available(iOS 17.0, *)
 struct SelectAppIntent: WidgetConfigurationIntent
 {
-    static var title: LocalizedStringResource = "Select App"
-    static var description = IntentDescription("Choose which app to display.")
+    static var title: LocalizedStringResource = "选择应用"
+    static var description = IntentDescription("选择要显示的应用。")
 
-    @Parameter(title: "App")
+    @Parameter(title: "应用")
     var app: InstalledAppEntity?
 
     // WidgetConfigurationIntent requires perform() — no-op for configuration intents.

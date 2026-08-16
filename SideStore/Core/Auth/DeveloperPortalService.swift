@@ -22,21 +22,21 @@ enum DeveloperPortalError: LocalizedError {
     var errorDescription: String? {
         switch self {
         case .missingAccount:
-            return NSLocalizedString("Authentication failed: Account was nil after authentication.", comment: "")
+            return NSLocalizedString("身份验证失败：验证后账户为空。", comment: "")
         case .missingSession:
-            return NSLocalizedString("Authentication failed: Session was nil after authentication.", comment: "")
+            return NSLocalizedString("身份验证失败：验证后会话为空。", comment: "")
         case .noTeams(let appleID):
-            return String(format: NSLocalizedString("Failed to fetch teams: No developer teams were returned for account '%@'.", comment: ""), appleID)
+            return String(format: NSLocalizedString("获取团队失败：账户“%@”未返回任何开发者团队。", comment: ""), appleID)
         case .noCertificates(let teamName):
-            return String(format: NSLocalizedString("Failed to fetch certificates: Response contained no certificates for team '%@'.", comment: ""), teamName)
+            return String(format: NSLocalizedString("获取证书失败：团队“%@”的响应中不包含任何证书。", comment: ""), teamName)
         case .missingCertificate(let machineName):
-            return String(format: NSLocalizedString("Failed to create certificate: Certificate response was nil for machine '%@'.", comment: ""), machineName)
+            return String(format: NSLocalizedString("创建证书失败：机器“%@”的证书响应为空。", comment: ""), machineName)
         case .revocationFailed(let serialNumber):
-            return String(format: NSLocalizedString("Failed to revoke certificate '%@': Revocation failed.", comment: ""), serialNumber)
+            return String(format: NSLocalizedString("撤销证书“%@”失败：撤销失败。", comment: ""), serialNumber)
         case .noDevices(let teamName):
-            return String(format: NSLocalizedString("Failed to fetch devices: No devices returned for team '%@'.", comment: ""), teamName)
+            return String(format: NSLocalizedString("获取设备失败：团队“%@”未返回任何设备。", comment: ""), teamName)
         case .deviceRegistrationFailed(let name, let identifier):
-            return String(format: NSLocalizedString("Failed to register device '%@' (%@): Device response was nil.", comment: ""), name, identifier)
+            return String(format: NSLocalizedString("注册设备“%@”（%@）失败：设备响应为空。", comment: ""), name, identifier)
         }
     }
 }

@@ -166,7 +166,7 @@ public actor AnisetteServersManager {
                 }
             }
         } else {
-            throw NSError(domain: "AnisetteServersManager", code: -1, userInfo: [NSLocalizedDescriptionKey: "Invalid JSON format in imported file."])
+            throw NSError(domain: "AnisetteServersManager", code: -1, userInfo: [NSLocalizedDescriptionKey: "导入的文件中 JSON 格式无效。"])
         }
 
         let importedItems = parsedServers.map { AnisetteServerItem(name: $0.name, address: $0.address, isHidden: false) }
@@ -222,7 +222,7 @@ public actor AnisetteServersManager {
         if isOfflineMode {
             guard FileManager.default.fileExists(atPath: rawImportedBackupFileURL.path),
                   let data = try? Data(contentsOf: rawImportedBackupFileURL) else {
-                throw NSError(domain: "AnisetteServersManager", code: -1, userInfo: [NSLocalizedDescriptionKey: "No raw imported backup found to reset."])
+                throw NSError(domain: "AnisetteServersManager", code: -1, userInfo: [NSLocalizedDescriptionKey: "未找到可重置的原始导入备份。"])
             }
 
             let decoder = Foundation.JSONDecoder()
@@ -285,7 +285,7 @@ public actor AnisetteServersManager {
             let statusCode = (response as? HTTPURLResponse)?.statusCode ?? -1
             let statusName = HTTPURLResponse.localizedString(forStatusCode: statusCode).capitalized
             debugLog("[AnisetteServersManager] Remote fetch failed for URL '\(serverSource)' | Status: HTTP \(statusCode) (\(statusName))")
-            throw NSError(domain: "AnisetteServersManager", code: statusCode, userInfo: [NSLocalizedDescriptionKey: "Request failed with HTTP status \(statusCode)."])
+            throw NSError(domain: "AnisetteServersManager", code: statusCode, userInfo: [NSLocalizedDescriptionKey: "请求失败，HTTP 状态码 \(statusCode)。"])
         }
 
         let decoder = Foundation.JSONDecoder()
@@ -307,7 +307,7 @@ public actor AnisetteServersManager {
                 }
             }
         } else {
-            throw NSError(domain: "AnisetteServersManager", code: -1, userInfo: [NSLocalizedDescriptionKey: "Invalid JSON format returned from '\(serverSource)'."])
+            throw NSError(domain: "AnisetteServersManager", code: -1, userInfo: [NSLocalizedDescriptionKey: "来自“\(serverSource)”的返回数据 JSON 格式无效。"])
         }
 
         return aniServers

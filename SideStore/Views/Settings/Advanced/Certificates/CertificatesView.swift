@@ -85,7 +85,7 @@ struct CertificatesView: View {
                     }
                 }
             }
-            .navigationTitle("Certificates")
+            .navigationTitle("证书")
             .toolbar {
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
                     SwiftUI.Button {
@@ -93,7 +93,7 @@ struct CertificatesView: View {
                     } label: {
                         Image(systemName: viewModel.isGlobalHideActive ? "eye.slash" : "eye")
                     }
-                    .accessibilityLabel("Toggle Hide Sensitive Information")
+                    .accessibilityLabel("切换隐藏敏感信息")
                     
                     SwiftUI.Button {
                         newMachineName = "SideStore - \(UIDevice.current.name)"
@@ -101,7 +101,7 @@ struct CertificatesView: View {
                     } label: {
                         Image(systemName: "plus")
                     }
-                    .accessibilityLabel("Create Certificate")
+                    .accessibilityLabel("创建证书")
                     .disabled(viewModel.team == nil)
                     
                     SwiftUI.Button {
@@ -110,7 +110,7 @@ struct CertificatesView: View {
                     } label: {
                         Image(systemName: "square.and.arrow.down")
                     }
-                    .accessibilityLabel("Import Certificates")
+                    .accessibilityLabel("导入证书")
                 }
             }
             .onAppear {
@@ -121,56 +121,56 @@ struct CertificatesView: View {
             
             if viewModel.isLoading { LoadingOverlay() }
         }
-        .alert("Error", isPresented: $viewModel.showErrorAlert) {
-            SwiftUI.Button("OK", role: .cancel) { viewModel.errorMessage = nil }
+        .alert("错误", isPresented: $viewModel.showErrorAlert) {
+            SwiftUI.Button("确定", role: .cancel) { viewModel.errorMessage = nil }
         } message: {
-            Text(viewModel.errorMessage ?? "An unknown error occurred.")
+            Text(viewModel.errorMessage ?? "发生未知错误。")
         }
-        .alert("New Certificate", isPresented: $showCreateDialog) {
-            TextField("Machine Name", text: $newMachineName)
-            SwiftUI.Button("Create") {
+        .alert("新证书", isPresented: $showCreateDialog) {
+            TextField("机器名称", text: $newMachineName)
+            SwiftUI.Button("创建") {
                 viewModel.createCertificate(machineName: newMachineName, presentingViewController: presentingViewController)
             }
-            SwiftUI.Button("Cancel", role: .cancel) {}
+            SwiftUI.Button("取消", role: .cancel) {}
         } message: {
-            Text("Enter a name for the new certificate. This will create a new certificate on Apple's servers and store the private key locally.")
+            Text("为新证书输入名称。这将在 Apple 的服务器上创建新证书，并将私钥存储在本地。")
         }
-        .alert("Deactivate Certificate", isPresented: $showDeactivateConfirmation) {
-            SwiftUI.Button("Deactivate", role: .destructive) { viewModel.deactivateActiveCertificate() }
-            SwiftUI.Button("Cancel", role: .cancel) {}
+        .alert("停用证书", isPresented: $showDeactivateConfirmation) {
+            SwiftUI.Button("停用", role: .destructive) { viewModel.deactivateActiveCertificate() }
+            SwiftUI.Button("取消", role: .cancel) {}
         } message: {
-            Text("Are you sure you want to deactivate the active signing certificate locally?")
+            Text("你确定要在本地停用当前的签名证书吗？")
         }
-        .alert("Delete Certificate", isPresented: $showDeleteConfirmation) {
-            SwiftUI.Button("Delete", role: .destructive) {
+        .alert("删除证书", isPresented: $showDeleteConfirmation) {
+            SwiftUI.Button("删除", role: .destructive) {
                 if let cert = certificateToDelete { viewModel.deleteCertificate(cert) }
             }
-            SwiftUI.Button("Cancel", role: .cancel) {}
+            SwiftUI.Button("取消", role: .cancel) {}
         } message: {
-            Text("Are you sure you want to delete this certificate locally? This will remove it from the cached local store.")
+            Text("你确定要在本地删除此证书吗？这将把它从本地缓存存储中移除。")
         }
-        .alert("Import Certificate Password", isPresented: $viewModel.showPasswordPromptForImport) {
-            SecureField("Password", text: $viewModel.importPasswordInput)
-            SwiftUI.Button("Import") { viewModel.submitImportPassword() }
-            SwiftUI.Button("Cancel", role: .cancel) { viewModel.cancelImport() }
+        .alert("导入证书密码", isPresented: $viewModel.showPasswordPromptForImport) {
+            SecureField("密码", text: $viewModel.importPasswordInput)
+            SwiftUI.Button("导入") { viewModel.submitImportPassword() }
+            SwiftUI.Button("取消", role: .cancel) { viewModel.cancelImport() }
         } message: {
-            Text("Enter the password to decrypt the imported certificate file.\n\nFile: \(viewModel.currentImportFilename)")
+            Text("输入密码以解密导入的证书文件。\n\n文件：\(viewModel.currentImportFilename)")
         }
-        .alert("Success", isPresented: $viewModel.showAlert) {
-            SwiftUI.Button("OK", role: .cancel) { viewModel.alertMessage = nil }
+        .alert("成功", isPresented: $viewModel.showAlert) {
+            SwiftUI.Button("确定", role: .cancel) { viewModel.alertMessage = nil }
         } message: {
             Text(viewModel.alertMessage ?? "")
         }
-        .alert("Import Summary", isPresented: $viewModel.showImportSummary) {
+        .alert("导入摘要", isPresented: $viewModel.showImportSummary) {
             if viewModel.importFailedCount > 0 {
-                SwiftUI.Button("Show Failed") {
+                SwiftUI.Button("显示失败项") {
                     DispatchQueue.main.async {
                         viewModel.showFailuresAlert = true
                     }
                 }
-                SwiftUI.Button("OK", role: .cancel) {}
+                SwiftUI.Button("确定", role: .cancel) {}
             } else {
-                SwiftUI.Button("OK", role: .cancel) {}
+                SwiftUI.Button("确定", role: .cancel) {}
             }
         } message: {
             Text(viewModel.importSummaryMessage)
@@ -184,39 +184,39 @@ struct CertificatesView: View {
                             .foregroundColor(.red)
                     }
                 }
-                .navigationTitle("Import Failures")
+                .navigationTitle("导入失败")
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbar {
                     ToolbarItem(placement: .navigationBarTrailing) {
-                        SwiftUI.Button("Done") {
+                        SwiftUI.Button("完成") {
                             viewModel.showFailuresAlert = false
                         }
                     }
                 }
             }
         }
-        .alert("Export Certificate Password", isPresented: $showExportPasswordPrompt) {
-            SecureField("Password", text: $exportPasswordInput)
-            SwiftUI.Button("Export") {
+        .alert("导出证书密码", isPresented: $showExportPasswordPrompt) {
+            SecureField("密码", text: $exportPasswordInput)
+            SwiftUI.Button("导出") {
                 if let cert = certificateToExport, let signable = viewModel.getSignableCertificate(for: cert.serialNumber) {
                     CertificateExporter.shareP12(signable, password: exportPasswordInput) { viewModel.errorMessage = $0 }
                 }
             }
-            SwiftUI.Button("Cancel", role: .cancel) {}
+            SwiftUI.Button("取消", role: .cancel) {}
         } message: {
-            Text("Set a password to encrypt the exported .p12 certificate file.")
+            Text("设置一个密码以加密导出的 .p12 证书文件。")
         }
-        .alert("Clear Private Key", isPresented: $showClearKeyConfirmation) {
+        .alert("清除私钥", isPresented: $showClearKeyConfirmation) {
             if let cert = certificateToClearKeyFor {
-                SwiftUI.Button("Clear Key", role: .destructive) {
+                SwiftUI.Button("清除密钥", role: .destructive) {
                     viewModel.clearPrivateKey(for: cert)
                     certificateToClearKeyFor = nil
                 }
             }
-            SwiftUI.Button("Cancel", role: .cancel) { certificateToClearKeyFor = nil }
+            SwiftUI.Button("取消", role: .cancel) { certificateToClearKeyFor = nil }
         } message: {
             if let cert = certificateToClearKeyFor {
-                Text("This will clear the locally stored private key of this certificate.\n\nName: \(cert.name)\nS/N: \(cert.serialNumber)")
+                Text("这将清除此证书在本地存储的私钥。\n\n名称：\(cert.name)\nS/N：\(cert.serialNumber)")
             }
         }
         .fileImporter(
@@ -236,13 +236,13 @@ struct CertificatesView: View {
                         do {
                             viewModel.importPrivateKey(data: try Data(contentsOf: url), for: cert)
                         } catch {
-                            viewModel.errorMessage = "Failed to read private key: " + error.localizedDescription
+                            viewModel.errorMessage = "读取私钥失败：" + error.localizedDescription
                         }
                     }
                 }
             case .failure(let error):
-                let type = fileImportMode == .certificate ? "files" : "private key"
-                viewModel.errorMessage = "Failed to select \(type): " + error.localizedDescription
+                let type = fileImportMode == .certificate ? "文件" : "私钥"
+                viewModel.errorMessage = "选择\(type)失败：" + error.localizedDescription
             }
         }
         .sheet(item: $keyTextImportItem) { item in
@@ -278,15 +278,15 @@ struct CertificatesView: View {
         let contentVC = RevokeAlertViewController()
         
         let alertController = UIAlertController(
-            title: NSLocalizedString("Revoke Certificate", comment: ""),
-            message: NSLocalizedString("Are you sure you want to revoke this certificate? This will permanently delete the certificate on Apple's servers.", comment: ""),
+            title: NSLocalizedString("撤销证书", comment: ""),
+            message: NSLocalizedString("你确定要撤销此证书吗？这将永久删除 Apple 服务器上的证书。", comment: ""),
             preferredStyle: .alert
         )
         
         alertController.setValue(contentVC, forKey: "contentViewController")
         
-        let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel, handler: nil)
-        let revokeAction = UIAlertAction(title: NSLocalizedString("Revoke", comment: ""), style: .destructive) { _ in
+        let cancelAction = UIAlertAction(title: NSLocalizedString("取消", comment: ""), style: .cancel, handler: nil)
+        let revokeAction = UIAlertAction(title: NSLocalizedString("撤销", comment: ""), style: .destructive) { _ in
             let keepLocal = contentVC.isKeepLocalChecked
             viewModel.revokeCertificate(cert, keepLocal: keepLocal, presentingViewController: presentingViewController)
         }

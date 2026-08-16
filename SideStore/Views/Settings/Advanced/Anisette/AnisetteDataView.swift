@@ -77,12 +77,12 @@ class AnisetteDataViewModel: ObservableObject {
         )
         await AnisetteConfigManager.shared.saveConfig(config)
         updateRawEditableJSON()
-        showToast(text: "Saved configuration successfully.")
+        showToast(text: "配置保存成功。")
     }
     
     func saveRawJSON() async {
         guard let data = rawEditableJSON.data(using: .utf8) else {
-            showToast(text: "Encoding Failed", detailText: "Unable to encode JSON as UTF-8.")
+            showToast(text: "编码失败", detailText: "无法将 JSON 编码为 UTF-8。")
             return
         }
         
@@ -97,9 +97,9 @@ class AnisetteDataViewModel: ObservableObject {
             customTimeZone = config.customTimeZone ?? ""
             
             await AnisetteConfigManager.shared.saveConfig(config)
-            showToast(text: "JSON configuration saved successfully!")
+            showToast(text: "JSON 配置保存成功！")
         } catch {
-            showToast(text: "Invalid JSON Structure", error: error)
+            showToast(text: "JSON 结构无效", error: error)
         }
     }
     
@@ -113,7 +113,7 @@ class AnisetteDataViewModel: ObservableObject {
         customTimeZone = ""
         updateRawEditableJSON()
         await save()
-        showToast(text: "Reset to default configuration.")
+        showToast(text: "已重置为默认配置。")
     }
     
     func importJSON(url: URL) async {
@@ -136,9 +136,9 @@ class AnisetteDataViewModel: ObservableObject {
             customLocale = config.customLocale ?? ""
             customTimeZone = config.customTimeZone ?? ""
             updateRawEditableJSON()
-            showToast(text: "Imported successfully", detailText: url.lastPathComponent)
+            showToast(text: "导入成功", detailText: url.lastPathComponent)
         } catch {
-            showToast(text: "Import Failed", error: error)
+            showToast(text: "导入失败", error: error)
         }
     }
     
@@ -149,7 +149,7 @@ class AnisetteDataViewModel: ObservableObject {
             try data.write(to: tempURL, options: .atomic)
             return tempURL
         } catch {
-            showToast(text: "Export Failed", error: error)
+            showToast(text: "导出失败", error: error)
             return nil
         }
     }
@@ -161,7 +161,7 @@ class AnisetteDataViewModel: ObservableObject {
         do {
             let activeServer = UserDefaults.standard.menuAnisetteURL
             guard !activeServer.isEmpty, let url = URL(string: activeServer) else {
-                throw NSError(domain: "AnisetteDataViewModel", code: -1, userInfo: [NSLocalizedDescriptionKey: "No active anisette server URL configured."])
+                throw NSError(domain: "AnisetteDataViewModel", code: -1, userInfo: [NSLocalizedDescriptionKey: "未配置有效的 anisette 服务器 URL。"])
             }
             
             let clientInfoURL = url.appendingPathComponent("v3").appendingPathComponent("client_info")
@@ -170,7 +170,7 @@ class AnisetteDataViewModel: ObservableObject {
             
             let (data, _) = try await URLSession.shared.data(for: request)
             guard let json = try JSONSerialization.jsonObject(with: data) as? [String: String] else {
-                throw NSError(domain: "AnisetteDataViewModel", code: -2, userInfo: [NSLocalizedDescriptionKey: "Server response is not a valid JSON."])
+                throw NSError(domain: "AnisetteDataViewModel", code: -2, userInfo: [NSLocalizedDescriptionKey: "服务器响应不是有效的 JSON。"])
             }
             
             // Save the server returned headers
@@ -183,16 +183,16 @@ class AnisetteDataViewModel: ObservableObject {
                 serverReturnedHeadersJSON = str
             }
             
-            showToast(text: "Fetched server config!", detailText: url.host)
+            showToast(text: "已获取服务器配置！", detailText: url.host)
         } catch {
-            showToast(text: "Fetch Failed", error: error)
+            showToast(text: "获取失败", error: error)
         }
     }
     
     func loadServerHeadersIntoOverrides() async {
         let serverHeaders = await AnisetteConfigManager.shared.loadServerHeaders()
         guard !serverHeaders.isEmpty else {
-            showToast(text: "No fetched headers found", detailText: "Fetch from server first.")
+            showToast(text: "未找到获取的标头", detailText: "请先从服务器获取。")
             return
         }
         
@@ -227,7 +227,7 @@ class AnisetteDataViewModel: ObservableObject {
         
         // Save and update
         await save()
-        showToast(text: "Loaded fetched data into overrides!")
+        showToast(text: "已将获取的数据加载到覆盖项中！")
     }
     
     func showToast(text: String, detailText: String? = nil, error: Error? = nil) {
@@ -256,9 +256,9 @@ struct AnisetteDataView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            Picker("View Mode", selection: $viewModel.viewMode) {
-                Text("Interactive").tag(0)
-                Text("Raw JSON").tag(1)
+            Picker("视图模式", selection: $viewModel.viewMode) {
+                Text("交互式").tag(0)
+                Text("原始 JSON").tag(1)
             }
             .pickerStyle(.segmented)
             .padding()
@@ -269,9 +269,9 @@ struct AnisetteDataView: View {
                 Section {
                     Toggle(isOn: $viewModel.isOfflineMode) {
                         VStack(alignment: .leading, spacing: 4) {
-                            Text("Use Offline Config File")
+                            Text("使用离线配置文件")
                                 .font(.body)
-                            Text("Bypasses fetching client info from servers")
+                            Text("跳过从服务器获取客户端信息")
                                 .font(.caption)
                                 .foregroundColor(.secondary)
                         }
@@ -282,16 +282,16 @@ struct AnisetteDataView: View {
                         }
                     }
                 } header: {
-                    Text("Operational Mode")
+                    Text("运行模式")
                 } footer: {
-                    Text("When enabled, SideStore uses the locally saved JSON configuration parameters for all authentication headers without making client_info requests to servers.")
+                    Text("启用后，SideStore 将使用本地保存的 JSON 配置参数生成所有身份验证标头，而不会向服务器发起 client_info 请求。")
                 }
                 
                 if viewModel.viewMode == 0 {
                     // SECTION 2: INTERACTIVE CUSTOMIZATION
                     Section {
                         VStack(alignment: .leading, spacing: 6) {
-                            Text("Client Info (X-Mme-Client-Info)")
+                            Text("客户端信息（X-Mme-Client-Info）")
                                 .font(.caption.weight(.semibold))
                                 .foregroundColor(.secondary)
                             
@@ -305,7 +305,7 @@ struct AnisetteDataView: View {
                         .padding(.vertical, 4)
                         
                         VStack(alignment: .leading, spacing: 6) {
-                            Text("User Agent")
+                            Text("用户代理")
                                 .font(.caption.weight(.semibold))
                                 .foregroundColor(.secondary)
                             
@@ -319,11 +319,11 @@ struct AnisetteDataView: View {
                         .padding(.vertical, 4)
                         
                         VStack(alignment: .leading, spacing: 6) {
-                            Text("Device ID Override (Optional)")
+                            Text("设备 ID 覆盖（可选）")
                                 .font(.caption.weight(.semibold))
                                 .foregroundColor(.secondary)
                             
-                            TextField("System Generated", text: $viewModel.customDeviceID)
+                            TextField("系统生成", text: $viewModel.customDeviceID)
                                 .font(.system(.caption, design: .monospaced))
                                 .autocapitalization(.none)
                                 .disableAutocorrection(true)
@@ -334,11 +334,11 @@ struct AnisetteDataView: View {
                         .padding(.vertical, 4)
                         
                         VStack(alignment: .leading, spacing: 6) {
-                            Text("Local User ID Override (Optional)")
+                            Text("本地用户 ID 覆盖（可选）")
                                 .font(.caption.weight(.semibold))
                                 .foregroundColor(.secondary)
                             
-                            TextField("System Generated", text: $viewModel.customLocalUserID)
+                            TextField("系统生成", text: $viewModel.customLocalUserID)
                                 .font(.system(.caption, design: .monospaced))
                                 .autocapitalization(.none)
                                 .disableAutocorrection(true)
@@ -349,11 +349,11 @@ struct AnisetteDataView: View {
                         .padding(.vertical, 4)
                         
                         VStack(alignment: .leading, spacing: 6) {
-                            Text("Locale Override (Optional)")
+                            Text("区域设置覆盖（可选）")
                                 .font(.caption.weight(.semibold))
                                 .foregroundColor(.secondary)
                             
-                            TextField("e.g. en_US", text: $viewModel.customLocale)
+                            TextField("例如 en_US", text: $viewModel.customLocale)
                                 .font(.system(.caption, design: .monospaced))
                                 .autocapitalization(.none)
                                 .disableAutocorrection(true)
@@ -364,11 +364,11 @@ struct AnisetteDataView: View {
                         .padding(.vertical, 4)
                         
                         VStack(alignment: .leading, spacing: 6) {
-                            Text("Time Zone Override (Optional)")
+                            Text("时区覆盖（可选）")
                                 .font(.caption.weight(.semibold))
                                 .foregroundColor(.secondary)
                             
-                            TextField("e.g. UTC, GMT", text: $viewModel.customTimeZone)
+                            TextField("例如 UTC、GMT", text: $viewModel.customTimeZone)
                                 .font(.system(.caption, design: .monospaced))
                                 .autocapitalization(.allCharacters)
                                 .disableAutocorrection(true)
@@ -385,20 +385,20 @@ struct AnisetteDataView: View {
                         } label: {
                             HStack {
                                 Spacer()
-                                Text("Save Overrides")
+                                Text("保存覆盖项")
                                     .font(.headline)
                                 Spacer()
                             }
                         }
                         .disabled(viewModel.clientInfo.isEmpty || viewModel.userAgent.isEmpty)
                     } header: {
-                        Text("Custom Parameters")
+                        Text("自定义参数")
                     }
                 } else {
                     // SECTION 3: RAW JSON VIEW
                     Section {
                         VStack(alignment: .leading, spacing: 6) {
-                            Text("Configuration JSON (Editable)")
+                            Text("配置 JSON（可编辑）")
                                 .font(.caption.weight(.semibold))
                                 .foregroundColor(.secondary)
                             
@@ -418,14 +418,14 @@ struct AnisetteDataView: View {
                         } label: {
                             HStack {
                                 Spacer()
-                                Text("Save Raw JSON")
+                                Text("保存原始 JSON")
                                     .font(.headline)
                                 Spacer()
                             }
                         }
                         .disabled(viewModel.rawEditableJSON.isEmpty)
                     } header: {
-                        Text("Raw Configuration JSON")
+                        Text("原始配置 JSON")
                     }
                 }
                 
@@ -433,7 +433,7 @@ struct AnisetteDataView: View {
                 Section {
                     VStack(alignment: .leading, spacing: 8) {
                         HStack {
-                            Text("Last Server Response JSON")
+                            Text("上次服务器响应 JSON")
                                 .font(.caption.weight(.semibold))
                                 .foregroundColor(.secondary)
                             
@@ -471,13 +471,13 @@ struct AnisetteDataView: View {
                             await viewModel.loadServerHeadersIntoOverrides()
                         }
                     } label: {
-                        Label("Load Fetched Data into Overrides", systemImage: "square.and.arrow.down.on.square")
+                        Label("将获取的数据加载到覆盖项", systemImage: "square.and.arrow.down.on.square")
                     }
                     .disabled(viewModel.serverReturnedHeadersJSON == "{}" || viewModel.serverReturnedHeadersJSON.isEmpty)
                 } header: {
-                    Text("Server Returned Headers (Read-Only)")
+                    Text("服务器返回的标头（只读）")
                 } footer: {
-                    Text("Displays raw headers cached from successful anisette server handshakes. Use this to copy exact parameters sent by client/server.")
+                    Text("显示从成功的 anisette 服务器握手缓存的原始标头。用于复制客户端/服务器发送的精确参数。")
                 }
                 
                 // SECTION 5: ACTIONS
@@ -487,13 +487,13 @@ struct AnisetteDataView: View {
                             await viewModel.fetchFreshFromServer()
                         }
                     } label: {
-                        Label("Fetch Fresh from Active Server", systemImage: "arrow.clockwise")
+                        Label("从活跃服务器获取新数据", systemImage: "arrow.clockwise")
                     }
                     
                     SwiftUI.Button {
                         showingFileImporter = true
                     } label: {
-                        Label("Import Config JSON", systemImage: "square.and.arrow.down")
+                        Label("导入配置 JSON", systemImage: "square.and.arrow.down")
                     }
                     
                     SwiftUI.Button {
@@ -504,32 +504,32 @@ struct AnisetteDataView: View {
                             }
                         }
                     } label: {
-                        Label("Export Config JSON", systemImage: "square.and.arrow.up")
+                        Label("导出配置 JSON", systemImage: "square.and.arrow.up")
                     }
                     
                     SwiftUI.Button(role: .destructive) {
                         showingResetAlert = true
                     } label: {
-                        Label("Reset to Defaults", systemImage: "arrow.circlepath")
+                        Label("重置为默认值", systemImage: "arrow.circlepath")
                             .foregroundColor(.red)
                     }
-                    .alert("Reset to Defaults?", isPresented: $showingResetAlert) {
-                        SwiftUI.Button("Reset", role: .destructive) {
+                    .alert("重置为默认值？", isPresented: $showingResetAlert) {
+                        SwiftUI.Button("重置", role: .destructive) {
                             Task {
                                 await viewModel.reset()
                             }
                         }
-                        SwiftUI.Button("Cancel", role: .cancel) {}
+                        SwiftUI.Button("取消", role: .cancel) {}
                     } message: {
-                        Text("This will restore the client headers to the default recommended macOS values.")
+                        Text("这将把客户端标头恢复为推荐的默认 macOS 值。")
                     }
                 } header: {
-                    Text("Actions")
+                    Text("操作")
                 }
             }
             .listStyle(.insetGrouped)
         }
-        .navigationTitle("Client Config")
+        .navigationTitle("客户端配置")
         .navigationBarTitleDisplayMode(.inline)
         .overlay(
             Group {
@@ -554,7 +554,7 @@ struct AnisetteDataView: View {
                     }
                 }
             case .failure(let error):
-                viewModel.showToast(text: "File Selection Failed", error: error)
+                viewModel.showToast(text: "文件选择失败", error: error)
             }
         }
         .sheet(isPresented: $showingShareSheet) {

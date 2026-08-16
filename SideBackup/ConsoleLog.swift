@@ -15,11 +15,11 @@ enum SideBackupError: LocalizedError {
     var errorDescription: String? {
         switch self {
         case .appGroupNotConfigured(let expected):
-            return "App Group is not configured. Bundle has no ALTAppGroups entry containing '\(expected)'. " +
-                   "SideBackup was likely not resigned with the SideStore App Group entitlement."
+            return "未配置 App Group。Bundle 中没有包含 '\(expected)' 的 ALTAppGroups 条目。 " +
+                   "SideBackup 可能未使用 SideStore 的 App Group 授权重新签名。"
         case .appGroupContainerUnresolvable(let group):
-            return "Could not resolve container URL for App Group '\(group)'. " +
-                   "The provisioning profile may be missing the App Group entitlement."
+            return "无法解析应用组“\(group)”的容器 URL。 " +
+                   "描述文件可能缺少 App Group 授权。"
         }
     }
 }

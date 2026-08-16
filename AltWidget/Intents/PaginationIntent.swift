@@ -19,16 +19,16 @@ public struct NavigationEvent {
 @available(iOS 17, *)
 class PaginationIntent: AppIntent, @unchecked Sendable {
         
-    static var title: LocalizedStringResource = "Page Navigation Intent"
+    static var title: LocalizedStringResource = "页面导航意图"
     static var isDiscoverable: Bool = false
     
-    @Parameter(title: "widgetID")
+    @Parameter(title: "小组件 ID")
     var widgetID: Int
 
-    @Parameter(title: "Direction")
+    @Parameter(title: "方向")
     var direction: String
 
-    @Parameter(title: "widgetKind")
+    @Parameter(title: "小组件类型")
     var widgetKind: String
 
     required init(){}

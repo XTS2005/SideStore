@@ -163,7 +163,7 @@
 		<string>_wss._tcp</string>
 	</array>
 	<key>NSLocalNetworkUsageDescription</key>
-	<string>SideStore can use local network access to discover Bonjour (mDNS) services on your network. This is not required for core functionality.</string>
+	<string>SideStore 可以使用本地网络访问来发现网络上的 Bonjour（mDNS）服务。这不是核心功能所必需的。</string>
 	<key>NSUserActivityTypes</key>
 	<array>
 		<string>RefreshAllIntent</string>
@@ -271,7 +271,7 @@
 				<string>public.data</string>
 			</array>
 			<key>UTTypeDescription</key>
-			<string>iOS App</string>
+			<string>iOS 应用</string>
 			<key>UTTypeIconFiles</key>
 			<array/>
 			<key>UTTypeIdentifier</key>
@@ -290,7 +290,7 @@
 				<string>com.apple.plist</string>
 			</array>
 			<key>UTTypeDescription</key>
-			<string>Mobile Device Pairing</string>
+			<string>移动设备配对</string>
 			<key>UTTypeIconFiles</key>
 			<array/>
 			<key>UTTypeIdentifier</key>

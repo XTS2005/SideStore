@@ -35,7 +35,7 @@ final class LaunchViewController: UIViewController {
         super.viewDidAppear(animated)
         guard !didFinishLaunching else { return }
         startTime = Date()
-        splashView.updateStatus(NSLocalizedString("Starting…", comment: ""))
+        splashView.updateStatus(NSLocalizedString("正在启动…", comment: ""))
         
         // spin off the startup sequence concurrently
         Task.detached { [weak self] in
@@ -76,7 +76,7 @@ final class LaunchViewController: UIViewController {
     @MainActor
     func displayError(_ msg: String) {
         debugLog("[SideStore] \(msg)")
-        let alert = UIAlertController(title: "Error launching SideStore", message: msg, preferredStyle: .alert)
+        let alert = UIAlertController(title: "启动 SideStore 时出错", message: msg, preferredStyle: .alert)
         self.present(alert, animated: true)
     }
     
@@ -98,7 +98,7 @@ final class LaunchViewController: UIViewController {
     @MainActor
     func handleLaunchError(_ error: Error, retryCallback: (() async -> Void)? = nil) {
         do { throw error } catch let error as NSError {
-            let title = error.userInfo[NSLocalizedFailureErrorKey] as? String ?? NSLocalizedString("Unable to Launch SideStore", comment: "")
+            let title = error.userInfo[NSLocalizedFailureErrorKey] as? String ?? NSLocalizedString("无法启动 SideStore", comment: "")
             let desc: String
             if #available(iOS 14.5, *) {
                 desc = ([error.debugDescription] + error.underlyingErrors.map { ($0 as NSError).debugDescription }).joined(separator: "\n\n")
@@ -106,7 +106,7 @@ final class LaunchViewController: UIViewController {
                 desc = error.debugDescription
             }
             let alert = UIAlertController(title: title, message: desc, preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: NSLocalizedString("Retry", comment: ""), style: .default) { _ in
+            alert.addAction(UIAlertAction(title: NSLocalizedString("重试", comment: ""), style: .default) { _ in
                 Task { await retryCallback?() }
             })
             present(alert, animated: true)
@@ -118,9 +118,9 @@ final class LaunchViewController: UIViewController {
         guard !didFinishLaunching else { return }
         didFinishLaunching = true
         
-        splashView.updateStatus(NSLocalizedString("Loading apps…", comment: ""))
+        splashView.updateStatus(NSLocalizedString("正在加载应用…", comment: ""))
         await AppManager.shared.reconcileInstalledApps()
-        splashView.updateStatus(NSLocalizedString("Updating sources…", comment: ""))
+        splashView.updateStatus(NSLocalizedString("正在更新源…", comment: ""))
         AppManager.shared.updateAllSources { result in
             guard case .failure(let error) = result else { return }
             debugLog("Failed to update sources on launch. \(error.localizedDescription)")
@@ -129,12 +129,12 @@ final class LaunchViewController: UIViewController {
             let errorDesc = ErrorProcessing(.fullError).getDescription(error: error as NSError)
             debugLog("Failed to update sources on launch. \(errorDesc)")
             
-            let toastView = ToastView(text: NSLocalizedString("Some sources were unable to load", comment: ""), detailText: nil)
+            let toastView = ToastView(text: NSLocalizedString("某些源无法加载", comment: ""), detailText: nil)
             toastView.addTarget(self.destinationViewController, action: #selector(TabBarController.presentSources), for: .touchUpInside)
             toastView.show(in: self.destinationViewController!.selectedViewController ?? self.destinationViewController!)
         }
         updateKnownSources()
-        splashView.updateStatus(NSLocalizedString("Almost there…", comment: ""))
+        splashView.updateStatus(NSLocalizedString("马上就好…", comment: ""))
         didFinishLaunching = true
         
         let destinationVC = destinationViewController!
@@ -194,7 +194,7 @@ final class LaunchViewController: UIViewController {
                     guard !sourceErrors.isEmpty else { return }
                     Task {
                         for error in sourceErrors {
-                            let title = String(format: NSLocalizedString("“%@” Blocked", comment: ""), error.$source.name)
+                            let title = String(format: NSLocalizedString("“%@”已被阻止", comment: ""), error.$source.name)
                             let message = [error.localizedDescription, error.recoverySuggestion].compactMap { $0 }.joined(separator: "\n\n")
                             await self.presentAlert(title: title, message: message)
                         }

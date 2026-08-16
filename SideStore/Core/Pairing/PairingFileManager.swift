@@ -59,13 +59,13 @@ extension PairingFileManager: UIDocumentPickerDelegate {
             completion?(url)
             self.completion = nil
         }
-        let title = isRetry ? NSLocalizedString("Invalid Pairing File", comment: "") : NSLocalizedString("Pairing File", comment: "")
+        let title = isRetry ? NSLocalizedString("配对文件无效", comment: "") : NSLocalizedString("配对文件", comment: "")
         let message = isRetry
-            ? NSLocalizedString("The selected pairing file is invalid or not usable. Please select a valid pairing file.", comment: "")
-            : NSLocalizedString("Select the pairing file or select \"Help\" for help.", comment: "")
+            ? NSLocalizedString("所选配对文件无效或不可用。请选择有效的配对文件。", comment: "")
+            : NSLocalizedString("选择配对文件，或选择“帮助”获取帮助。", comment: "")
         
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: NSLocalizedString("Help", comment: ""), style: .default) { _ in
+        alert.addAction(UIAlertAction(title: NSLocalizedString("帮助", comment: ""), style: .default) { _ in
             if let url = URL(string: "https://docs.sidestore.io/docs/advanced/pairing-file") { UIApplication.shared.open(url) }
             if completion == nil {
                 sleep(2); exit(0)
@@ -73,7 +73,7 @@ extension PairingFileManager: UIDocumentPickerDelegate {
                 completion?(nil)
             }
         })
-        alert.addAction(UIAlertAction(title: NSLocalizedString("Select File", comment: ""), style: .default) { _ in
+        alert.addAction(UIAlertAction(title: NSLocalizedString("选择文件", comment: ""), style: .default) { _ in
             var types = UTType.types(tag: "plist", tagClass: .filenameExtension, conformingTo: nil)
             types.append(contentsOf: UTType.types(tag: "mobiledevicepairing", tagClass: .filenameExtension, conformingTo: .data))
             types.append(.xml)
@@ -84,7 +84,7 @@ extension PairingFileManager: UIDocumentPickerDelegate {
             UserDefaults.standard.isPairingReset = false
         })
         
-        let cancelTitle = isRetry ? NSLocalizedString("Skip", comment: "") : NSLocalizedString("Cancel", comment: "")
+        let cancelTitle = isRetry ? NSLocalizedString("跳过", comment: "") : NSLocalizedString("取消", comment: "")
         alert.addAction(UIAlertAction(title: cancelTitle, style: .cancel) { _ in
             if completion == nil {
                 self.showPairingWarningAndProceed(on: vc)
@@ -97,11 +97,11 @@ extension PairingFileManager: UIDocumentPickerDelegate {
     
     func showPairingWarningAndProceed(on vc: UIViewController) {
         let warningAlert = UIAlertController(
-            title: "⚠️ " + NSLocalizedString("Pairing Required", comment: ""),
-            message: NSLocalizedString("Without a valid pairing file, operations that require a pairing file (such as installing, refreshing, or resigning apps) will not function.", comment: ""),
+            title: "⚠️ " + NSLocalizedString("需要配对", comment: ""),
+            message: NSLocalizedString("如果没有有效的配对文件，需要配对文件的操作（如安装、刷新或重新签名应用）将无法正常工作。", comment: ""),
             preferredStyle: .alert
         )
-        warningAlert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: ""), style: .default))
+        warningAlert.addAction(UIAlertAction(title: NSLocalizedString("确定", comment: ""), style: .default))
         vc.present(warningAlert, animated: true)
     }
 

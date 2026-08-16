@@ -9,19 +9,19 @@
 @preconcurrency import AltSign
 
 enum SortOption: String, CaseIterable, Identifiable {
-    case creationDate = "Creation Date"
-    case expiryDate   = "Expiry Date"
-    case name         = "Name"
-    case keys         = "Keys"
+    case creationDate = "创建日期"
+    case expiryDate   = "过期日期"
+    case name         = "名称"
+    case keys         = "密钥"
     var id: String { rawValue }
 }
 
 enum GroupOption: String, CaseIterable, Identifiable {
-    case none         = "None"
-    case creationDate = "Creation Date"
-    case expiryDate   = "Expiry Date"
-    case name         = "Name"
-    case keys         = "Keys"
+    case none         = "无"
+    case creationDate = "创建日期"
+    case expiryDate   = "过期日期"
+    case name         = "名称"
+    case keys         = "密钥"
     var id: String { rawValue }
 }
 

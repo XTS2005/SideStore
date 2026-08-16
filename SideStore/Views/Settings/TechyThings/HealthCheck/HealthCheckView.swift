@@ -23,12 +23,12 @@ struct HealthCheckView: View {
                             Image(systemName: "checkmark.circle.fill")
                                 .font(.system(size: 44))
                                 .foregroundColor(.green)
-                            Text("SideStore Ready")
+                            Text("SideStore 已就绪")
                                 .font(.title2)
                                 .fontWeight(.bold)
                             Text(viewModel.connectionMode == .localVPN
-                                 ? "All requirements met. Local device pairing & VPN tunnel active."
-                                 : "All requirements met. Local device pairing & Remote server connection active."
+                                 ? "所有要求均已满足。本地设备配对和 VPN 隧道已激活。"
+                                 : "所有要求均已满足。本地设备配对和远程服务器连接已激活。"
                             )
                             .font(.subheadline)
                             .foregroundColor(.secondary)
@@ -37,7 +37,7 @@ struct HealthCheckView: View {
                             Image(systemName: "exclamationmark.triangle.fill")
                                 .font(.system(size: 44))
                                 .foregroundColor(.orange)
-                            Text("Action Required")
+                            Text("需要操作")
                                 .font(.title2)
                                 .fontWeight(.bold)
                             Text(err.localizedDescription)
@@ -46,7 +46,7 @@ struct HealthCheckView: View {
                                 .multilineTextAlignment(.center)
                         }
                     } else {
-                        ProgressView("Performing Diagnostic Check...")
+                        ProgressView("正在执行诊断检查…")
                     }
                 }
                 .frame(maxWidth: .infinity)
@@ -54,25 +54,25 @@ struct HealthCheckView: View {
             }
             
             // Section 2: Core Dependencies
-            Section(header: Text("Core Requirements")) {
+            Section(header: Text("核心要求")) {
                 DependencyRow(
-                    title: "Network Connectivity",
-                    subtitle: viewModel.networkSatisfied == nil ? "Unknown" : (viewModel.isWifiSatisfied ? "Wi-Fi Active" : "No Connection"),
+                    title: "网络连接",
+                    subtitle: viewModel.networkSatisfied == nil ? "未知" : (viewModel.isWifiSatisfied ? "Wi-Fi 已连接" : "无连接"),
                     isSatisfied: viewModel.networkSatisfied
                 )
                 
                 if viewModel.connectionMode == .localVPN {
                     DependencyRow(
-                        title: "VPN Tunnel (utun)",
-                        subtitle: viewModel.vpnSatisfied == nil ? "Unknown" : (viewModel.isUTunAvailable ? "Connected" : "Disconnected"),
+                        title: "VPN 隧道 (utun)",
+                        subtitle: viewModel.vpnSatisfied == nil ? "未知" : (viewModel.isUTunAvailable ? "已连接" : "未连接"),
                         isSatisfied: viewModel.vpnSatisfied
                     )
                     
                     if !viewModel.isRPPairing {
                         if #available(iOS 26.4, *) {
                             DependencyRow(
-                                title: "IPSec/IKEv2 Tunnel",
-                                subtitle: viewModel.ipsecSatisfied == nil ? "Unknown" : (viewModel.isIKEv2IPSecAvailable ? "Connected" : "Disconnected"),
+                                title: "IPSec/IKEv2 隧道",
+                                subtitle: viewModel.ipsecSatisfied == nil ? "未知" : (viewModel.isIKEv2IPSecAvailable ? "已连接" : "未连接"),
                                 isSatisfied: viewModel.ipsecSatisfied
                             )
                         }
@@ -80,58 +80,58 @@ struct HealthCheckView: View {
                 }
                 
                 DependencyRow(
-                    title: "Device Reachability (Ping)",
-                    subtitle: viewModel.pingSatisfied == nil ? "Unknown" : (viewModel.isPingSuccessful ? "Reachable" : "Unreachable"),
+                    title: "设备可达性（Ping）",
+                    subtitle: viewModel.pingSatisfied == nil ? "未知" : (viewModel.isPingSuccessful ? "可达" : "不可达"),
                     isSatisfied: viewModel.pingSatisfied
                 )
                 
                 DependencyRow(
-                    title: "Pairing file",
-                    subtitle: viewModel.isPairingFileVerified ? "Verified" : (viewModel.isPairingFileLoaded ? "Loaded (Connection down)" : "Unverified / Missing"),
+                    title: "配对文件",
+                    subtitle: viewModel.isPairingFileVerified ? "已验证" : (viewModel.isPairingFileLoaded ? "已加载（连接中断）" : "未验证 / 缺失"),
                     isSatisfied: viewModel.pairingSatisfied
                 )
             }
             
             // Section 3: JIT Dependencies
-            Section(header: Text("JIT Requirements")) {
+            Section(header: Text("JIT 要求")) {
                 DependencyRow(
-                    title: "Developer Disk Image (DDI)",
-                    subtitle: viewModel.isDDIMounted ? "Mounted" : "Not Mounted (JIT unavailable)",
+                    title: "开发者磁盘映像（DDI）",
+                    subtitle: viewModel.isDDIMounted ? "已挂载" : "未挂载（JIT 不可用）",
                     isSatisfied: viewModel.ddiSatisfied,
                     isOptional: true
                 )
             }
             
             // Section 4: Connection Configuration
-            Section(header: Text("Connection Configuration")) {
+            Section(header: Text("连接配置")) {
                 HStack {
-                    Text("Connection Mode")
+                    Text("连接模式")
                     Spacer()
-                    Text(viewModel.connectionMode == .localVPN ? "Local VPN" : "Remote Server")
+                    Text(viewModel.connectionMode == .localVPN ? "本地 VPN" : "远程服务器")
                         .foregroundColor(.secondary)
                 }
                 
                 if viewModel.connectionMode == .localVPN {
-                    ConfigRow(label: "Tunnel Iface IP", value: viewModel.tunnelIfaceIp)
-                    ConfigRow(label: "Tunnel Subnet Mask", value: viewModel.tunnelIfaceSubnetMask)
-                    ConfigRow(label: "Tunnel Peer IP", value: viewModel.tunnelPeerIp)
-                    ConfigRow(label: "Override Peer IP", value: viewModel.overrideTunnelPeerIp.isEmpty ? nil : viewModel.overrideTunnelPeerIp)
+                    ConfigRow(label: "隧道接口 IP", value: viewModel.tunnelIfaceIp)
+                    ConfigRow(label: "隧道子网掩码", value: viewModel.tunnelIfaceSubnetMask)
+                    ConfigRow(label: "隧道对端 IP", value: viewModel.tunnelPeerIp)
+                    ConfigRow(label: "覆盖对端 IP", value: viewModel.overrideTunnelPeerIp.isEmpty ? nil : viewModel.overrideTunnelPeerIp)
                     HStack {
-                        Text("Override Status")
+                        Text("覆盖状态")
                         Spacer()
-                        Text(viewModel.overrideTunnelPeerEffective ? "Active" : "Inactive")
+                        Text(viewModel.overrideTunnelPeerEffective ? "已启用" : "未启用")
                             .foregroundColor(viewModel.overrideTunnelPeerEffective ? .green : .secondary)
                     }
                     HStack {
-                        Text("Active Protocol")
+                        Text("活动协议")
                         Spacer()
                         Text(viewModel.activeProtocol)
                             .foregroundColor(.secondary)
                     }
                 } else {
-                    ConfigRow(label: "Remote Endpoint IP", value: viewModel.remoteServerIp.isEmpty ? nil : viewModel.remoteServerIp)
+                    ConfigRow(label: "远程端点 IP", value: viewModel.remoteServerIp.isEmpty ? nil : viewModel.remoteServerIp)
                     HStack {
-                        Text("Active Protocol")
+                        Text("活动协议")
                         Spacer()
                         Text(viewModel.activeProtocol)
                             .foregroundColor(.secondary)
@@ -140,9 +140,9 @@ struct HealthCheckView: View {
             }
             
             // Section 4: All Active Interfaces
-            Section(header: Text("Active Network Interfaces")) {
+            Section(header: Text("活动网络接口")) {
                 if viewModel.availableInterfaces.isEmpty {
-                    Text("No active interfaces scanned.")
+                    Text("未扫描到活动接口。")
                         .foregroundColor(.secondary)
                         .italic()
                 } else {
@@ -163,7 +163,7 @@ struct HealthCheckView: View {
                 }
             }
         }
-        .navigationTitle("Health Check")
+        .navigationTitle("健康检查")
         .navigationBarTitleDisplayMode(.inline)
         .task {
             await viewModel.observeMetrics()
@@ -218,7 +218,7 @@ struct ConfigRow: View {
         HStack {
             Text(label)
             Spacer()
-            Text(value ?? "N/A")
+            Text(value ?? "不适用")
                 .foregroundColor(.secondary)
         }
     }
@@ -232,11 +232,11 @@ struct InterfaceRow: View {
     }
     
     private var ipv4Host: String {
-        hasIPv4 ? iface.ip : "N/A"
+        hasIPv4 ? iface.ip : "不适用"
     }
     
     private var ipv4Mask: String {
-        !iface.subnet.isEmpty ? iface.subnet : "N/A"
+        !iface.subnet.isEmpty ? iface.subnet : "不适用"
     }
     
     private var ipv6Address: String {
@@ -246,13 +246,13 @@ struct InterfaceRow: View {
         if iface.ip.contains(":") {
             return iface.ip
         }
-        return "N/A"
+        return "不适用"
     }
     
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
             HStack(spacing: 8) {
-                Text("Iface:")
+                Text("接口：")
                     .font(.caption)
                     .foregroundColor(.secondary)
                     .frame(width: 36, alignment: .leading)
@@ -274,7 +274,7 @@ struct InterfaceRow: View {
             .padding(.bottom, 2)
             
             HStack(alignment: .top, spacing: 8) {
-                Text("IPv4:")
+                Text("IPv4：")
                     .font(.caption)
                     .foregroundColor(.secondary)
                     .frame(width: 36, alignment: .leading)
@@ -298,7 +298,7 @@ struct InterfaceRow: View {
                 
                 Text(ipv6Address)
                     .font(.system(.caption2, design: .monospaced))
-                    .foregroundColor(ipv6Address != "N/A" ? .primary : .secondary)
+                    .foregroundColor(ipv6Address != "不适用" ? .primary : .secondary)
                     .fixedSize(horizontal: false, vertical: true)
             }
         }

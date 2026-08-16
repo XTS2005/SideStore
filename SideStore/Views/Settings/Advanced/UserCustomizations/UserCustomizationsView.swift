@@ -32,14 +32,14 @@ struct UserCustomizationsView: View {
             VStack(alignment: .leading, spacing: 24) {
                 // Section 0: APPEARANCE & THEMES
                 VStack(alignment: .leading, spacing: 8) {
-                    Text("APPEARANCE & THEMES")
+                    Text("外观与主题")
                         .font(.system(size: 13, weight: .semibold))
                         .foregroundColor(Color.white.opacity(0.6))
                         .padding(.horizontal, 16)
                     
                     NavigationLink(destination: ThemePickerView()) {
                         HStack {
-                            Text("Theme Manager")
+                            Text("主题管理器")
                                 .font(.system(size: 17, weight: .bold))
                                 .foregroundColor(.white)
                             Spacer()
@@ -61,13 +61,13 @@ struct UserCustomizationsView: View {
 
                 // Section 1: APP & EXTENSIONS CUSTOMIZATION
                 VStack(alignment: .leading, spacing: 8) {
-                    Text("CUSTOMIZATION OPTIONS")
+                    Text("自定义选项")
                         .font(.system(size: 13, weight: .semibold))
                         .foregroundColor(Color.white.opacity(0.6))
                         .padding(.horizontal, 16)
                     
                     VStack(spacing: 0) {
-                        toggleRow(title: "Customize AppID", isOn: Binding(
+                        toggleRow(title: "自定义应用 ID", isOn: Binding(
                             get: { customizeAppId },
                             set: { newValue in
                                 customizeAppId = newValue
@@ -77,7 +77,7 @@ struct UserCustomizationsView: View {
                         
                         divider
                         
-                        toggleRow(title: "Customize App Extensions", isOn: Binding(
+                        toggleRow(title: "自定义应用扩展", isOn: Binding(
                             get: { customizeAppExtensions },
                             set: { newValue in
                                 customizeAppExtensions = newValue
@@ -88,8 +88,8 @@ struct UserCustomizationsView: View {
                         divider
                         
                         toggleRow(
-                            title: "Auto-Fix AppGroup IDs",
-                            subtitle: isFreeAccount ? "Required for free developer accounts" : "Automatically fix App Group casing mismatches",
+                            title: "自动修复 AppGroup ID",
+                            subtitle: isFreeAccount ? "免费开发者账户必需" : "自动修复 App Group 大小写不匹配",
                             isOn: Binding(
                                 get: { isFreeAccount ? true : autoFixAppGroupIDs },
                                 set: { newValue in
@@ -103,7 +103,7 @@ struct UserCustomizationsView: View {
                         
                         divider
                         
-                        toggleRow(title: "Export Resigned Apps", isOn: Binding(
+                        toggleRow(title: "导出重新签名的应用", isOn: Binding(
                             get: { isExportResignedAppEnabled },
                             set: { newValue in
                                 isExportResignedAppEnabled = newValue
@@ -114,8 +114,8 @@ struct UserCustomizationsView: View {
                         divider
                         
                         toggleRow(
-                            title: "EMProxy (WireGuard) Server",
-                            subtitle: "Restart required to apply changes",
+                            title: "EMProxy（WireGuard）服务器",
+                            subtitle: "重启后生效",
                             isOn: Binding(
                                 get: { enableEMPforWireguard },
                                 set: { newValue in
@@ -127,7 +127,7 @@ struct UserCustomizationsView: View {
                         
                         divider
                         
-                        toggleRow(title: "Skip Uncopyable Backup Files", isOn: Binding(
+                        toggleRow(title: "跳过无法复制的备份文件", isOn: Binding(
                             get: { skipNonCopyableFiles },
                             set: { newValue in
                                 skipNonCopyableFiles = newValue
@@ -144,17 +144,17 @@ struct UserCustomizationsView: View {
             .padding(.bottom, 32)
         }
         .background(Color(uiColor: .settingsBackground).ignoresSafeArea())
-        .navigationTitle("User Customizations")
+        .navigationTitle("用户自定义")
         .navigationBarTitleDisplayMode(.large)
-        .alert("Restart Required", isPresented: $showEMPRestartConfirmation) {
-            SwiftUI.Button("Restart Now", role: .destructive) {
+        .alert("需要重启", isPresented: $showEMPRestartConfirmation) {
+            SwiftUI.Button("立即重启", role: .destructive) {
                 enableEMPforWireguard = pendingEMPOption
                 UserDefaults.standard.enableEMPforWireguard = pendingEMPOption
                 exit(0)
             }
-            SwiftUI.Button("Cancel", role: .cancel) {}
+            SwiftUI.Button("取消", role: .cancel) {}
         } message: {
-            Text("Changing the EMProxy setting requires restarting SideStore. If canceled, changes will not be saved.")
+            Text("更改 EMProxy 设置需要重启 SideStore。如果取消，更改将不会被保存。")
         }
     }
 

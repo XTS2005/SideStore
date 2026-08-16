@@ -15,7 +15,7 @@ struct ActiveCertSectionView: View {
     var onDeactivate: () -> Void
     
     var body: some View {
-        Section("Active Local Certificate") {
+        Section("活跃的本地证书") {
             if let activeSerial = viewModel.activeSerialNumber {
                 HStack {
                     Image(systemName: "checkmark.seal.fill")
@@ -24,7 +24,7 @@ struct ActiveCertSectionView: View {
                     
                     VStack(alignment: .leading) {
                         HStack(spacing: 6) {
-                            Text("Active Signing Certificate").font(.headline)
+                            Text("当前签名证书").font(.headline)
                             
                             SwiftUI.Button {
                                 UIPasteboard.general.string = activeSerial
@@ -41,7 +41,7 @@ struct ActiveCertSectionView: View {
                         
                         let displaySerial = viewModel.displayActiveSerial(activeSerial)
                         (
-                            Text("SN: ").font(.footnote)
+                            Text("SN：").font(.footnote)
                             + Text(displaySerial).font(.system(size: 13, design: .monospaced))
                         )
                         .foregroundColor(.secondary)
@@ -56,7 +56,7 @@ struct ActiveCertSectionView: View {
                                 Image(systemName: "exclamationmark.triangle.fill")
                                     .foregroundColor(.orange)
                                     .font(.footnote)
-                                Text("Custom third-party certificate (different team)")
+                                Text("自定义第三方证书（不同团队）")
                                     .font(.caption)
                                     .foregroundColor(.orange)
                             }
@@ -73,24 +73,24 @@ struct ActiveCertSectionView: View {
                         if viewModel.revealedSerials.contains(key) { viewModel.revealedSerials.remove(key) }
                         else { viewModel.revealedSerials.insert(key) }
                     } label: {
-                        Label(isMasked ? "Reveal Details" : "Hide Details",
+                        Label(isMasked ? "显示详情" : "隐藏详情",
                               systemImage: isMasked ? "eye" : "eye.slash")
                     }
                     SwiftUI.Button { UIPasteboard.general.string = activeSerial } label: {
-                        Label("Copy S/N", systemImage: "doc.on.doc")
+                        Label("复制 S/N", systemImage: "doc.on.doc")
                     }
                 }
                 
                 HStack {
                     Image(systemName: "checkmark.seal.fill").font(.title2).opacity(0)
                     SwiftUI.Button(role: .destructive) { onDeactivate() } label: {
-                        Text("Deactivate Locally").fontWeight(.medium)
+                        Text("在本地停用").fontWeight(.medium)
                     }
                 }
             } else {
                 Text(viewModel.team == nil
-                     ? "No active local certificate found.Import a .p12 file to sign your apps."
-                     : "No active local certificate found.Create a new certificate or import a .p12 file to sign your apps.")
+                     ? "未找到本地活动证书。导入 .p12 文件以签名你的应用。"
+                     : "未找到本地活动证书。创建新证书或导入 .p12 文件以签名你的应用。")
                     .foregroundColor(.secondary)
                     .font(.subheadline)
             }

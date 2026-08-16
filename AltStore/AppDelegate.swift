@@ -392,8 +392,8 @@ extension AppDelegate
             let trigger = UNTimeIntervalNotificationTrigger(timeInterval: threeHours, repeats: false)
             
             let content = UNMutableNotificationContent()
-            content.title = NSLocalizedString("App Refresh Tip", comment: "")
-            content.body = NSLocalizedString("The more you open SideStore, the more chances it's given to refresh apps in the background.", comment: "")
+            content.title = NSLocalizedString("应用刷新提示", comment: "")
+            content.body = NSLocalizedString("你打开 SideStore 的次数越多，它在后台刷新应用的机会就越多。", comment: "")
             
             let request = UNNotificationRequest(identifier: "background-refresh-reminder5", content: content, trigger: trigger)
             UNUserNotificationCenter.current().add(request)
@@ -514,8 +514,8 @@ private extension AppDelegate
                     }
                     
                     let content = UNMutableNotificationContent()
-                    content.title = NSLocalizedString("New Update Available", comment: "")
-                    content.body = String(format: NSLocalizedString("%@ %@ is now available for download.", comment: ""), update.name, latestSupportedVersion.localizedVersion)
+                    content.title = NSLocalizedString("有新更新可用", comment: "")
+                    content.body = String(format: NSLocalizedString("%@ %@ 现在可以下载了。", comment: ""), update.name, latestSupportedVersion.localizedVersion)
                     content.sound = .default
                     
                     let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: nil)
@@ -531,11 +531,11 @@ private extension AppDelegate
                     
                     if let app = newsItem.storeApp
                     {
-                        content.title = String(format: NSLocalizedString("%@ News", comment: ""), app.name)
+                        content.title = String(format: NSLocalizedString("%@ 新闻", comment: ""), app.name)
                     }
                     else
                     {
-                        content.title = NSLocalizedString("SideStore News", comment: "")
+                        content.title = NSLocalizedString("SideStore 新闻", comment: "")
                     }
                     
                     content.body = newsItem.title

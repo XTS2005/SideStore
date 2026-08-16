@@ -218,9 +218,9 @@ extension NSError {
             let underlyingError = self.userInfo[NSUnderlyingErrorKey] as? NSError
             if underlyingError?.localizedFailureReason != nil {
                 #if os(macOS)
-                return NSLocalizedString("There was an error connecting to the device.", comment: "")
+                return NSLocalizedString("连接设备时出错。", comment: "")
                 #else
-                return NSLocalizedString("AltServer could not establish a connection to SideStore.", comment: "")
+                return NSLocalizedString("AltServer 无法与 SideStore 建立连接。", comment: "")
                 #endif
             }
             return nil
@@ -240,12 +240,12 @@ extension NSError {
                 return reason
             }
             if let underlyingErrorCode = self.userInfo[ALTUnderlyingErrorCodeErrorKey] as? String {
-                return String(format: NSLocalizedString("Error code: %@", comment: ""), underlyingErrorCode)
+                return String(format: NSLocalizedString("错误代码：%@", comment: ""), underlyingErrorCode)
             }
             return nil
             
         case .unknown:
-            return NSLocalizedString("An unknown error occured.", comment: "")
+            return NSLocalizedString("发生未知错误。", comment: "")
             
         case .connectionFailed:
             let underlyingError = self.userInfo[NSUnderlyingErrorKey] as? NSError
@@ -253,75 +253,75 @@ extension NSError {
                 return reason
             }
             #if os(macOS)
-            return NSLocalizedString("There was an error connecting to the device.", comment: "")
+            return NSLocalizedString("连接设备时出错。", comment: "")
             #else
-            return NSLocalizedString("Could not connect to SideStore.", comment: "")
+            return NSLocalizedString("无法连接到 SideStore。", comment: "")
             #endif
             
         case .lostConnection:
-            return NSLocalizedString("Lost connection to SideStore.", comment: "")
+            return NSLocalizedString("与 SideStore 的连接已断开。", comment: "")
             
         case .deviceNotFound:
-            return NSLocalizedString("SideStore could not find this device.", comment: "")
+            return NSLocalizedString("SideStore 找不到此设备。", comment: "")
             
         case .deviceWriteFailed:
-            return NSLocalizedString("SideStore could not write data to this device.", comment: "")
+            return NSLocalizedString("SideStore 无法向此设备写入数据。", comment: "")
             
         case .invalidRequest:
             let underlyingError = self.userInfo[NSUnderlyingErrorKey] as? NSError
-            return underlyingError?.localizedFailureReason ?? NSLocalizedString("SideStore received an invalid request.", comment: "")
+            return underlyingError?.localizedFailureReason ?? NSLocalizedString("SideStore 收到了无效的请求。", comment: "")
             
         case .invalidResponse:
             let underlyingError = self.userInfo[NSUnderlyingErrorKey] as? NSError
-            return underlyingError?.localizedFailureReason ?? NSLocalizedString("SideStore sent an invalid response.", comment: "")
+            return underlyingError?.localizedFailureReason ?? NSLocalizedString("SideStore 发送了无效的响应。", comment: "")
             
         case .invalidApp:
-            return NSLocalizedString("The app is in an invalid format.", comment: "")
+            return NSLocalizedString("应用格式无效。", comment: "")
             
         case .installationFailed:
             let underlyingError = self.userInfo[NSUnderlyingErrorKey] as? NSError
             if let underlyingError {
                 return underlyingError.localizedFailureReason ?? underlyingError.localizedDescription
             }
-            return NSLocalizedString("An error occurred while installing the app.", comment: "")
+            return NSLocalizedString("安装应用时出错。", comment: "")
             
         case .maximumFreeAppLimitReached:
-            return NSLocalizedString("You cannot activate more than 3 apps with a non-developer Apple ID.", comment: "")
+            return NSLocalizedString("使用非开发者 Apple ID 最多只能激活 3 个应用。", comment: "")
             
         case .unsupportediOSVersion:
             let appName = self.userInfo[ALTAppNameErrorKey] as? String
             let osVersion = self.altserver_osVersion
             if appName == nil || osVersion == nil {
-                return NSLocalizedString("Your device must be running iOS 15.0 or later to install SideStore.", comment: "")
+                return NSLocalizedString("你的设备必须运行 iOS 15.0 或更高版本才能安装 SideStore。", comment: "")
             }
-            return String(format: NSLocalizedString("%@ requires %@ or later.", comment: ""), appName!, osVersion!)
+            return String(format: NSLocalizedString("%@需要 %@ 或更高版本。", comment: ""), appName!, osVersion!)
             
         case .unknownRequest:
-            return NSLocalizedString("SideStore does not support this request.", comment: "")
+            return NSLocalizedString("SideStore 不支持此请求。", comment: "")
             
         case .unknownResponse:
-            return NSLocalizedString("SideStore received an unknown response from SideStore.", comment: "")
+            return NSLocalizedString("SideStore 从 SideStore 收到了未知响应。", comment: "")
             
         case .invalidAnisetteData:
-            return NSLocalizedString("The provided anisette data is invalid.", comment: "")
+            return NSLocalizedString("提供的 anisette 数据无效。", comment: "")
             
         case .pluginNotFound:
-            return NSLocalizedString("AltServer could not connect to Mail plug-in.", comment: "")
+            return NSLocalizedString("AltServer 无法连接到 Mail 插件。", comment: "")
             
         case .profileNotFound:
-            return self.profileErrorLocalizedDescription(baseDescription: NSLocalizedString("Could not find profile", comment: ""))
+            return self.profileErrorLocalizedDescription(baseDescription: NSLocalizedString("找不到描述文件", comment: ""))
             
         case .appDeletionFailed:
-            return NSLocalizedString("An error occured while removing the app.", comment: "")
+            return NSLocalizedString("移除应用时出错。", comment: "")
             
         case .requestedAppNotRunning:
-            let appName = (self.userInfo[ALTAppNameErrorKey] as? String) ?? NSLocalizedString("The requested app", comment: "")
-            let deviceName = (self.userInfo[ALTDeviceNameErrorKey] as? String) ?? NSLocalizedString("the device", comment: "")
-            return String(format: NSLocalizedString("%@ is not currently running on %@.", comment: ""), appName, deviceName)
+            let appName = (self.userInfo[ALTAppNameErrorKey] as? String) ?? NSLocalizedString("所请求的应用", comment: "")
+            let deviceName = (self.userInfo[ALTDeviceNameErrorKey] as? String) ?? NSLocalizedString("该设备", comment: "")
+            return String(format: NSLocalizedString("%@当前未在 %@ 上运行。", comment: ""), appName, deviceName)
             
         case .incompatibleDeveloperDisk:
-            let osVersion = self.altserver_osVersion ?? NSLocalizedString("this device's OS version", comment: "")
-            return String(format: NSLocalizedString("The disk is incompatible with %@.", comment: ""), osVersion)
+            let osVersion = self.altserver_osVersion ?? NSLocalizedString("此设备的系统版本", comment: "")
+            return String(format: NSLocalizedString("磁盘与 %@ 不兼容。", comment: ""), osVersion)
         }
     }
     
@@ -341,21 +341,21 @@ extension NSError {
             fallthrough
             
         case .deviceNotFound:
-            return NSLocalizedString("Make sure you have trusted this device with your computer and Wi-Fi sync is enabled.", comment: "")
+            return NSLocalizedString("请确保你已在电脑上信任此设备，并且已启用 Wi-Fi 同步。", comment: "")
             
         case .pluginNotFound:
-            return NSLocalizedString("Mail has been automatically opened, try again in a moment. Otherwise, make sure plug-in is enabled in Mail's preferences.", comment: "")
+            return NSLocalizedString("Mail 已自动打开，请稍等片刻后重试。否则，请确保已在 Mail 的偏好设置中启用插件。", comment: "")
             
         case .maximumFreeAppLimitReached:
             #if os(macOS)
-            return NSLocalizedString("Please deactivate a sideloaded app with SideStore in order to install another app.\n\nIf you're running iOS 13.5 or later, make sure 'Offload Unused Apps' is disabled in Settings > iTunes & App Stores, then install or delete all offloaded apps to prevent them from erroneously counting towards this limit.", comment: "")
+            return NSLocalizedString("请使用 SideStore 停用一个侧载应用，以便安装另一个应用。\n\n如果你运行的是 iOS 13.5 或更高版本，请确保已在“设置 > iTunes 与 App Store”中关闭“卸载未使用的应用”，然后安装或删除所有已卸载的应用，以免它们被错误地计入此限制。", comment: "")
             #else
-            return NSLocalizedString("Please deactivate a sideloaded app in order to install another one.\n\nIf you're running iOS 13.5 or later, make sure “Offload Unused Apps” is disabled in Settings > iTunes & App Stores, then install or delete all offloaded apps.", comment: "")
+            return NSLocalizedString("请停用一个侧载应用，以便安装另一个应用。\n\n如果你运行的是 iOS 13.5 或更高版本，请确保已在“设置 > iTunes 与 App Store”中关闭“卸载未使用的应用”，然后安装或删除所有已卸载的应用。", comment: "")
             #endif
             
         case .requestedAppNotRunning:
-            let deviceName = (self.userInfo[ALTDeviceNameErrorKey] as? String) ?? NSLocalizedString("your device", comment: "")
-            return String(format: NSLocalizedString("Make sure the app is running in the foreground on %@ then try again.", comment: ""), deviceName)
+            let deviceName = (self.userInfo[ALTDeviceNameErrorKey] as? String) ?? NSLocalizedString("你的设备", comment: "")
+            return String(format: NSLocalizedString("请确保应用在 %@ 上前台运行，然后重试。", comment: ""), deviceName)
             
         default:
             return nil
@@ -372,8 +372,8 @@ extension NSError {
             
         case .incompatibleDeveloperDisk:
             guard let path = self.userInfo[NSFilePathErrorKey] as? String else { return nil }
-            let osVersion = self.altserver_osVersion ?? NSLocalizedString("this device's OS version", comment: "")
-            return String(format: NSLocalizedString("The Developer disk located at %@ is incompatible with %@.", comment: ""), path, osVersion)
+            let osVersion = self.altserver_osVersion ?? NSLocalizedString("此设备的系统版本", comment: "")
+            return String(format: NSLocalizedString("位于 %@ 的 Developer disk 与 %@ 不兼容。", comment: ""), path, osVersion)
             
         default:
             return nil
@@ -403,34 +403,34 @@ extension NSError {
             let underlyingErrorDomain = self.userInfo[ALTUnderlyingErrorDomainErrorKey] as? String
             let underlyingErrorCode = self.userInfo[ALTUnderlyingErrorCodeErrorKey] as? String
             if let underlyingErrorDomain, let underlyingErrorCode {
-                return String(format: NSLocalizedString("%@ error %@.", comment: ""), underlyingErrorDomain, underlyingErrorCode)
+                return String(format: NSLocalizedString("%@ 错误 %@。", comment: ""), underlyingErrorDomain, underlyingErrorCode)
             } else if let underlyingErrorCode {
-                return String(format: NSLocalizedString("Connection error code: %@", comment: ""), underlyingErrorCode)
+                return String(format: NSLocalizedString("连接错误代码：%@", comment: ""), underlyingErrorCode)
             }
             return nil
             
         case .deviceLocked:
-            let deviceName = (self.userInfo[ALTDeviceNameErrorKey] as? String) ?? NSLocalizedString("The device", comment: "")
-            return String(format: NSLocalizedString("%@ is currently locked.", comment: ""), deviceName)
+            let deviceName = (self.userInfo[ALTDeviceNameErrorKey] as? String) ?? NSLocalizedString("该设备", comment: "")
+            return String(format: NSLocalizedString("%@当前处于锁定状态。", comment: ""), deviceName)
             
         case .invalidRequest:
-            let deviceName = (self.userInfo[ALTDeviceNameErrorKey] as? String) ?? NSLocalizedString("The device", comment: "")
-            return String(format: NSLocalizedString("%@ received an invalid request from SideStore.", comment: ""), deviceName)
+            let deviceName = (self.userInfo[ALTDeviceNameErrorKey] as? String) ?? NSLocalizedString("该设备", comment: "")
+            return String(format: NSLocalizedString("%@收到了来自 SideStore 的无效请求。", comment: ""), deviceName)
             
         case .invalidResponse:
-            let deviceName = (self.userInfo[ALTDeviceNameErrorKey] as? String) ?? NSLocalizedString("the device", comment: "")
-            return String(format: NSLocalizedString("SideStore received an invalid response from %@.", comment: ""), deviceName)
+            let deviceName = (self.userInfo[ALTDeviceNameErrorKey] as? String) ?? NSLocalizedString("该设备", comment: "")
+            return String(format: NSLocalizedString("SideStore 收到了来自 %@ 的无效响应。", comment: ""), deviceName)
             
         case .usbmuxd:
-            return NSLocalizedString("There was an issue communicating with the usbmuxd daemon.", comment: "")
+            return NSLocalizedString("与 usbmuxd 守护进程通信时出现问题。", comment: "")
             
         case .ssl:
-            let deviceName = (self.userInfo[ALTDeviceNameErrorKey] as? String) ?? NSLocalizedString("the device", comment: "")
-            return String(format: NSLocalizedString("SideStore could not establish a secure connection to %@.", comment: ""), deviceName)
+            let deviceName = (self.userInfo[ALTDeviceNameErrorKey] as? String) ?? NSLocalizedString("该设备", comment: "")
+            return String(format: NSLocalizedString("SideStore 无法与 %@ 建立安全连接。", comment: ""), deviceName)
             
         case .timedOut:
-            let deviceName = (self.userInfo[ALTDeviceNameErrorKey] as? String) ?? NSLocalizedString("the device", comment: "")
-            return String(format: NSLocalizedString("SideStore's connection to %@ timed out.", comment: ""), deviceName)
+            let deviceName = (self.userInfo[ALTDeviceNameErrorKey] as? String) ?? NSLocalizedString("该设备", comment: "")
+            return String(format: NSLocalizedString("SideStore 与 %@ 的连接已超时。", comment: ""), deviceName)
         }
     }
     
@@ -439,7 +439,7 @@ extension NSError {
         let code = ALTServerConnectionError.Code(rawValue: self.code) ?? .unknown
         switch code {
         case .deviceLocked:
-            return NSLocalizedString("Please unlock the device with your passcode and try again.", comment: "")
+            return NSLocalizedString("请使用密码解锁设备，然后重试。", comment: "")
         default:
             return nil
         }

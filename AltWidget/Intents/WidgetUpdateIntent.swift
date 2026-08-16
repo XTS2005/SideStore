@@ -12,9 +12,9 @@ import AppIntents
 final class WidgetUpdateIntent: WidgetConfigurationIntent, @unchecked Sendable {
     public static let COMMON_WIDGET_ID = 1
     
-    static var title: LocalizedStringResource { "Widget ID update Intent" }
+    static var title: LocalizedStringResource { "小组件 ID 更新意图" }
     static var isDiscoverable: Bool { false }
     
-    @Parameter(title: "ID", description: "Provide a numeric ID to identify the widget", default: 1)
+    @Parameter(title: "ID", description: "提供一个数字 ID 以标识小组件", default: 1)
     var ID: Int?
 }

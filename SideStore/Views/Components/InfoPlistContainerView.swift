@@ -20,18 +20,18 @@ struct PlistNode: Identifiable {
     static func parse(key: String, value: Any) -> PlistNode {
         if let dict = value as? [String: Any] {
             let sortedChildren = dict.keys.sorted().map { parse(key: $0, value: dict[$0]!) }
-            return PlistNode(key: key, value: nil, typeInfo: "Dictionary (\(dict.count) keys)", children: sortedChildren)
+            return PlistNode(key: key, value: nil, typeInfo: "字典（\(dict.count) 个键）", children: sortedChildren)
         } else if let array = value as? [Any] {
-            let children = array.enumerated().map { parse(key: "Index \($0)", value: $1) }
-            return PlistNode(key: key, value: nil, typeInfo: "Array (\(array.count) items)", children: children)
+            let children = array.enumerated().map { parse(key: "索引 \($0)", value: $1) }
+            return PlistNode(key: key, value: nil, typeInfo: "数组（\(array.count) 个项目）", children: children)
         } else {
             let typeStr: String
             if value is Bool {
-                typeStr = "Boolean"
+                typeStr = "布尔"
             } else if value is NSNumber {
-                typeStr = "Number"
+                typeStr = "数字"
             } else {
-                typeStr = "String"
+                typeStr = "字符串"
             }
             return PlistNode(key: key, value: "\(value)", typeInfo: typeStr, children: nil)
         }
@@ -40,10 +40,10 @@ struct PlistNode: Identifiable {
 
 // MARK: - InfoPlist Mode Enum
 enum InfoPlistMode: String, CaseIterable, Identifiable {
-    case semantic = "Semantic"
-    case tree = "Tree"
-    case rawJSON = "Raw JSON"
-    case rawXML = "Raw XML"
+    case semantic = "语义视图"
+    case tree = "树状视图"
+    case rawJSON = "原始 JSON"
+    case rawXML = "原始 XML"
     
     var id: String { self.rawValue }
 }
@@ -60,7 +60,7 @@ struct InfoPlistContainerView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            Picker("Visualization Mode", selection: $selectedMode) {
+            Picker("可视化模式", selection: $selectedMode) {
                 ForEach(InfoPlistMode.allCases) { mode in
                     Text(mode.rawValue).tag(mode)
                 }
@@ -117,7 +117,7 @@ struct InfoPlistTreeView: View {
             }
         }
         .listStyle(InsetGroupedListStyle())
-        .searchable(text: $searchQuery, prompt: "Search keys")
+        .searchable(text: $searchQuery, prompt: "搜索键")
     }
     
     private func filterNodes(_ nodes: [PlistNode], query: String) -> [PlistNode] {
@@ -161,7 +161,7 @@ struct PlistNodeRow: View {
                     SwiftUI.Button {
                         UIPasteboard.general.string = node.key
                     } label: {
-                        Label("Copy Key", systemImage: "doc.on.doc")
+                        Label("复制键", systemImage: "doc.on.doc")
                     }
                 }
             }
@@ -173,7 +173,7 @@ struct PlistNodeRow: View {
                         .foregroundColor(.secondary)
                         .bold()
                     ScrollView(.horizontal, showsIndicators: false) {
-                        Text(node.value ?? "N/A")
+                        Text(node.value ?? "不适用")
                             .font(.subheadline)
                             .foregroundColor(.primary)
                             .multilineTextAlignment(.leading)
@@ -237,7 +237,7 @@ struct InfoPlistRawXMLView: View {
                             isWrapped.toggle()
                         }
                     } label: {
-                        Label(isWrapped ? "Wrap: On" : "Wrap: Off", systemImage: isWrapped ? "text.alignleft" : "text.chevron.right")
+                        Label(isWrapped ? "自动换行：开" : "自动换行：关", systemImage: isWrapped ? "text.alignleft" : "text.chevron.right")
                             .font(.footnote)
                     }
                     .buttonStyle(.bordered)
@@ -253,7 +253,7 @@ struct InfoPlistRawXMLView: View {
                             }
                         }
                     } label: {
-                        Label(isCopied ? "Copied!" : "Copy XML", systemImage: isCopied ? "checkmark" : "doc.on.doc")
+                        Label(isCopied ? "已复制！" : "复制 XML", systemImage: isCopied ? "checkmark" : "doc.on.doc")
                             .font(.footnote)
                     }
                     .buttonStyle(.borderedProminent)
@@ -318,7 +318,7 @@ struct InfoPlistRawView: View {
                             isWrapped.toggle()
                         }
                     } label: {
-                        Label(isWrapped ? "Wrap: On" : "Wrap: Off", systemImage: isWrapped ? "text.alignleft" : "text.chevron.right")
+                        Label(isWrapped ? "自动换行：开" : "自动换行：关", systemImage: isWrapped ? "text.alignleft" : "text.chevron.right")
                             .font(.footnote)
                     }
                     .buttonStyle(.bordered)
@@ -334,7 +334,7 @@ struct InfoPlistRawView: View {
                             }
                         }
                     } label: {
-                        Label(isCopied ? "Copied!" : "Copy JSON", systemImage: isCopied ? "checkmark" : "doc.on.doc")
+                        Label(isCopied ? "已复制！" : "复制 JSON", systemImage: isCopied ? "checkmark" : "doc.on.doc")
                             .font(.footnote)
                     }
                     .buttonStyle(.borderedProminent)
@@ -463,16 +463,16 @@ struct InfoPlistSemanticView: View {
     var body: some View {
         List {
             // General Info
-            Section(header: Text("General Info")) {
-                SemanticValueRow(label: "App Name", value: appName)
-                SemanticValueRow(label: "Bundle Identifier", value: bundleID)
-                SemanticValueRow(label: "Version", value: version)
-                SemanticValueRow(label: "Minimum OS", value: minOS)
+            Section(header: Text("常规信息")) {
+                SemanticValueRow(label: "应用名称", value: appName)
+                SemanticValueRow(label: "包名 ID", value: bundleID)
+                SemanticValueRow(label: "版本", value: version)
+                SemanticValueRow(label: "最低系统版本", value: minOS)
             }
             
             // Privacy Permissions Card
             if !privacyPermissions.isEmpty {
-                Section(header: Text("Privacy Permissions (\(privacyPermissions.count))")) {
+                Section(header: Text("隐私权限（\(privacyPermissions.count)）")) {
                     ForEach(privacyPermissions.keys.sorted(), id: \.self) { key in
                         LocalCopyableDescriptionRow(key: key, value: privacyPermissions[key] ?? "")
                     }
@@ -481,7 +481,7 @@ struct InfoPlistSemanticView: View {
             
             // Custom URL Schemes Card
             if !customURLSchemes.isEmpty {
-                Section(header: Text("Custom URL Schemes")) {
+                Section(header: Text("自定义 URL Scheme")) {
                     ForEach(customURLSchemes, id: \.self) { scheme in
                         LocalCopyableValueOnlyRow(value: scheme)
                     }
@@ -490,7 +490,7 @@ struct InfoPlistSemanticView: View {
             
             // Background Modes Card
             if !backgroundModes.isEmpty {
-                Section(header: Text("Background Modes")) {
+                Section(header: Text("后台模式")) {
                     ForEach(backgroundModes, id: \.self) { mode in
                         HStack {
                             Image(systemName: getBackgroundModeIcon(mode))
@@ -506,7 +506,7 @@ struct InfoPlistSemanticView: View {
             
             // Queried URL Schemes Card
             if !queriedSchemes.isEmpty {
-                Section(header: Text("Queries Schemes")) {
+                Section(header: Text("查询 Scheme")) {
                     ForEach(queriedSchemes, id: \.self) { scheme in
                         HStack {
                             Text(scheme)
@@ -518,7 +518,7 @@ struct InfoPlistSemanticView: View {
             }
             
             // Other Custom/Advanced Keys
-            Section(header: Text("Advanced / Custom Keys")) {
+            Section(header: Text("高级 / 自定义键")) {
                 SearchBarView(text: $searchQuery)
                     .listRowInsets(EdgeInsets())
                     .padding(.horizontal)
@@ -571,7 +571,7 @@ struct SemanticValueRow: View {
             SwiftUI.Button {
                 UIPasteboard.general.string = value
             } label: {
-                Label("Copy", systemImage: "doc.on.doc")
+                Label("复制", systemImage: "doc.on.doc")
             }
         }
     }
@@ -597,12 +597,12 @@ struct LocalCopyableDescriptionRow: View {
             SwiftUI.Button {
                 UIPasteboard.general.string = value
             } label: {
-                Label("Copy Value", systemImage: "doc.on.doc")
+                Label("复制值", systemImage: "doc.on.doc")
             }
             SwiftUI.Button {
                 UIPasteboard.general.string = key
             } label: {
-                Label("Copy Key", systemImage: "doc.on.doc")
+                Label("复制键", systemImage: "doc.on.doc")
             }
         }
     }
@@ -622,7 +622,7 @@ struct LocalCopyableValueOnlyRow: View {
             SwiftUI.Button {
                 UIPasteboard.general.string = value
             } label: {
-                Label("Copy", systemImage: "doc.on.doc")
+                Label("复制", systemImage: "doc.on.doc")
             }
         }
     }
@@ -651,12 +651,12 @@ struct CopyableValueRow: View {
             SwiftUI.Button {
                 UIPasteboard.general.string = formatValue(value)
             } label: {
-                Label("Copy Value", systemImage: "doc.on.doc")
+                Label("复制值", systemImage: "doc.on.doc")
             }
             SwiftUI.Button {
                 UIPasteboard.general.string = key
             } label: {
-                Label("Copy Key", systemImage: "doc.on.doc")
+                Label("复制键", systemImage: "doc.on.doc")
             }
         }
     }
@@ -693,7 +693,7 @@ struct SearchBarView: View {
             Image(systemName: "magnifyingglass")
                 .foregroundColor(.secondary)
             
-            TextField("Search keys", text: $text)
+            TextField("搜索键", text: $text)
                 .textFieldStyle(PlainTextFieldStyle())
                 
             if !text.isEmpty {

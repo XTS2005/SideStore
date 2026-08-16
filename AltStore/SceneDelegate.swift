@@ -159,7 +159,7 @@ func exportPairingFile(_ urlname: String) {
         
         
         guard let data = try? Data(contentsOf: documentsPath) else {
-            let toastView = ToastView(text: NSLocalizedString("Failed to find Pairing File!", comment: ""), detailText: nil)
+            let toastView = ToastView(text: NSLocalizedString("找不到配对文件！", comment: ""), detailText: nil)
             toastView.show(in: viewcontroller)
             return
         }
@@ -168,7 +168,7 @@ func exportPairingFile(_ urlname: String) {
         var allowedQueryParamAndKey = NSCharacterSet.urlQueryAllowed
         allowedQueryParamAndKey.remove(charactersIn: ";/?:@&=+$, ")
         guard let encodedCert = base64encodedCert.addingPercentEncoding(withAllowedCharacters: allowedQueryParamAndKey) else {
-            let toastView = ToastView(text: NSLocalizedString("Failed to encode pairingFile!", comment: ""), detailText: nil)
+            let toastView = ToastView(text: NSLocalizedString("配对文件编码失败！", comment: ""), detailText: nil)
             toastView.show(in: viewcontroller)
             return
         }
@@ -178,7 +178,7 @@ func exportPairingFile(_ urlname: String) {
         
         debugLog(finished)
         guard let callbackUrl = URL(string: finished) else {
-            let toastView = ToastView(text: NSLocalizedString("Failed to initialize callback URL!", comment: ""), detailText: nil)
+            let toastView = ToastView(text: NSLocalizedString("回调 URL 初始化失败！", comment: ""), detailText: nil)
             toastView.show(in: viewcontroller)
             return
         }

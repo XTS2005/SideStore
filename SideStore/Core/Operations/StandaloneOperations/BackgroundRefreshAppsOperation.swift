@@ -15,7 +15,7 @@ enum RefreshErrorCode: Int, ALTErrorEnum, CaseIterable {
     
     var errorFailureReason: String {
         switch self {
-        case .noInstalledApps: return NSLocalizedString("No active apps require refreshing.", comment: "")
+        case .noInstalledApps: return NSLocalizedString("没有需要刷新的活跃应用。", comment: "")
         }
     }
 }
@@ -184,8 +184,8 @@ final class BackgroundRefreshAppsOperation: BaseStandaloneOperation<OperationCon
                     throw error
                 }
                 
-                content.title = NSLocalizedString("Refreshed Apps", comment: "")
-                content.body = NSLocalizedString("All apps have been refreshed.", comment: "")
+                content.title = NSLocalizedString("已刷新应用", comment: "")
+                content.body = NSLocalizedString("所有应用都已刷新。", comment: "")
             } catch ~OperationError.Code.noConnection, ~OperationError.Code.noVPN, ~RefreshErrorCode.noInstalledApps {
                 shouldPresentAlert = false
             } catch ~OperationError.Code.serverNotFound where self.ignoresServerNotFoundError {
@@ -195,7 +195,7 @@ final class BackgroundRefreshAppsOperation: BaseStandaloneOperation<OperationCon
 
                 self.debugLog("Failed to refresh apps in background. \(error.localizedDescription)")
                 
-                content.title = NSLocalizedString("Failed to Refresh Apps", comment: "")
+                content.title = NSLocalizedString("刷新应用失败", comment: "")
                 content.body = error.localizedDescription
  
                 shouldPresentAlert = true

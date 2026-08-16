@@ -24,7 +24,7 @@ struct ExperimentalFeaturesView: View {
             VStack(alignment: .leading, spacing: 24) {
                 // Section 1: STANDALONE FEATURES
                 VStack(alignment: .leading, spacing: 8) {
-                    Text("STANDALONE FEATURES")
+                    Text("独立功能")
                         .font(.system(size: 13, weight: .semibold))
                         .foregroundColor(Color.white.opacity(0.6))
                         .padding(.horizontal, 16)
@@ -33,7 +33,7 @@ struct ExperimentalFeaturesView: View {
                         if #available(iOS 26.0, *) {
                             NavigationLink(destination: WirelessPairView()) {
                                 HStack {
-                                    Text("Wireless Pairing")
+                                    Text("无线配对")
                                         .font(.system(size: 17, weight: .bold))
                                         .foregroundColor(.white)
                                     Spacer()
@@ -50,7 +50,7 @@ struct ExperimentalFeaturesView: View {
                         
                         NavigationLink(destination: CacheManagementView()) {
                             HStack {
-                                Text("Cache Management")
+                                Text("缓存管理")
                                     .font(.system(size: 17, weight: .bold))
                                     .foregroundColor(.white)
                                 Spacer()
@@ -68,13 +68,13 @@ struct ExperimentalFeaturesView: View {
                 
                 // Section 2: FEATURE FLAGS
                 VStack(alignment: .leading, spacing: 8) {
-                    Text("FEATURE FLAGS")
+                    Text("功能开关")
                         .font(.system(size: 13, weight: .semibold))
                         .foregroundColor(Color.white.opacity(0.6))
                         .padding(.horizontal, 16)
                     
                     VStack(spacing: 0) {
-                        toggleRow(title: "Free Account AppID Deletion", isOn: Binding(
+                        toggleRow(title: "免费账户 AppID 删除", isOn: Binding(
                             get: { freeAcctAppIdDeletion },
                             set: { newValue in
                                 freeAcctAppIdDeletion = newValue
@@ -84,7 +84,7 @@ struct ExperimentalFeaturesView: View {
                         
                         divider
                         
-                        toggleRow(title: "Cellular Refresh", isOn: Binding(
+                        toggleRow(title: "蜂窝网络刷新", isOn: Binding(
                             get: { isCellularRefreshEnabled },
                             set: { newValue in
                                 isCellularRefreshEnabled = newValue
@@ -94,7 +94,7 @@ struct ExperimentalFeaturesView: View {
                         
                         divider
                         
-                        toggleRow(title: "Permission Checks", isOn: Binding(
+                        toggleRow(title: "权限检查", isOn: Binding(
                             get: { !permissionCheckingDisabled },
                             set: { newValue in
                                 permissionCheckingDisabled = !newValue
@@ -104,7 +104,7 @@ struct ExperimentalFeaturesView: View {
                         
                         divider
                         
-                        toggleRow(title: "App Verification", isOn: Binding(
+                        toggleRow(title: "应用验证", isOn: Binding(
                             get: { !appVerificationDisabled },
                             set: { newValue in
                                 appVerificationDisabled = !newValue
@@ -121,7 +121,7 @@ struct ExperimentalFeaturesView: View {
             .padding(.bottom, 32)
         }
         .background(Color(uiColor: .settingsBackground).ignoresSafeArea())
-        .navigationTitle("Experimental Features")
+        .navigationTitle("实验性功能")
         .navigationBarTitleDisplayMode(.large)
     }
 

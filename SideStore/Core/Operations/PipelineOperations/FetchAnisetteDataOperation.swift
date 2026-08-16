@@ -168,7 +168,7 @@ final class FetchAnisetteDataOperation: BaseStandaloneOperation<AuthenticatedOpe
         let serverUrls = await AnisetteServersManager.shared.getActiveServerURLs()
         let filteredUrls = serverUrls.filter { !excluding.contains($0) }
         guard !filteredUrls.isEmpty else {
-            throw NSError(domain: "AnisetteError", code: 0, userInfo: [NSLocalizedDescriptionKey: "No working anisette servers found."])
+            throw NSError(domain: "AnisetteError", code: 0, userInfo: [NSLocalizedDescriptionKey: "未找到可用的 anisette 服务器。"])
         }
 
         let lastServer = UserDefaults.standard.menuAnisetteURL
@@ -177,13 +177,13 @@ final class FetchAnisetteDataOperation: BaseStandaloneOperation<AuthenticatedOpe
             let activeServer = excluding.contains(lastServer) ? (filteredUrls.first ?? lastServer) : lastServer
             self.verboseLog("[FetchAnisetteDataOperation] Auto-rotation disabled. Pinging currently active server: \(activeServer)")
             guard let url = URL(string: activeServer) else {
-                throw NSError(domain: "AnisetteError", code: 0, userInfo: [NSLocalizedDescriptionKey: "Active server URL is invalid: \(activeServer)"])
+                throw NSError(domain: "AnisetteError", code: 0, userInfo: [NSLocalizedDescriptionKey: "活跃服务器 URL 无效：\(activeServer)"])
             }
             let success = try await pingServer(url)
             if success {
                 return activeServer
             } else {
-                throw NSError(domain: "AnisetteError", code: 0, userInfo: [NSLocalizedDescriptionKey: "Active server is offline: \(activeServer)"])
+                throw NSError(domain: "AnisetteError", code: 0, userInfo: [NSLocalizedDescriptionKey: "活跃服务器已离线：\(activeServer)"])
             }
         }
         
@@ -215,7 +215,7 @@ final class FetchAnisetteDataOperation: BaseStandaloneOperation<AuthenticatedOpe
             }
         }
 
-        throw NSError(domain: "AnisetteError", code: 0, userInfo: [NSLocalizedDescriptionKey: "No working anisette servers found."])
+        throw NSError(domain: "AnisetteError", code: 0, userInfo: [NSLocalizedDescriptionKey: "未找到可用的 anisette 服务器。"])
     }
 
     private func pingServer(_ url: URL) async throws -> Bool {
@@ -258,7 +258,7 @@ final class FetchAnisetteDataOperation: BaseStandaloneOperation<AuthenticatedOpe
                         self.verboseLog("[FetchAnisetteDataOperation] Error message contains -45061 (not provisioned), resetting adi.pb and retrying")
                         AnisetteDataManager.shared.anisetteAdiBlob = nil
                         return try await self.provision()
-                    } else { throw OperationError.anisetteV3Error(message: message ?? "Unknown error") }
+                    } else { throw OperationError.anisetteV3Error(message: message ?? "未知错误") }
                 }
             }
             
@@ -306,16 +306,16 @@ final class FetchAnisetteDataOperation: BaseStandaloneOperation<AuthenticatedOpe
             } else {
                 self.debugLog("[FetchAnisetteDataOperation] Anisette is invalid!!!!")
                 if v3 {
-                    throw OperationError.anisetteV3Error(message: "Invalid anisette (the returned data may not have all the required fields)")
+                    throw OperationError.anisetteV3Error(message: "anisette 无效（返回的数据可能缺少某些必需字段）")
                 } else {
-                    throw OperationError.anisetteV1Error(message: "Invalid anisette (the returned data may not have all the required fields)")
+                    throw OperationError.anisetteV1Error(message: "anisette 无效（返回的数据可能缺少某些必需字段）")
                 }
             }
         } else {
             if v3 {
-                throw OperationError.anisetteV3Error(message: "Invalid anisette (the returned data may not be in JSON)")
+                throw OperationError.anisetteV3Error(message: "anisette 无效（返回的数据可能不是 JSON 格式）")
             } else {
-                throw OperationError.anisetteV1Error(message: "Invalid anisette (the returned data may not be in JSON)")
+                throw OperationError.anisetteV1Error(message: "anisette 无效（返回的数据可能不是 JSON 格式）")
             }
         }
     }
@@ -383,7 +383,7 @@ final class FetchAnisetteDataOperation: BaseStandaloneOperation<AuthenticatedOpe
             return try await session.start()
         } else {
             self.debugLog("[FetchAnisetteDataOperation] Apple didn't give valid URLs! Got response: \(String(data: data, encoding: .utf8) ?? "not utf8")")
-            throw OperationError.provisioningError(result: "Apple didn't give valid URLs. Please try again later", message: nil)
+            throw OperationError.provisioningError(result: "Apple 未提供有效的 URL。请稍后重试", message: nil)
         }
     }
     
@@ -456,7 +456,7 @@ final class FetchAnisetteDataOperation: BaseStandaloneOperation<AuthenticatedOpe
                     
                     if status != errSecSuccess {
                         self.debugLog("[FetchAnisetteDataOperation] ERROR GENERATING IDENTIFIER!!! \(status)")
-                        throw OperationError.provisioningError(result: "Couldn't generate identifier", message: nil)
+                        throw OperationError.provisioningError(result: "无法生成标识符", message: nil)
                     }
                     
                     AnisetteDataManager.shared.anisetteIdentifier = Data(bytes: &bytes, count: bytes.count).base64EncodedString()
@@ -472,7 +472,7 @@ final class FetchAnisetteDataOperation: BaseStandaloneOperation<AuthenticatedOpe
                 _ = try await self.handleV1()
             }
         } else {
-            throw OperationError.anisetteV3Error(message: "Couldn't fetch client info. The returned data may not be in JSON")
+            throw OperationError.anisetteV3Error(message: "无法获取客户端信息。返回的数据可能不是 JSON 格式")
         }
     }
     
@@ -480,7 +480,7 @@ final class FetchAnisetteDataOperation: BaseStandaloneOperation<AuthenticatedOpe
         try await self.fetchClientInfo()
         self.verboseLog("[FetchAnisetteDataOperation] Fetching anisette V3")
         guard let serverURL = self.url else {
-            throw OperationError.anisetteV3Error(message: "Anisette server URL is not configured.")
+            throw OperationError.anisetteV3Error(message: "未配置 anisette 服务器 URL。")
         }
         var request = URLRequest(url: serverURL.appendingPathComponent("v3").appendingPathComponent("get_headers"))
         request.timeoutInterval = 15
@@ -544,23 +544,23 @@ private class AnisetteWebSocketSession: WebSocketDelegate {
             
         case .disconnected(let string, let code):
             parentOperation.debugLog("[FetchAnisetteDataOperation] Disconnected: \(code); \(string)")
-            self.continuation?.resume(throwing: OperationError.provisioningError(result: "WebSocket disconnected: \(string) (code: \(code))", message: nil))
+            self.continuation?.resume(throwing: OperationError.provisioningError(result: "WebSocket 已断开：\(string)（代码：\(code)）", message: nil))
             
         case .error(let error):
             parentOperation.debugLog("[FetchAnisetteDataOperation] Got error: \(String(describing: error))")
             if let error = error {
                 self.continuation?.resume(throwing: error)
             } else {
-                self.continuation?.resume(throwing: OperationError.provisioningError(result: "WebSocket error", message: nil))
+                self.continuation?.resume(throwing: OperationError.provisioningError(result: "WebSocket 错误", message: nil))
             }
             
         case .peerClosed:
             parentOperation.debugLog("[FetchAnisetteDataOperation] Peer closed connection")
-            self.continuation?.resume(throwing: OperationError.provisioningError(result: "Peer closed connection", message: nil))
+            self.continuation?.resume(throwing: OperationError.provisioningError(result: "对端已关闭连接", message: nil))
             
         case .cancelled:
             parentOperation.debugLog("[FetchAnisetteDataOperation] Connection cancelled")
-            self.continuation?.resume(throwing: OperationError.provisioningError(result: "WebSocket connection cancelled", message: nil))
+            self.continuation?.resume(throwing: OperationError.provisioningError(result: "WebSocket 连接已取消", message: nil))
             
         default:
             parentOperation.debugLog("[FetchAnisetteDataOperation] Unknown event: \(event)")
@@ -573,7 +573,7 @@ private class AnisetteWebSocketSession: WebSocketDelegate {
                 guard let result = json["result"] as? String else {
                     parentOperation.debugLog("[FetchAnisetteDataOperation] The server didn't give us a result")
                     client.disconnect(closeCode: 0)
-                    self.continuation?.resume(throwing: OperationError.provisioningError(result: "The server didn't give us a result", message: nil))
+                    self.continuation?.resume(throwing: OperationError.provisioningError(result: "服务器没有返回结果", message: nil))
                     return
                 }
                 parentOperation.verboseLog("[FetchAnisetteDataOperation] Received result: \(result)")
@@ -623,7 +623,7 @@ private class AnisetteWebSocketSession: WebSocketDelegate {
                 } else {
                     parentOperation.debugLog("[FetchAnisetteDataOperation] Apple didn't give valid start provisioning data! Got response: \(String(data: data, encoding: .utf8) ?? "not utf8")")
                     client.disconnect(closeCode: 0)
-                    self.continuation?.resume(throwing: OperationError.provisioningError(result: "Apple didn't give valid start provisioning data. Please try again later", message: nil))
+                    self.continuation?.resume(throwing: OperationError.provisioningError(result: "Apple 未提供有效的开始配置数据。请稍后重试", message: nil))
                 }
             } catch {
                 client.disconnect(closeCode: 0)
@@ -637,7 +637,7 @@ private class AnisetteWebSocketSession: WebSocketDelegate {
         guard let cpim = json["cpim"] as? String else {
             parentOperation.debugLog("[FetchAnisetteDataOperation] The server didn't give us a cpim")
             client.disconnect(closeCode: 0)
-            self.continuation?.resume(throwing: OperationError.provisioningError(result: "The server didn't give us a cpim", message: nil))
+            self.continuation?.resume(throwing: OperationError.provisioningError(result: "服务器没有返回 cpim", message: nil))
             return
         }
         let body = [
@@ -660,7 +660,7 @@ private class AnisetteWebSocketSession: WebSocketDelegate {
                 } else {
                     parentOperation.debugLog("[FetchAnisetteDataOperation] Apple didn't give valid end provisioning data! Got response: \(String(data: data, encoding: .utf8) ?? "not utf8")")
                     client.disconnect(closeCode: 0)
-                    self.continuation?.resume(throwing: OperationError.provisioningError(result: "Apple didn't give valid end provisioning data. Please try again later", message: nil))
+                    self.continuation?.resume(throwing: OperationError.provisioningError(result: "Apple 未返回有效的最终配置数据。请稍后重试", message: nil))
                 }
             } catch {
                 client.disconnect(closeCode: 0)
@@ -748,15 +748,15 @@ extension HTTPUpgradeError: @retroactive LocalizedError {
     public var errorDescription: String? {
         switch self {
         case .notAnUpgrade(let statusCode, _):
-            return "HTTP Upgrade failed (Status \(statusCode))."
+            return "HTTP 升级失败（状态码 \(statusCode)）。"
         case .invalidData:
-            return "Received invalid WebSocket handshake data."
+            return "收到无效的 WebSocket 握手数据。"
         }
     }
 }
 
 extension WSError: @retroactive LocalizedError {
     public var errorDescription: String? {
-        return "\(self.message) (code: \(self.code))"
+        return "\(self.message)（代码：\(self.code)）"
     }
 }

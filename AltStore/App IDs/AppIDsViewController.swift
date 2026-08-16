@@ -97,7 +97,7 @@ private extension AppIDsViewController
             cell.bannerView.iconImageView.isHidden = true
             cell.bannerView.button.isIndicatingActivity = false
             
-            cell.bannerView.buttonLabel.text = NSLocalizedString("Expires in", comment: "")
+            cell.bannerView.buttonLabel.text = NSLocalizedString("过期时间", comment: "")
             
             let attributedAccessibilityLabel = NSMutableAttributedString(string: appID.name + ". ")
             
@@ -118,7 +118,7 @@ private extension AppIDsViewController
                 formatter.maximumUnitCount = 1
 
                 let timeInterval = formatter.string(from: currentDate, to: expirationDate)
-                let timeIntervalText = timeInterval ?? NSLocalizedString("Unknown", comment: "")
+                let timeIntervalText = timeInterval ?? NSLocalizedString("未知", comment: "")
                 cell.bannerView.button.setTitle(timeIntervalText.uppercased(), for: .normal)
                 
                 attributedAccessibilityLabel.mutableString.append(timeIntervalText)
@@ -206,13 +206,13 @@ private extension AppIDsViewController
                 if self.isEditingMode
                 {
                     let selectedCount = self.collectionView.indexPathsForSelectedItems?.count ?? 0
-                    let title = selectedCount > 0 ? NSLocalizedString("Delete", comment: "") : NSLocalizedString("Cancel", comment: "")
+                    let title = selectedCount > 0 ? NSLocalizedString("删除", comment: "") : NSLocalizedString("取消", comment: "")
                     let style: UIBarButtonItem.Style = selectedCount > 0 ? .done : .plain
                     self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: title, style: style, target: self, action: #selector(self.editButtonTapped))
                     
                     if selectedCount > 0
                     {
-                        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: NSLocalizedString("Cancel", comment: ""), style: .plain, target: self, action: #selector(self.cancelButtonTapped))
+                        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: NSLocalizedString("取消", comment: ""), style: .plain, target: self, action: #selector(self.cancelButtonTapped))
                     }
                     else
                     {
@@ -221,7 +221,7 @@ private extension AppIDsViewController
                 }
                 else
                 {
-                    self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: NSLocalizedString("Edit", comment: ""), style: .plain, target: self, action: #selector(self.editButtonTapped))
+                    self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: NSLocalizedString("编辑", comment: ""), style: .plain, target: self, action: #selector(self.editButtonTapped))
                     self.navigationItem.rightBarButtonItem = self.doneBarButtonItem
                 }
             }
@@ -255,8 +255,8 @@ private extension AppIDsViewController
     func footerText() -> String {
         let count = self.dataSource.itemCount
         return count == 1
-            ? NSLocalizedString("1 App ID", comment: "")
-            : String(format: NSLocalizedString("%@ App IDs", comment: ""), NSNumber(value: count))
+            ? NSLocalizedString("1 个应用 ID", comment: "")
+            : String(format: NSLocalizedString("%@ 个应用 ID", comment: ""), NSNumber(value: count))
     }
     
     func refreshFooter()
@@ -312,9 +312,9 @@ extension AppIDsViewController: UICollectionViewDelegateFlowLayout
             if let activeTeam = DatabaseManager.shared.activeTeam(), activeTeam.type == .free
             {
                 let text = NSLocalizedString("""
-                Each app and app extension installed with SideStore must register an App ID with Apple. Apple limits non-developer Apple IDs to 10 App IDs at a time.
+                使用 SideStore 安装的每个应用和应用扩展都必须向 Apple 注册一个应用 ID。Apple 将非开发者 Apple ID 限制为同一时间最多 10 个应用 ID。
 
-                **App IDs can't be deleted**, but they do expire after one week. SideStore will automatically renew App IDs for all active apps once they've expired.
+                **应用 ID 无法删除**，但它们会在一周后过期。一旦过期，SideStore 会自动为所有活跃应用续期应用 ID。
                 """, comment: "")
                 
                 let attributedText = NSAttributedString(markdownRepresentation: text, attributes: [.font: headerView.textLabel.font as Any])
@@ -323,9 +323,9 @@ extension AppIDsViewController: UICollectionViewDelegateFlowLayout
             else
             {
                 headerView.textLabel.text = NSLocalizedString("""
-                Each app and app extension installed with SideStore must register an App ID with Apple.
+                使用 SideStore 安装的每个应用和应用扩展都必须向 Apple 注册一个应用 ID。
                 
-                App IDs for paid developer accounts never expire, and there is no limit to how many you can create.
+                付费开发者账户的应用 ID 永不过期，且创建数量没有限制。
                 """, comment: "")
             }
             
@@ -398,14 +398,14 @@ private extension AppIDsViewController
     {
         guard self.isEditingMode else { return }
         let selectedCount = self.collectionView.indexPathsForSelectedItems?.count ?? 0
-        let title = selectedCount > 0 ? NSLocalizedString("Delete", comment: "") : NSLocalizedString("Cancel", comment: "")
+        let title = selectedCount > 0 ? NSLocalizedString("删除", comment: "") : NSLocalizedString("取消", comment: "")
         let style: UIBarButtonItem.Style = selectedCount > 0 ? .done : .plain
         self.navigationItem.leftBarButtonItem?.title = title
         self.navigationItem.leftBarButtonItem?.style = style
         
         if selectedCount > 0
         {
-            self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: NSLocalizedString("Cancel", comment: ""), style: .plain, target: self, action: #selector(self.cancelButtonTapped))
+            self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: NSLocalizedString("取消", comment: ""), style: .plain, target: self, action: #selector(self.cancelButtonTapped))
         }
         else
         {
@@ -427,12 +427,12 @@ private extension AppIDsViewController
                 if selectedCount > 0
                 {
                     let alert = UIAlertController(
-                        title: NSLocalizedString("Delete App IDs", comment: ""),
-                        message: String(format: NSLocalizedString("Are you sure you want to proceed to delete %d appIds?", comment: ""), selectedCount),
+                        title: NSLocalizedString("删除应用 ID", comment: ""),
+                        message: String(format: NSLocalizedString("你确定要删除 %d 个应用 ID 吗？", comment: ""), selectedCount),
                         preferredStyle: .alert
                     )
-                    alert.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel))
-                    alert.addAction(UIAlertAction(title: NSLocalizedString("Delete", comment: ""), style: .destructive) { [weak self] _ in
+                    alert.addAction(UIAlertAction(title: NSLocalizedString("取消", comment: ""), style: .cancel))
+                    alert.addAction(UIAlertAction(title: NSLocalizedString("删除", comment: ""), style: .destructive) { [weak self] _ in
                         self?.deleteSelectedAppIDs()
                     })
                     self.present(alert, animated: true)
@@ -513,7 +513,7 @@ private extension AppIDsViewController
                     
                     for appID in appIDsToDelete
                     {
-                        let progressText = String(format: NSLocalizedString("Deleting App IDs (%d/%d)...", comment: ""), completedCount + 1, appIDsToDelete.count)
+                        let progressText = String(format: NSLocalizedString("正在删除应用 ID（%d/%d）…", comment: ""), completedCount + 1, appIDsToDelete.count)
                         await MainActor.run {
                             progressModel.status = .deleting(progressText: progressText)
                         }
@@ -570,12 +570,12 @@ private extension AppIDsViewController
                         Logger.sideload.error("Failed to delete App ID: \(finalError.localizedDescription)")
                         
                         hostingController.dismiss(animated: true) {
-                            let alertTitle = NSLocalizedString("Delete Failed", comment: "")
+                            let alertTitle = NSLocalizedString("删除失败", comment: "")
                             var alertMessage = ""
                             if let failedAppID = finalFailedAppID
                             {
                                 alertMessage = String(
-                                    format: NSLocalizedString("Deleted %d of %d App IDs.\n\nFailed to delete %@ (%@):\n%@", comment: ""),
+                                    format: NSLocalizedString("已删除 %d/%d 个应用 ID。\n\n无法删除 %@（%@）：\n%@", comment: ""),
                                     completedCount,
                                     appIDsToDelete.count,
                                     failedAppID.name,
@@ -586,7 +586,7 @@ private extension AppIDsViewController
                             else
                             {
                                 alertMessage = String(
-                                    format: NSLocalizedString("Deleted %d of %d App IDs.\n\nError:\n%@", comment: ""),
+                                    format: NSLocalizedString("已删除 %d/%d 个应用 ID。\n\n错误：\n%@", comment: ""),
                                     completedCount,
                                     appIDsToDelete.count,
                                     finalError.localizedDescription
@@ -594,7 +594,7 @@ private extension AppIDsViewController
                             }
                             
                             let alert = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .alert)
-                            alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: ""), style: .default) { _ in
+                            alert.addAction(UIAlertAction(title: NSLocalizedString("确定", comment: ""), style: .default) { _ in
                                 let remainingBundleIdentifiers = Set(appIDsToDelete[completedCount...].map { $0.bundleIdentifier })
                                 self.fetchAppIDsFromServer(completion: {
                                     DispatchQueue.main.async {
@@ -685,7 +685,7 @@ class DeleteProgressModel: ObservableObject
     init(total: Int)
     {
         self.total = total
-        self.status = .deleting(progressText: String(format: NSLocalizedString("Deleting App IDs (0/%d)...", comment: ""), total))
+        self.status = .deleting(progressText: String(format: NSLocalizedString("正在删除应用 ID（0/%d）…", comment: ""), total))
     }
 }
 
@@ -725,7 +725,7 @@ struct DeleteOverlayView: View
                         AnimatedCheckmarkView()
                             .padding(.top, 10)
                         
-                        Text("App IDs Deleted")
+                        Text("应用 ID 已删除")
                             .font(.system(size: 20, weight: .medium))
                             .foregroundColor(.white)
                             .multilineTextAlignment(.center)
@@ -733,7 +733,7 @@ struct DeleteOverlayView: View
                         SwiftUI.Button(action: {
                             onDismiss()
                         }) {
-                            Text("OK")
+                            Text("确定")
                                 .font(.system(size: 17, weight: .semibold))
                                 .foregroundColor(.white)
                                 .frame(maxWidth: .infinity)
@@ -763,7 +763,7 @@ enum AppIDDeletionError: LocalizedError
     var errorDescription: String? {
         switch self {
         case .unknown:
-            return NSLocalizedString("Unknown deletion error", comment: "")
+            return NSLocalizedString("未知的删除错误", comment: "")
         }
     }
 }
