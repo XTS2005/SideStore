@@ -325,7 +325,7 @@ final class BonjourDiscoveryManagerV2: NSObject, ObservableObject {
                 connection.cancel()
                 self.activeConnection = nil
                 Task { @MainActor in
-                    self.resolveError = "Resolution failed: \(error.localizedDescription)"
+                    self.resolveError = "解析失败：\(error.localizedDescription)"
                     self.isSearching = false
                 }
             default:

@@ -14,20 +14,20 @@ public struct ShortcutsProvider: AppShortcutsProvider
     public static var appShortcuts: [AppShortcut] {
         AppShortcut(intent: RefreshAllAppsIntent(),
                     phrases: [
-                        "Refresh \(.applicationName)",
-                        "Refresh \(.applicationName) apps",
-                        "Refresh my \(.applicationName) apps",
-                        "Refresh apps with \(.applicationName)",
+                        "刷新 \(.applicationName)",
+                        "刷新 \(.applicationName) 应用",
+                        "刷新我的 \(.applicationName) 应用",
+                        "用 \(.applicationName) 刷新应用",
                     ],
-                    shortTitle: "Refresh All Apps",
+                    shortTitle: "刷新全部应用",
                     systemImageName: "arrow.triangle.2.circlepath")
 
         AppShortcut(intent: InstallIPAIntent(),
                     phrases: [
-                        "Install IPA with \(.applicationName)",
-                        "Install an IPA with \(.applicationName)",
+                        "用 \(.applicationName) 安装 IPA",
+                        "用 \(.applicationName) 安装一个 IPA",
                     ],
-                    shortTitle: "Install IPA",
+                    shortTitle: "安装 IPA",
                     systemImageName: "square.and.arrow.down")
     }
     

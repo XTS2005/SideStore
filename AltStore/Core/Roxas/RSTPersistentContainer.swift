@@ -155,7 +155,7 @@ public class RSTPersistentContainer: NSPersistentContainer, @unchecked Sendable 
     
     private func _progressivelyMigratePersistentStore(to model: NSManagedObjectModel, configuration: String?) throws {
         guard let description = self.persistentStoreDescriptions.first, let url = description.url else {
-            throw NSError(domain: "com.rileytestut.Roxas", code: -25, userInfo: [NSLocalizedDescriptionKey: "Unable to find a persistent store."])
+            throw NSError(domain: "com.rileytestut.Roxas", code: -25, userInfo: [NSLocalizedDescriptionKey: "找不到持久化存储。"])
         }
         
         let sourceMetadata = try NSPersistentStoreCoordinator.metadataForPersistentStore(ofType: description.type, at: url, options: description.options)
@@ -165,12 +165,12 @@ public class RSTPersistentContainer: NSPersistentContainer, @unchecked Sendable 
         }
         
         guard let sourceModel = NSManagedObjectModel.mergedModel(from: Bundle.allBundles, forStoreMetadata: sourceMetadata) else {
-            throw NSError(domain: "com.rileytestut.Roxas", code: -23, userInfo: [NSLocalizedDescriptionKey: "Unable to find any managed object models."])
+            throw NSError(domain: "com.rileytestut.Roxas", code: -23, userInfo: [NSLocalizedDescriptionKey: "找不到任何托管对象模型。"])
         }
         
         var mappingModel: NSMappingModel?
         guard let migrationManager = self.progressiveMigrationManager(forSourceModel: sourceModel, destinationModel: model, configuration: configuration, mappingModel: &mappingModel), let finalMappingModel = mappingModel else {
-            throw NSError(domain: "com.rileytestut.Roxas", code: -24, userInfo: [NSLocalizedDescriptionKey: "Unable to find a valid mapping model."])
+            throw NSError(domain: "com.rileytestut.Roxas", code: -24, userInfo: [NSLocalizedDescriptionKey: "找不到有效的映射模型。"])
         }
         
         let temporaryFilename = UUID().uuidString + "." + url.pathExtension

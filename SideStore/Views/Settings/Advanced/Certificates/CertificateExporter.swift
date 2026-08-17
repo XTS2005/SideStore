@@ -12,17 +12,17 @@
 enum CertificateExporter {
     
     static func sharePublicCertAsDER(_ cert: ALTX509Certificate, onError: @escaping (String) -> Void) {
-        guard let data = cert.data else { onError("Public certificate data is missing."); return }
+        guard let data = cert.data else { onError("公钥证书数据缺失。"); return }
         share(data: getDERData(from: data) ?? data, filename: (cert.machineName ?? cert.name) + ".der", onError: onError)
     }
     
     static func sharePublicCertAsPEM(_ cert: ALTX509Certificate, onError: @escaping (String) -> Void) {
-        guard let data = cert.data else { onError("Public certificate data is missing."); return }
+        guard let data = cert.data else { onError("公钥证书数据缺失。"); return }
         share(data: data, filename: (cert.machineName ?? cert.name) + ".pem", onError: onError)
     }
     
     static func copyPublicCertAsPEM(_ cert: ALTX509Certificate, onError: @escaping (String) -> Void) {
-        guard let data = cert.data else { onError("Public certificate data is missing."); return }
+        guard let data = cert.data else { onError("公钥证书数据缺失。"); return }
         UIPasteboard.general.string = String(data: data, encoding: .utf8) ?? data.base64EncodedString()
     }
     
@@ -32,7 +32,7 @@ enum CertificateExporter {
             share(data: p12Data, filename: (cert.machineName ?? cert.name) + ".p12", onError: onError)
         } catch {
             debugLog("[CertificateExporter] Failed to build encrypted p12 data: \(error)")
-            onError("Failed to build encrypted p12 data: \(error.localizedDescription)")
+            onError("构建加密 p12 数据失败：\(error.localizedDescription)")
         }
     }
     
@@ -57,7 +57,7 @@ enum CertificateExporter {
         do {
             try data.write(to: tempURL)
         } catch {
-            onError("Failed to write temp export file: " + error.localizedDescription)
+            onError("写入临时导出文件失败：" + error.localizedDescription)
             return
         }
         let activityVC = UIActivityViewController(activityItems: [tempURL], applicationActivities: nil)

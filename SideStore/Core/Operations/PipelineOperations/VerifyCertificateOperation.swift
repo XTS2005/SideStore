@@ -69,7 +69,7 @@ final class VerifyCertificateOperation: BasePipelineOperation<AppOperationContex
                     throw OperationError.invalidParameters("VerifyCertificateOperation: targetAppBundle is missing in context.")
                 }
                 guard let binaryCert = CertificateManager.shared.getSigningCertificate(at: appBundle.fileURL) else {
-                    throw OperationError.invalidParameters("Could not locate signing certificate for '\(appName)'.")
+                    throw OperationError.invalidParameters("找不到“\(appName)”的签名证书。")
                 }
                 
                 let result = await validateCertificate(binaryCert, portalCertificateSerials: portalCertificateSerials, signingCertificateSerial: signingCertificateSerial)
@@ -81,9 +81,9 @@ final class VerifyCertificateOperation: BasePipelineOperation<AppOperationContex
                 // resigning branch
                 debugLog("[VerifyCertificateOperation] Running in signing mode (resigning) for '\(appName)'...")
                 
-                let certType = self.context.overrideCertificate != nil ? "Override" : "Active"
+                let certType = self.context.overrideCertificate != nil ? "覆盖" : "活跃"
                 guard let target = self.context.overrideCertificate ?? CertificateManager.shared.activeCertificate?.certificate else {
-                    throw OperationError.invalidParameters("\(certType) certificate is missing.")
+                    throw OperationError.invalidParameters("\(certType) 证书缺失。")
                 }
                 
                 let result = await validateCertificate(target.x509, portalCertificateSerials: portalCertificateSerials, signingCertificateSerial: signingCertificateSerial)
@@ -206,7 +206,7 @@ final class VerifyCertificateOperation: BasePipelineOperation<AppOperationContex
             if isCustomCertActive {
                 throw OperationError.customCertificateRevoked(
                     appName: appName,
-                    activeTeam: activeTeamID ?? "Unknown Custom Team"
+                    activeTeam: activeTeamID ?? "未知自定义团队"
                 )
             }
             throw OperationError.certificateRevoked(appName: appName)
@@ -215,7 +215,7 @@ final class VerifyCertificateOperation: BasePipelineOperation<AppOperationContex
             if isCustomCertActive {
                 throw OperationError.customCertificateExpired(
                     appName: appName,
-                    activeTeam: activeTeamID ?? "Unknown Custom Team"
+                    activeTeam: activeTeamID ?? "未知自定义团队"
                 )
             }
             throw OperationError.certificateExpired(appName: appName)

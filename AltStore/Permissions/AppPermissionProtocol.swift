@@ -20,7 +20,7 @@ extension AppPermission: AppPermissionProtocol {}
 struct PreviewAppPermission: AppPermissionProtocol
 {
     var permission: any ALTAppPermission
-    var usageDescription: String? { "Allows Delta to use images from your Photo Library as game artwork." }
+    var usageDescription: String? { "允许 Delta 将你照片图库中的图像用作游戏美术。" }
     
     subscript<T>(dynamicMember dynamicMember: KeyPath<any ALTAppPermission, T>) -> T
     {

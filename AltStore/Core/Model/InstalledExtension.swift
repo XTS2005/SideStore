@@ -46,7 +46,7 @@ public class InstalledExtension: BaseEntity, InstalledAppProtocol
         self.expirationDate = self.refreshedDate.addingTimeInterval(60 * 60 * 24 * 7)
         #else
         guard let expirationDate = resignedAppExtensionBundle.provisioningProfile?.expirationDate else {
-            throw ALTError.invalidApp(reason: "The app extension is missing a valid provisioning profile.")
+            throw ALTError.invalidApp(reason: "应用扩展缺少有效的描述文件。")
         }
         self.expirationDate = expirationDate
         #endif

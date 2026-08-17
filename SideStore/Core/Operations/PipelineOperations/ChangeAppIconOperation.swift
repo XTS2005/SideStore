@@ -31,7 +31,7 @@ final class ChangeAppIconOperation: BasePipelineOperation<InstallAppOperationCon
         
         let data = try Data(contentsOf: alternateIconURL)
         guard let image = UIImage(data: data) else {
-            throw OperationError.invalidParameters("Invalid icon image data")
+            throw OperationError.invalidParameters("无效的图标图像数据")
         }
         
         self.setProgress(40)
@@ -39,7 +39,7 @@ final class ChangeAppIconOperation: BasePipelineOperation<InstallAppOperationCon
         guard let icon = image.resizing(toFill: CGSize(width: 60 * iconScale, height: 60 * iconScale)),
               let iconData = icon.pngData()
         else {
-            throw OperationError.invalidParameters("Failed to resize icon image")
+            throw OperationError.invalidParameters("调整图标图像大小失败")
         }
         
         self.setProgress(65)
@@ -50,7 +50,7 @@ final class ChangeAppIconOperation: BasePipelineOperation<InstallAppOperationCon
         self.setProgress(80)
         let plistURL = appBundleURL.appendingPathComponent("Info.plist")
         guard var infoPlist = NSMutableDictionary(contentsOf: plistURL) as? [String: Any] else {
-            throw OperationError.invalidParameters("Failed to load Info.plist from app bundle")
+            throw OperationError.invalidParameters("从应用 Bundle 加载 Info.plist 失败")
         }
         
         // Backup original CFBundleIcons if not already backed up

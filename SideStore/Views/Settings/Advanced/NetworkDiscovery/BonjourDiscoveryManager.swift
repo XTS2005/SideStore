@@ -481,7 +481,7 @@ extension BonjourDiscoveryManager: NetServiceDelegate {
         
         Task { @MainActor [weak self] in
             guard let self = self else { return }
-            self.resolveError = "Failed to resolve service (error \(errorCode))"
+            self.resolveError = "解析服务失败（错误代码 \(errorCode)）"
             self.isSearching = false
         }
     }

@@ -22,7 +22,7 @@ final class UninstallAppOperation: BasePipelineOperation<InstallAppOperationCont
         
         let bundleID = await installedApp.managedObjectContext?.perform { installedApp.bundleIdentifier }
         if bundleID?.isAltStoreAppID == true {
-            throw OperationError.invalidParameters("SideStore cannot delete itself.")
+            throw OperationError.invalidParameters("SideStore 无法删除自身。")
         }
         
         let resignedBundleIdentifier = await installedApp.managedObjectContext?.perform {
